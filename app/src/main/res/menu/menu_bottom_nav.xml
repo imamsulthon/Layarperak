@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_home"
+        android:enabled="true"
+        android:title="Popular"
+        android:icon="@drawable/film"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_search"
+        android:enabled="true"
+        android:title="Search"
+        android:icon="@drawable/search"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_favorites"
+        android:enabled="true"
+        android:title="Favorites"
+        android:icon="@drawable/love"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_watchlist"
+        android:enabled="true"
+        android:title="Watchlist"
+        android:icon="@drawable/add"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_profile"
+        android:enabled="true"
+        android:title="Profile"
+        android:icon="@drawable/view"
+        app:showAsAction="ifRoom"/>
+
+</menu>
