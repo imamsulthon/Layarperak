@@ -14,7 +14,7 @@
         android:id="@+id/menu_search"
         android:enabled="true"
         android:title="Search"
-        android:icon="@drawable/search"
+        android:icon="@drawable/ic_search"
         app:showAsAction="ifRoom"/>
 
     <item
@@ -28,14 +28,14 @@
         android:id="@+id/menu_watchlist"
         android:enabled="true"
         android:title="Watchlist"
-        android:icon="@drawable/add"
+        android:icon="@drawable/ic_add"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_profile"
         android:enabled="true"
         android:title="Profile"
-        android:icon="@drawable/view"
+        android:icon="@drawable/ic_view"
         app:showAsAction="ifRoom"/>
 
 </menu>

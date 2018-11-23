@@ -1,20 +1,26 @@
 package com.tothon.layarperak.service;
 
-import com.tothon.layarperak.config.Configuration;
-import com.tothon.layarperak.model.response.MovieDetailsResponse;
+import com.tothon.layarperak.model.Movie;
+import com.tothon.layarperak.model.response.CreditResponse;
+import com.tothon.layarperak.model.response.ImagesResponse;
 import com.tothon.layarperak.model.response.MovieResponse;
+import com.tothon.layarperak.model.response.ReviewsResponse;
 
 import retrofit2.Call;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RetrofitAPI {
 
-    String POSTER_BASE_URL = "http://image.tmdb.org/t/p/w342";
-    String BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
     String BASE_URL = "https://api.themoviedb.org/3/";
-    String TMDB_API_TOKEN = Configuration.TMDB_API_KEY;
+
+    String POSTER_BASE_URL_SMALL = "http://image.tmdb.org/t/p/w342";
+    String POSTER_BASE_URL_MEDIUM = "http://image.tmdb.org/t/p/w500";
+    String POSTER_BASE_URL_LARGE = "http://image.tmdb.org/t/p/w780";
+    String BACKDROP_BASE_URL = "http://image.tmdb.org/t/p/w780";
 
     @GET("movie/{type}")
     Call<MovieResponse> getMovies(@Path("type") String TYPE,
@@ -22,26 +28,40 @@ public interface RetrofitAPI {
                                   @Query("language") String LANGUAGE,
                                   @Query("page") int PAGE);
 //
-//    @GET("search/movie")
+//    @GET("ic_search/movie")
 //    Call<TMDBResponse> searchMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE, @Query("query") String QUERY);
 //
 //    @GET("movie/{movie_id}/videos")
 //    Call<TMDBTrailerResponse> getTrailers(@Path("movie_id") int MOVIE_ID, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE);
 //
-//    @GET("movie/{movie_id}/reviews")
-//    Call<TMDBReviewResponse> getReviews(@Path("movie_id") int MOVIE_ID, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE);
-//
-//    @GET("movie/{movie_id}/credits")
-//    Call<TMDBCreditsResponse> getCredits(@Path("movie_id") int MOVIE_ID, @Query("api_key") String API_KEY);
-//
+    @GET("movie/{movie_id}/reviews")
+    Call<ReviewsResponse> getReviews
+            (@Path("movie_id") int MOVIE_ID,
+             @Query("api_key") String API_KEY,
+             @Query("language") String LANGUAGE);
+
+    @GET("movie/{movie_id}/credits")
+    Call<CreditResponse> getCredits
+            (@Path("movie_id") int MOVIE_ID,
+             @Query("api_key") String API_KEY);
+
     @GET("movie/{movie_id}")
-    Call<MovieDetailsResponse> getDetails(@Path("movie_id") int MOVIE_ID,
-                                          @Query("api_key") String API_KEY,
-                                          @Query("language") String LANGUAGE);
-//
-//    @GET("movie/{movie_id}/similar")
-//    Call<TMDBResponse> getSimilarMovies(@Path("movie_id") int MOVIE_ID, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE);
-//
+    Call<Movie> getDetails
+            (@Path("movie_id") int MOVIE_ID,
+             @Query("api_key") String API_KEY,
+             @Query("language") String language);
+
+    @GET("movie/{movie_id}/similar")
+    Call<MovieResponse> getSimilarMovies
+            (@Path("movie_id") int MOVIE_ID,
+             @Query("api_key") String API_KEY);
+
+    @GET("{type}/{id}/images")
+    Call<ImagesResponse> getImages
+            (@Path("type") String type,
+             @Path("id") int id,
+             @Query("api_key") String API_KEY);
+
 //    @GET("trending/{media_type}/{time_window}")
 //    Call<TMDBResponse> getTrending(@Path("media_type") String mediaType, @Path("time_window") String time_window, @Query("api_key") String API_KEY);
 //

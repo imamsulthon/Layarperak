@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/margin_small"
+    app:cardCornerRadius="@dimen/margin_small"
+    app:cardBackgroundColor="@color/colorPrimaryLight"
+    app:cardElevation="@dimen/margin_small">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/cast_iv"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_cast_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/metrophobic"
+                android:layout_above="@id/tv_character"
+                android:gravity="start"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:textColor="#FFF"
+                android:textSize="@dimen/text_size_small"
+                android:maxLines="2"
+                tools:text="Robert Downey Junior"/>
+
+            <TextView
+                android:id="@+id/tv_character"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/metrophobic"
+                android:layout_alignParentBottom="true"
+                android:gravity="start"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:textColor="#FFF"
+                android:textSize="@dimen/text_size_tiny"
+                android:maxLines="2"
+                android:textStyle="italic"
+                tools:text="Si Fulan bin fulan bin fulan"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</android.support.v7.widget.CardView>

@@ -79,7 +79,7 @@
                         app:cardElevation="8dp">
 
                         <ImageView
-                            android:id="@+id/poster_image_view"
+                            android:id="@+id/iv_poster"
                             android:layout_width="100dp"
                             android:layout_height="150dp"
                             android:scaleType="centerCrop"
@@ -336,7 +336,7 @@
                     android:paddingStart="24dp"
                     android:textColor="#FFF"
                     android:textSize="16sp"
-                    tools:text="This is gonna be a plot synopsis of the movie. This data will be fetched by the TMDB API. And this will contain info of the movie script."/>
+                    tools:text="This is gonna be a overview synopsis of the movie. This data will be fetched by the TMDB API. And this will contain info of the movie script."/>
 
                 <TextView
                     android:id="@+id/genres_label_tv"
@@ -349,7 +349,7 @@
                     android:textStyle="bold"/>
 
                 <android.support.v7.widget.RecyclerView
-                    android:id="@+id/genres_rv"
+                    android:id="@+id/rv_genre"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"

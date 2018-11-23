@@ -1,39 +1,16 @@
 package com.tothon.layarperak.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.daimajia.slider.library.Animations.DescriptionAnimation;
-import com.daimajia.slider.library.SliderLayout;
-import com.daimajia.slider.library.SliderTypes.BaseSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
-import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.config.Configuration;
-import com.tothon.layarperak.config.NetworkUtils;
-import com.tothon.layarperak.model.Movie;
-import com.tothon.layarperak.model.response.MovieResponse;
-import com.tothon.layarperak.service.RetrofitAPI;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class ProfileFragment extends Fragment {
 
-//    private static final String TMDB_API_TOKEN = Configuration.TMDB_API_KEY;
+//    private static final String TMDB_API_TOKEN = Constants.TMDB_API_KEY;
 //
 //    @BindView(R.id.slider)
 //    SliderLayout mDemoSlider;
@@ -51,8 +28,8 @@ public class ProfileFragment extends Fragment {
     }
 
 //    @Override
-//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-//        super.onViewCreated(view, savedInstanceState);
+//    public void onViewCreated(@NonNull View ic_view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(ic_view, savedInstanceState);
 //
 //        fetchMovies();
 //    }

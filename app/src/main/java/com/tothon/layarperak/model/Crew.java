@@ -8,9 +8,8 @@ public class Crew extends Person {
 
     @SerializedName("job")
     private String job;
-
-    @SerializedName("name")
-    private String name;
+    @SerializedName("department")
+    private String department;
 
     public String getJob() {
         return job;
@@ -20,12 +19,12 @@ public class Crew extends Person {
         this.job = job;
     }
 
-    public String getName() {
-        return name;
+    public String getDepartment() {
+        return department;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDepartment(String department) {
+        this.department = department;
     }
 
     @Override
@@ -36,7 +35,7 @@ public class Crew extends Person {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.job);
-        dest.writeString(this.name);
+        dest.writeString(this.department);
     }
 
     public Crew() {
@@ -44,7 +43,7 @@ public class Crew extends Person {
 
     protected Crew(Parcel in) {
         this.job = in.readString();
-        this.name = in.readString();
+        this.department = in.readString();
     }
 
     public static final Creator<Crew> CREATOR = new Creator<Crew>() {

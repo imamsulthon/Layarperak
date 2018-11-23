@@ -16,10 +16,10 @@ import android.widget.Toast;
 
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.MoreActivity;
+import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.service.RetrofitAPI;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
-import com.tothon.layarperak.config.Configuration;
-import com.tothon.layarperak.config.NetworkUtils;
+import com.tothon.layarperak.service.NetworkUtils;
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.response.MovieResponse;
 
@@ -34,7 +34,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
 
-    private static final String TMDB_API_TOKEN = Configuration.TMDB_API_KEY;
+    private static final String TMDB_API_TOKEN = Constants.TMDB_API_KEY;
 
     private ArrayList<Movie> popularMovieList = new ArrayList<>();
     private ArrayList<Movie> topRatedMovieList = new ArrayList<>();

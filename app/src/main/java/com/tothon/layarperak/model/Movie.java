@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import io.realm.annotations.PrimaryKey;
 
 public class Movie implements Parcelable {
@@ -12,16 +14,32 @@ public class Movie implements Parcelable {
     @PrimaryKey
     @SerializedName("id")
     private int id;
+    @SerializedName("imdb_id")
+    private String imdbId;
     @SerializedName("poster_path")
     private String posterPath;
     @SerializedName("title")
     private String title;
+    @SerializedName("original_title")
+    private String originalTitle;
+    @SerializedName("homepage")
+    private String homepage;
+    @SerializedName("tagline")
+    private String tagline;
     @SerializedName("overview")
-    private String plot;
+    private String overview;
+    @SerializedName("status")
+    private String status;
+    @SerializedName("genres")
+    private List<Genre> genres;
     @SerializedName("release_date")
     private String date;
+    @SerializedName("vote_count")
+    private int voteCount;
     @SerializedName("vote_average")
-    private String rating;
+    private Double rating;
+    @SerializedName("runtime")
+    private int runtime;
     @SerializedName("backdrop_path")
     private String backdropPath;
     private byte[] posterBytes;
@@ -35,6 +53,18 @@ public class Movie implements Parcelable {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public void setRuntime(Integer runtime) {
+        this.runtime = runtime;
     }
 
     public String getPosterPath() {
@@ -53,12 +83,52 @@ public class Movie implements Parcelable {
         this.title = title;
     }
 
-    public String getPlot() {
-        return plot;
+    public String getOriginalTitle() {
+        return originalTitle;
     }
 
-    public void setPlot(String plot) {
-        this.plot = plot;
+    public void setOriginalTitle(String originalTitle) {
+        this.originalTitle = originalTitle;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String homepage) {
+        this.homepage = homepage;
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public void setOverview(String overview) {
+        this.overview = overview;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public List<Genre> getGenres() {
+        return genres;
+    }
+
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
     }
 
     public String getDate() {
@@ -69,12 +139,28 @@ public class Movie implements Parcelable {
         this.date = date;
     }
 
-    public String getRating() {
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(String rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
+    }
+
+    public int getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(int runtime) {
+        this.runtime = runtime;
     }
 
     public String getBackdropPath() {
@@ -95,13 +181,55 @@ public class Movie implements Parcelable {
 
     protected Movie(Parcel in) {
         id = in.readInt();
+        imdbId = in.readString();
         posterPath = in.readString();
         title = in.readString();
-        plot = in.readString();
+        originalTitle = in.readString();
+        homepage = in.readString();
+        tagline = in.readString();
+        overview = in.readString();
+        status = in.readString();
+        genres = in.createTypedArrayList(Genre.CREATOR);
         date = in.readString();
-        rating = in.readString();
+        voteCount = in.readInt();
+        if (in.readByte() == 0) {
+            rating = null;
+        } else {
+            rating = in.readDouble();
+        }
+        runtime = in.readInt();
         backdropPath = in.readString();
         posterBytes = in.createByteArray();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(imdbId);
+        dest.writeString(posterPath);
+        dest.writeString(title);
+        dest.writeString(originalTitle);
+        dest.writeString(homepage);
+        dest.writeString(tagline);
+        dest.writeString(overview);
+        dest.writeString(status);
+        dest.writeTypedList(genres);
+        dest.writeString(date);
+        dest.writeInt(voteCount);
+        if (rating == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(rating);
+        }
+        dest.writeInt(this.runtime);
+        dest.writeString(backdropPath);
+        dest.writeByteArray(posterBytes);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<Movie> CREATOR = new Creator<Movie>() {
@@ -116,20 +244,4 @@ public class Movie implements Parcelable {
         }
     };
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(id);
-        dest.writeString(posterPath);
-        dest.writeString(title);
-        dest.writeString(plot);
-        dest.writeString(date);
-        dest.writeString(rating);
-        dest.writeString(backdropPath);
-        dest.writeByteArray(posterBytes);
-    }
 }

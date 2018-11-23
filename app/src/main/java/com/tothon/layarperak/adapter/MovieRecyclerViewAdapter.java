@@ -3,8 +3,6 @@ package com.tothon.layarperak.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +49,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
                     .into(holder.posterImageView);
         } else {
             Picasso.with(context)
-                    .load(RetrofitAPI.POSTER_BASE_URL + movie.getPosterPath())
+                    .load(RetrofitAPI.POSTER_BASE_URL_SMALL + movie.getPosterPath())
                     .error(R.drawable.tmdb_placeholder)
                     .centerCrop()
                     .fit()
@@ -75,7 +73,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.poster_image_view)
+        @BindView(R.id.iv_poster)
         ImageView posterImageView;
 
         private MovieViewHolder(View itemView) {

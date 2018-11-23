@@ -40,7 +40,6 @@ public class Cast extends Person {
         dest.writeInt(this.order);
     }
 
-
     private Cast(Parcel in) {
         super(in);
         this.character = in.readString();

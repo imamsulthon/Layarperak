@@ -14,6 +14,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/margin_xxxlarge"
         android:orientation="vertical">
 
         <ImageView
@@ -26,11 +27,10 @@
             android:id="@+id/splash_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="@dimen/margin_small"
+            android:fontFamily="@font/metrophobic"
             android:text="@string/app_name"
-            android:textColor="#FFF"
+            android:textColor="@color/white"
             android:textSize="34sp"/>
 
     </LinearLayout>

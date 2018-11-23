@@ -21,8 +21,8 @@ public class Genre implements Parcelable {
     }
 
     protected Genre(Parcel in) {
-        id = in.readInt();
-        name = in.readString();
+        this.id = in.readInt();
+        this.name = in.readString();
     }
 
     public static final Creator<Genre> CREATOR = new Creator<Genre>() {

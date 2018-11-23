@@ -6,11 +6,29 @@
     <string name="featur_not_available">This feature currently not available</string>
 
     <string name="poster_info">Poster Of The Movie</string>
+    <string name="backdrop_info">Backdrop of The Movie</string>
+    <string name="content_icon">Icon_clickable</string>
 
     <string name="popular">Popular</string>
     <string name="top_rated">Top Rated</string>
     <string name="upcoming">Upcoming</string>
     <string name="now_playing">Now Playing</string>
     <string name="see_more">See more</string>
+
+    <string name="movie_title">A Very Long Title of The Movie But Short in Duration</string>
+    <string name="original_title">A Very Original Long Title of The Movie But Short in Duration</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, congue sem dis, non in commodo tempor,
+        libero eros a, commodo magnis, luctus commodo pulvinar. Rutrum dui, diam nam eu, aenean ante
+        at lorem massa, lacinia pede, bibendum urna sed. Sed sed, curabitur est sapien, in at vel
+        egestas scelerisque quam tempus, tempor in veniam feugiat id etiam ullamcorper,
+        luctus pellentesque. Habitasse praesent sed hac amet mattis, egestas varius odio,
+        praesent semper at lectus nec, eu adipiscing suspendisse vel viverra et morbi.
+        Vivamus mauris. Ultricies libero dictum vel mollis ipsum maecenas, curabitur viverra a,
+        placerat accumsan mi tempus fermentum, lectus neque mus amet. Quis elit, pede in enim ut,
+        integer vulputate erat nunc odio auctor. Libero iste nunc rutrum leo praesent fermentum,
+        nihil consectetuer tortor massa odio metus, mus nibh, vitae lectus maecenas orci. Tincidunt
+        penatibus dictum tellus, ac vestibulum ante molestie in, ultricies etiam, vitae sed tellus
+        dolor eu ut. Molestie morbi, quis non mollis ipsum nec, quisque et tempus. Quam nonummy in
+        perferendis, nunc dolor, lacinia in nec eget in, convallis varius consequat.</string>
 
 </resources>

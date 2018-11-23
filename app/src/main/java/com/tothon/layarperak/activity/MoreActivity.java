@@ -15,8 +15,8 @@ import android.widget.Toast;
 
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
-import com.tothon.layarperak.config.Configuration;
-import com.tothon.layarperak.config.NetworkUtils;
+import com.tothon.layarperak.config.Constants;
+import com.tothon.layarperak.service.NetworkUtils;
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.service.RetrofitAPI;
@@ -33,7 +33,7 @@ import retrofit2.Response;
 public class MoreActivity extends AppCompatActivity {
 
     public static final String MOVIE_TAG = "type";
-    private static final String TMDB_API_KEY = Configuration.TMDB_API_KEY;
+    private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
     private static String type;
 
     MovieRecyclerViewAdapter adapter;

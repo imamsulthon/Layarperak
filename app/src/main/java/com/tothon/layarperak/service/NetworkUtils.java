@@ -1,4 +1,4 @@
-package com.tothon.layarperak.config;
+package com.tothon.layarperak.service;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -14,24 +14,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class NetworkUtils {
 
-    public static Boolean hasNetwork(Context context) {
-        Boolean isConnected = false; // Initial Value
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting())
-            isConnected = true;
-        return isConnected;
-    }
-
     public static Retrofit getCacheEnabledRetrofit(final Context context) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .cache(new Cache(context.getCacheDir(), 5 * 1024 * 1024))
                 .addInterceptor(chain -> {
                     Request request = chain.request();
                     if(hasNetwork(context))
-                        request = request.newBuilder().header("Cache-Control", "public, max-age=" + 1).build();
+                        request = request.newBuilder().header("Cache-Control",
+                                "public, max-age=" + 1).build();
                     else
-                        request = request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
+                        request = request.newBuilder().header("Cache-Control",
+                                "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build();
                     return chain.proceed(request);
                 })
                 .build();
@@ -41,5 +34,14 @@ public class NetworkUtils {
                 .client(okHttpClient)
                 .baseUrl(RetrofitAPI.BASE_URL)
                 .build();
+    }
+
+    public static Boolean hasNetwork(Context context) {
+        Boolean isConnected = false; // Initial Value
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting())
+            isConnected = true;
+        return isConnected;
     }
 }
