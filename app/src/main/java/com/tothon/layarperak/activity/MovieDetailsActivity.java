@@ -252,7 +252,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         try {
                             Uri uri;
                             if (!imdbId.equals("")) {
-                                uri = Uri.parse("http://www.ic_imdb.com/title/" + imdbId + "/");
+                                uri = Uri.parse("http://www.imdb.com/title/" + imdbId + "/");
                             } else {
                                 Toast.makeText(getApplicationContext(), "Movie isn't on IMDB. " +
                                         "Here is a Google search for it instead", Toast.LENGTH_LONG).show();
@@ -268,7 +268,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     icImdb.setOnClickListener(item -> {
                         if (movie.getImdbId() != null) {
                             try {
-                                Uri uri = Uri.parse("http://www.ic_imdb.com/title/" + movie.getImdbId() + "/");
+                                Uri uri = Uri.parse("http://www.imdb.com/title/" + movie.getImdbId() + "/");
                                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
                             } catch (Exception e) {
                                 e.printStackTrace();
