@@ -336,7 +336,7 @@
                     android:layout_marginTop="8dp">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerview_cast"
+                        android:id="@+id/rv_cast"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
@@ -374,7 +374,83 @@
                     android:layout_marginTop="@dimen/margin_medium">
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerview_crew"
+                        android:id="@+id/rv_crew"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:background="@color/colorPrimaryLight"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/margin_medium">
+
+                <TextView
+                    android:id="@+id/label_trailers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="Trailers"
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/text_size_large"
+                    android:textStyle="bold"/>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_trailers"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:background="@color/colorPrimaryLight"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/margin_medium">
+
+                <TextView
+                    android:id="@+id/label_images"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="Images"
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/text_size_large"
+                    android:textStyle="bold"/>
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_medium">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_images"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 

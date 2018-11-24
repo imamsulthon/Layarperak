@@ -28,9 +28,13 @@ import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.CastRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.CrewRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.GenreRecyclerViewAdapter;
+import com.tothon.layarperak.adapter.ImageRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.ReviewRecyclerViewAdapter;
+import com.tothon.layarperak.adapter.TrailerRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
+import com.tothon.layarperak.model.Trailer;
+import com.tothon.layarperak.model.response.TrailerResponse;
 import com.tothon.layarperak.service.NetworkUtils;
 import com.tothon.layarperak.fragment.PosterDialogFragment;
 import com.tothon.layarperak.model.Backdrop;
@@ -65,12 +69,15 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
     public static final String KEY = "movie";
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
+    private static final int TRAILERS_DETAILS_TYPE = 0;
 
     // region Models
     Movie movie;
     private ArrayList<Genre> genreArrayList = new ArrayList<>();
     private ArrayList<Cast> castArrayList = new ArrayList<>();
     private ArrayList<Crew> crewArrayList = new ArrayList<>();
+    private ArrayList<Trailer> trailerArrayList = new ArrayList<>();
+    private ArrayList<Backdrop> imageArrayList = new ArrayList<>();
     private ArrayList<Review> reviewArrayList = new ArrayList<>();
     private ArrayList<Movie> similarMovieList = new ArrayList<>();
     // endregion
@@ -93,8 +100,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tv_realease_status) TextView tvRealeaseStatus;
     @BindView(R.id.tv_realease_date) TextView tvRealeaseDate;
     @BindView(R.id.rv_genre) RecyclerView recyclerViewGenre;
-    @BindView(R.id.recyclerview_cast) RecyclerView recyclerViewCast;
-    @BindView(R.id.recyclerview_crew) RecyclerView recyclerViewCrew;
+    @BindView(R.id.rv_cast) RecyclerView recyclerViewCast;
+    @BindView(R.id.rv_crew) RecyclerView recyclerViewCrew;
+    @BindView(R.id.rv_trailers) RecyclerView recyclerViewTrailer;
+    @BindView(R.id.rv_images) RecyclerView recyclerViewImage;
     @BindView(R.id.rv_reviews) RecyclerView recyclerViewReviews;
     @BindView(R.id.recyclerview_similar_movies) RecyclerView recyclerViewSimilarMovies;
     @BindView(R.id.iv_imdb) ImageView icImdb;
@@ -107,6 +116,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private MovieRecyclerViewAdapter similarMoviesAdapter;
     private CastRecyclerViewAdapter castRecyclerViewAdapter;
     private CrewRecyclerViewAdapter crewRecyclerViewAdapter;
+    private TrailerRecyclerViewAdapter trailerRecyclerViewAdapter;
+    private ImageRecyclerViewAdapter imageRecyclerViewAdapter;
     private ReviewRecyclerViewAdapter reviewRecyclerViewAdapter;
     // endregion
 
@@ -143,6 +154,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 LinearLayoutManager.HORIZONTAL, false));
         crewRecyclerViewAdapter = new CrewRecyclerViewAdapter(getApplicationContext(), crewArrayList);
         recyclerViewCrew.setAdapter(new ScaleInAnimationAdapter(crewRecyclerViewAdapter));
+
+        recyclerViewTrailer.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+        trailerRecyclerViewAdapter = new TrailerRecyclerViewAdapter(this, trailerArrayList);
+        recyclerViewTrailer.setAdapter(new ScaleInAnimationAdapter(trailerRecyclerViewAdapter));
+
+        recyclerViewImage.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
+                LinearLayoutManager.HORIZONTAL, false));
+        imageRecyclerViewAdapter = new ImageRecyclerViewAdapter(getApplicationContext(), imageArrayList);
+        recyclerViewImage.setAdapter(new ScaleInAnimationAdapter(imageRecyclerViewAdapter));
 
         recyclerViewReviews.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false));
@@ -204,6 +225,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         fetchReviews();
         fetchSimilarMovies();
         fetchMoviesImage();
+        fetchTrailer();
 
         icGoogle.setOnClickListener(item -> {
             try {
@@ -335,6 +357,26 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
     }
 
+    private void fetchTrailer() {
+        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        Call<TrailerResponse> call = retrofitAPI.getTrailers(movie.getId(), TMDB_API_KEY, "en-US");
+        call.enqueue(new Callback<TrailerResponse>() {
+            @Override
+            public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
+                TrailerResponse trailerResponse = response.body();
+                if (trailerResponse != null && trailerResponse.getResults().size() != 0) {
+                    trailerArrayList.addAll(trailerResponse.getResults());
+                    trailerRecyclerViewAdapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<TrailerResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     private void fetchReviews() {
         RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<ReviewsResponse> reviewsResponseCall = retrofitAPI.getReviews(movie.getId(), TMDB_API_KEY, "en-US");
@@ -364,11 +406,13 @@ public class MovieDetailsActivity extends AppCompatActivity {
             public void onResponse(Call<ImagesResponse> call, Response<ImagesResponse> response) {
                 ImagesResponse imagesResponse = response.body();
                 if (imagesResponse != null) {
-                    List<Backdrop> posters = null;
+                    List<Backdrop> backdrops = null;
                     try {
-                        posters = response.body().getBackdrops();
-                        if (posters.size() > 0) {
-                            changeBackdrop(posters);
+                        backdrops = response.body().getBackdrops();
+                        if (backdrops.size() > 0) {
+                            imageArrayList.addAll(backdrops);
+                            imageRecyclerViewAdapter.notifyDataSetChanged();
+                            changeBackdrop(backdrops);
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

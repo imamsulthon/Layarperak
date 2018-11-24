@@ -5,6 +5,7 @@ import com.tothon.layarperak.model.response.CreditResponse;
 import com.tothon.layarperak.model.response.ImagesResponse;
 import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.model.response.ReviewsResponse;
+import com.tothon.layarperak.model.response.TrailerResponse;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -31,9 +32,12 @@ public interface RetrofitAPI {
 //    @GET("ic_search/movie")
 //    Call<TMDBResponse> searchMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE, @Query("query") String QUERY);
 //
-//    @GET("movie/{movie_id}/videos")
-//    Call<TMDBTrailerResponse> getTrailers(@Path("movie_id") int MOVIE_ID, @Query("api_key") String API_KEY, @Query("language") String LANGUAGE);
-//
+    @GET("movie/{movie_id}/videos")
+    Call<TrailerResponse> getTrailers(
+            @Path("movie_id") int MOVIE_ID,
+            @Query("api_key") String API_KEY,
+            @Query("language") String LANGUAGE);
+
     @GET("movie/{movie_id}/reviews")
     Call<ReviewsResponse> getReviews
             (@Path("movie_id") int MOVIE_ID,
