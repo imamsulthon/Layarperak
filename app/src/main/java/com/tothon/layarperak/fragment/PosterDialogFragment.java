@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
 public class PosterDialogFragment extends DialogFragment {
 
     public static final String KEY = "imagePath";
-    public static String TAG = "POSTER_FRAGMENT";
+    public static String POSTER_DIALOG_TAG = "POSTER_FRAGMENT";
     private static String IMAGE_URL;
 
     @BindView(R.id.iv_poster)

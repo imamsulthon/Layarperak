@@ -104,7 +104,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rv_trailers) RecyclerView recyclerViewTrailer;
     @BindView(R.id.rv_images) RecyclerView recyclerViewImage;
     @BindView(R.id.rv_reviews) RecyclerView recyclerViewReviews;
-    @BindView(R.id.recyclerview_similar_movies) RecyclerView recyclerViewSimilarMovies;
+    @BindView(R.id.rv_similar_movies) RecyclerView recyclerViewSimilarMovies;
+    @BindView(R.id.see_all_cast) TextView seeAllCast;
+    @BindView(R.id.see_all_crew) TextView seeAllCrew;
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
     @BindView(R.id.iv_homepage) ImageView icHomepage;
@@ -187,7 +189,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 bundle.putString(PosterDialogFragment.KEY, movie.getPosterPath());
                 dialogFragment.setArguments(bundle);
                 FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-                dialogFragment.show(fm, PosterDialogFragment.TAG);
+                dialogFragment.show(fm, PosterDialogFragment.POSTER_DIALOG_TAG);
             });
         }
 
@@ -342,6 +344,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 if (creditResponse != null && creditResponse.getCast().size() != 0) {
                     castArrayList.addAll(creditResponse.getCast());
                     castRecyclerViewAdapter.notifyDataSetChanged();
+                    seeAllCast.setOnClickListener(item -> {
+                        Intent intent = new Intent(MovieDetailsActivity.this, SeeAllCastActivity.class);
+                        intent.putExtra(SeeAllCastActivity.CAST_TAG, castArrayList);
+                        startActivity(intent);
+                    });
                 }
                 if (creditResponse != null && creditResponse.getCrew().size() != 0) {
                     crewArrayList.addAll(creditResponse.getCrew());
@@ -472,7 +479,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 runtime = String.valueOf(minutes) + " min";
             }
         }catch (Exception e){
-            Log.i("TAG :",e.toString());
+            Log.i("POSTER_DIALOG_TAG :",e.toString());
         }
         return runtime;
     }

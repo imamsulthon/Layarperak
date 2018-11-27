@@ -38,7 +38,8 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".activity.PersonDetailsActivity" />
-        <activity android:name=".activity.SeeMorePeopleActivity"></activity>
+        <activity android:name=".activity.SeeMorePeopleActivity" />
+        <activity android:name=".activity.SeeAllCastActivity"></activity>
     </application>
 
 </manifest>

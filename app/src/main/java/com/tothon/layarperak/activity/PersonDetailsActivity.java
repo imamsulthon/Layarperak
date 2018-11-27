@@ -117,7 +117,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 bundle.putString(PosterDialogFragment.KEY, person.getProfilePath());
                 dialogFragment.setArguments(bundle);
                 FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-                dialogFragment.show(fm, PosterDialogFragment.TAG);
+                dialogFragment.show(fm, PosterDialogFragment.POSTER_DIALOG_TAG);
             });
         }
         tvPopularity.setText(String.valueOf(person.getPopularity()));
