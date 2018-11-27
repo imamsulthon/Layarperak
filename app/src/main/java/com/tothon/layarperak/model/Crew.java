@@ -11,6 +11,9 @@ public class Crew extends Person {
     @SerializedName("department")
     private String department;
 
+    public Crew() {
+    }
+
     public String getJob() {
         return job;
     }
@@ -34,14 +37,13 @@ public class Crew extends Person {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
         dest.writeString(this.job);
         dest.writeString(this.department);
     }
 
-    public Crew() {
-    }
-
-    protected Crew(Parcel in) {
+    private Crew(Parcel in) {
+        super(in);
         this.job = in.readString();
         this.department = in.readString();
     }

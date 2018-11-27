@@ -30,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MoreActivity extends AppCompatActivity {
+public class SeeMoreMoviesActivity extends AppCompatActivity {
 
     public static final String MOVIE_TAG = "type";
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;

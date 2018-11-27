@@ -1,6 +1,7 @@
 package com.tothon.layarperak.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
+import com.tothon.layarperak.activity.PersonDetailsActivity;
 import com.tothon.layarperak.config.Config;
 import com.tothon.layarperak.model.Cast;
 import com.tothon.layarperak.service.RetrofitAPI;
@@ -48,6 +50,11 @@ public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerVi
         }
         holder.tvCastName.setText(cast.getName());
         holder.tvCharacter.setText(cast.getCharacter());
+        holder.ivPhotoProfile.setOnClickListener(item -> {
+            Intent intent = new Intent(context, PersonDetailsActivity.class);
+            intent.putExtra(PersonDetailsActivity.KEY, cast);
+            context.startActivity(intent);
+        });
     }
 
     @Override
@@ -57,9 +64,9 @@ public class CastRecyclerViewAdapter extends RecyclerView.Adapter<CastRecyclerVi
 
     public class CastViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.cast_iv)
+        @BindView(R.id.iv_profile)
         ImageView ivPhotoProfile;
-        @BindView(R.id.tv_cast_name)
+        @BindView(R.id.tv_name)
         TextView tvCastName;
         @BindView(R.id.tv_character)
         TextView tvCharacter;

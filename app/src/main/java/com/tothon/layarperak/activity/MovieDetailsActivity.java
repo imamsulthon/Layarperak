@@ -33,6 +33,8 @@ import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.ReviewRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.TrailerRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
+import com.tothon.layarperak.config.Utils;
+import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.Trailer;
 import com.tothon.layarperak.model.response.TrailerResponse;
 import com.tothon.layarperak.service.NetworkUtils;
@@ -49,11 +51,7 @@ import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.model.response.ReviewsResponse;
 import com.tothon.layarperak.service.RetrofitAPI;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import at.blogc.android.views.ExpandableTextView;
@@ -69,7 +67,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TAG = MovieDetailsActivity.class.getSimpleName();
     public static final String KEY = "movie";
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
-    private static final int TRAILERS_DETAILS_TYPE = 0;
 
     // region Models
     Movie movie;
@@ -80,6 +77,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ArrayList<Backdrop> imageArrayList = new ArrayList<>();
     private ArrayList<Review> reviewArrayList = new ArrayList<>();
     private ArrayList<Movie> similarMovieList = new ArrayList<>();
+
+    private Person director = null;
     // endregion
 
     // region Views
@@ -194,7 +193,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         if (movie.getBackdropPath() != null) {
             Picasso.with(this)
-                    .load(RetrofitAPI.BACKDROP_BASE_URL + movie.getBackdropPath())
+                    .load(RetrofitAPI.BACKDROP_BASE_URL_MEDIUM + movie.getBackdropPath())
                     .centerCrop()
                     .fit()
                     .into(ivBackdrop);
@@ -209,7 +208,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             tvOriginalTitle.setVisibility(View.GONE);
         }
         tvRealeaseYear.setText(movie.getDate().substring(0, 4));
-        tvRealeaseDate.setText(prettifyDate(movie.getDate()));
+        tvRealeaseDate.setText(Utils.formatDate(movie.getDate()));
         tvOverview.setText(movie.getOverview());
         tvRating.setText(String.valueOf(movie.getRating()));
         ratingBar.setRating(movie.getRating().floatValue()/2);
@@ -234,6 +233,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 startActivity(i);
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        });
+
+        tvDirector.setOnClickListener(item -> {
+            if (director != null) {
+                Intent intent = new Intent(MovieDetailsActivity.this, PersonDetailsActivity.class);
+                intent.putExtra(PersonDetailsActivity.KEY, getDirector());
+                startActivity(intent);
+            } else {
+                Toast.makeText(MovieDetailsActivity.this, "Director not found", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -274,7 +283,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         try {
                             Uri uri;
                             if (!imdbId.equals("")) {
-                                uri = Uri.parse("http://www.imdb.com/title/" + imdbId + "/");
+                                uri = Uri.parse(Constants.IMDB_MOVIE_URL + imdbId + "/");
                             } else {
                                 Toast.makeText(getApplicationContext(), "Movie isn't on IMDB. " +
                                         "Here is a Google search for it instead", Toast.LENGTH_LONG).show();
@@ -290,13 +299,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     icImdb.setOnClickListener(item -> {
                         if (movie.getImdbId() != null) {
                             try {
-                                Uri uri = Uri.parse("http://www.imdb.com/title/" + movie.getImdbId() + "/");
+                                Uri uri = Uri.parse(Constants.IMDB_MOVIE_URL + movie.getImdbId() + "/");
                                 startActivity(new Intent(Intent.ACTION_VIEW, uri));
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         } else {
-                            Toast.makeText(getApplicationContext(), "This movie isn't IMDB", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "This movie isn't on IMDB",
+                                    Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -335,8 +345,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 }
                 if (creditResponse != null && creditResponse.getCrew().size() != 0) {
                     crewArrayList.addAll(creditResponse.getCrew());
-                    setDirector(crewArrayList);
                     crewRecyclerViewAdapter.notifyDataSetChanged();
+                    setDirector(crewArrayList);
                 }
             }
 
@@ -352,9 +362,14 @@ public class MovieDetailsActivity extends AppCompatActivity {
             if (crew.getJob().equals("Director") || crew.getJob().equals("director")) {
                 layoutDirector.setVisibility(View.VISIBLE);
                 tvDirector.setText(crew.getName());
+                this.director = crew;
                 break;
             }
-        }
+        };
+    }
+
+    public Person getDirector() {
+        return director;
     }
 
     private void fetchTrailer() {
@@ -462,19 +477,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         return runtime;
     }
 
-    private String prettifyDate(String jsonDate) {
-        DateFormat sourceDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = null;
-        try {
-            date = sourceDateFormat.parse(jsonDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        DateFormat destDateFormat = new SimpleDateFormat("MMM dd\nyyyy");
-        String dateStr = destDateFormat.format(date);
-        return dateStr;
-    }
-
     private void changeBackdrop(List<Backdrop> imageArray) {
         handler = new Handler();
         runnable = new Runnable() {
@@ -482,7 +484,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Picasso.with(getApplicationContext())
-                        .load(RetrofitAPI.BACKDROP_BASE_URL + imageArray.get(i).getFilePath())
+                        .load(RetrofitAPI.BACKDROP_BASE_URL_MEDIUM + imageArray.get(i).getFilePath())
                         .into(ivBackdrop, new com.squareup.picasso.Callback() {
                             @Override
                             public void onSuccess() {

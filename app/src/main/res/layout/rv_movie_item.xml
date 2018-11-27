@@ -10,8 +10,8 @@
         android:layout_width="100dp"
         android:layout_height="150dp"
         app:cardBackgroundColor="@color/colorPrimary"
-        app:cardCornerRadius="2dp"
-        app:cardElevation="2dp"
+        app:cardCornerRadius="@dimen/margin_tiny"
+        app:cardElevation="@dimen/margin_tiny"
         app:cardUseCompatPadding="true">
 
         <ImageView

@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Person implements Parcelable {
@@ -15,11 +16,23 @@ public class Person implements Parcelable {
     @SerializedName("name")
     private String name;
 
+    @SerializedName("birthday")
+    private String birthday;
+
+    @SerializedName("deathday")
+    private String deathday;
+
     @SerializedName("gender")
     private int gender;
 
+    @SerializedName("known_for_department")
+    private String department;
+
     @SerializedName("biography")
     private String biography;
+
+    @SerializedName("popularity")
+    private Double popularity;
 
     @SerializedName("profile_path")
     private String profilePath;
@@ -27,17 +40,14 @@ public class Person implements Parcelable {
     @SerializedName("place_of_birth")
     private String placeOfBirth;
 
-    @SerializedName("birthday")
-    private Date birthday;
-
-    @SerializedName("deathday")
-    private Date deathday;
-
     @SerializedName("imdb_id")
     private String imdbId;
 
     @SerializedName("homepage")
     private String homepage;
+
+    @SerializedName("known_for")
+    private ArrayList<Movie> movies;
 
     public Person() {
     }
@@ -58,6 +68,22 @@ public class Person implements Parcelable {
         this.name = name;
     }
 
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getDeathday() {
+        return deathday;
+    }
+
+    public void setDeathday(String deathday) {
+        this.deathday = deathday;
+    }
+
     public int getGender() {
         return gender;
     }
@@ -66,12 +92,28 @@ public class Person implements Parcelable {
         this.gender = gender;
     }
 
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
     public String getBiography() {
         return biography;
     }
 
     public void setBiography(String biography) {
         this.biography = biography;
+    }
+
+    public Double getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(Double popularity) {
+        this.popularity = popularity;
     }
 
     public String getProfilePath() {
@@ -90,22 +132,6 @@ public class Person implements Parcelable {
         this.placeOfBirth = placeOfBirth;
     }
 
-    public Date getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
-    }
-
-    public Date getDeathday() {
-        return deathday;
-    }
-
-    public void setDeathday(Date deathday) {
-        this.deathday = deathday;
-    }
-
     public String getImdbId() {
         return imdbId;
     }
@@ -122,15 +148,32 @@ public class Person implements Parcelable {
         this.homepage = homepage;
     }
 
+    public ArrayList<Movie> getMovies() {
+        return movies;
+    }
+
+    public void setMovies(ArrayList<Movie> movies) {
+        this.movies = movies;
+    }
+
     protected Person(Parcel in) {
         id = in.readInt();
         name = in.readString();
+        birthday = in.readString();
+        deathday = in.readString();
         gender = in.readInt();
+        department = in.readString();
         biography = in.readString();
+        if (in.readByte() == 0) {
+            popularity = null;
+        } else {
+            popularity = in.readDouble();
+        }
         profilePath = in.readString();
         placeOfBirth = in.readString();
         imdbId = in.readString();
         homepage = in.readString();
+        movies = in.createTypedArrayList(Movie.CREATOR);
     }
 
     public static final Creator<Person> CREATOR = new Creator<Person>() {
@@ -154,11 +197,21 @@ public class Person implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(id);
         dest.writeString(name);
+        dest.writeString(birthday);
+        dest.writeString(deathday);
         dest.writeInt(gender);
+        dest.writeString(department);
         dest.writeString(biography);
+        if (popularity == null) {
+            dest.writeByte((byte) 0);
+        } else {
+            dest.writeByte((byte) 1);
+            dest.writeDouble(popularity);
+        }
         dest.writeString(profilePath);
         dest.writeString(placeOfBirth);
         dest.writeString(imdbId);
         dest.writeString(homepage);
+        dest.writeTypedList(movies);
     }
 }

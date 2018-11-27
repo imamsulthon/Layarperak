@@ -63,7 +63,7 @@ public class ProfileFragment extends Fragment {
 //            mDemoSlider.setCustomAnimation(new DescriptionAnimation());
 //            mDemoSlider.setDuration(2000);
 //            Picasso.with(getContext())
-//                    .load(RetrofitAPI.BACKDROP_BASE_URL + movie.getBackdropPath())
+//                    .load(RetrofitAPI.BACKDROP_BASE_URL_MEDIUM + movie.getBackdropPath())
 //                    .centerCrop()
 //                    .fit()
 //                    .placeholder(R.drawable.tmdb_placeholder_land)

@@ -11,6 +11,7 @@
     <color name="black">#000000</color>
 
 
+    <color name="colorBlackLabel">#CC000000</color>
     <color name="colorAccentGreen">#0a9b58</color>
     <color name="colorAccentYellow">#e5d206</color>
 </resources>

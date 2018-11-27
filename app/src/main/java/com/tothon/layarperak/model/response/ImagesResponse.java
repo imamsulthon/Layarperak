@@ -18,6 +18,8 @@ public class ImagesResponse implements Parcelable {
     private List<Backdrop> backdrops = null;
     @SerializedName("posters")
     private List<Poster> posters = null;
+    @SerializedName("profiles")
+    private List<Backdrop> profiles = null;
 
     protected ImagesResponse(Parcel in) {
         if (in.readByte() == 0) {
@@ -64,6 +66,16 @@ public class ImagesResponse implements Parcelable {
         this.posters = posters;
     }
 
+    public List<Backdrop> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(List<Backdrop> profiles) {
+        this.profiles = profiles;
+        this.backdrops = backdrops;
+        this.profiles = profiles;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -78,5 +90,7 @@ public class ImagesResponse implements Parcelable {
             dest.writeInt(id);
         }
         dest.writeTypedList(posters);
+        dest.writeTypedList(backdrops);
+        dest.writeTypedList(profiles);
     }
 }

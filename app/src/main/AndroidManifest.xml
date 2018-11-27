@@ -15,7 +15,6 @@
         android:roundIcon="@mipmap/reel"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".activity.SplashScreenActivity"
             android:launchMode="singleTop"
@@ -28,19 +27,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.MainActivity"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".activity.MovieDetailsActivity" />
-        <activity
-            android:name=".activity.MoreActivity"/>
+        <activity android:name=".activity.MovieDetailsActivity" />
+        <activity android:name=".activity.SeeMoreMoviesActivity" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
 
+        <activity android:name=".activity.PersonDetailsActivity" />
+        <activity android:name=".activity.SeeMorePeopleActivity"></activity>
     </application>
 
 </manifest>

@@ -8,12 +8,14 @@ public class Cast extends Person {
 
     @SerializedName("character")
     private String character;
-
     @SerializedName("order")
     private int order;
 
     public String getCharacter() {
         return character;
+    }
+
+    public Cast() {
     }
 
     public void setCharacter(String character) {

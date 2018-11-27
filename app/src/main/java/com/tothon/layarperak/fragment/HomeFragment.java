@@ -15,8 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.activity.MoreActivity;
+import com.tothon.layarperak.activity.SeeMoreMoviesActivity;
+import com.tothon.layarperak.activity.SeeMorePeopleActivity;
+import com.tothon.layarperak.adapter.PersonAdapter;
 import com.tothon.layarperak.config.Constants;
+import com.tothon.layarperak.model.Person;
+import com.tothon.layarperak.model.response.PeopleResponse;
 import com.tothon.layarperak.service.RetrofitAPI;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.service.NetworkUtils;
@@ -40,11 +44,13 @@ public class HomeFragment extends Fragment {
     private ArrayList<Movie> topRatedMovieList = new ArrayList<>();
     private ArrayList<Movie> upcomingMovieList = new ArrayList<>();
     private ArrayList<Movie> nowPlayingMovieList = new ArrayList<>();
+    private ArrayList<Person> popularPersonList = new ArrayList<>();
 
     private MovieRecyclerViewAdapter popularMoviesAdapter;
     private MovieRecyclerViewAdapter topRatedMoviesAdapter;
     private MovieRecyclerViewAdapter upcomingMoviesAdapter;
     private MovieRecyclerViewAdapter nowPlayingMoviesAdapter;
+    private PersonAdapter personAdapter;
 
     @BindView(R.id.loading_indicator)
     ProgressBar progressBar;
@@ -56,8 +62,12 @@ public class HomeFragment extends Fragment {
     RecyclerView recyclerViewUpcoming;
     @BindView(R.id.rv_nowplaying)
     RecyclerView recyclerViewNowPlaying;
+    @BindView(R.id.rv_people)
+    RecyclerView recyclerViewPeople;
     @BindView(R.id.see_more_popular)
     TextView morePopular;
+    @BindView(R.id.see_more_people)
+    TextView morePeople;
     @BindView(R.id.see_more_now_playing)
     TextView moreNowPlaying;
     @BindView(R.id.see_more_top_rated)
@@ -96,7 +106,13 @@ public class HomeFragment extends Fragment {
         nowPlayingMoviesAdapter = new MovieRecyclerViewAdapter(getActivity(), nowPlayingMovieList);
         recyclerViewNowPlaying.setAdapter(new ScaleInAnimationAdapter(nowPlayingMoviesAdapter));
 
+        recyclerViewPeople.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager
+                .HORIZONTAL, false));
+        personAdapter = new PersonAdapter(getActivity(), popularPersonList);
+        recyclerViewPeople.setAdapter(new ScaleInAnimationAdapter(personAdapter));
+
         fetchAllMovies();
+        fetchAllPopularPeoples();
 
         moreNowPlaying.setOnClickListener(item -> {
             seeMoreMovieList("now_playing");
@@ -112,6 +128,10 @@ public class HomeFragment extends Fragment {
 
         moreUpcoming.setOnClickListener(item -> {
             seeMoreMovieList("upcoming");
+        });
+
+        morePeople.setOnClickListener(item -> {
+            seeMorePeopleList();
         });
 
     }
@@ -186,9 +206,33 @@ public class HomeFragment extends Fragment {
         });
     }
 
+    private void fetchAllPopularPeoples() {
+        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+                .create(RetrofitAPI.class);
+        Call<PeopleResponse> call = retrofitAPI.getPopularPerson(TMDB_API_TOKEN, 1);
+        call.enqueue(new Callback<PeopleResponse>() {
+            @Override
+            public void onResponse(Call<PeopleResponse> call, Response<PeopleResponse> response) {
+                PeopleResponse peopleResponse = response.body();
+                if (peopleResponse != null) {
+                    popularPersonList.addAll(peopleResponse.getResults());
+                    personAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<PeopleResponse> call, Throwable t) {
+            }
+        });
+    }
+
     private void seeMoreMovieList(String type) {
-        Intent intent = new Intent(getActivity(), MoreActivity.class);
-        intent.putExtra(MoreActivity.MOVIE_TAG, type);
+        Intent intent = new Intent(getActivity(), SeeMoreMoviesActivity.class);
+        intent.putExtra(SeeMoreMoviesActivity.MOVIE_TAG, type);
+        startActivity(intent);
+    }
+
+    private void seeMorePeopleList() {
+        Intent intent = new Intent(getActivity(), SeeMorePeopleActivity.class);
         startActivity(intent);
     }
 }

@@ -39,7 +39,7 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
         Backdrop image = imageList.get(position);
         Picasso.with(context)
-                .load(RetrofitAPI.BACKDROP_BASE_URL + image.getFilePath())
+                .load(RetrofitAPI.BACKDROP_BASE_URL_SMALL + image.getFilePath())
                 .error(R.drawable.tmdb_placeholder)
                 .centerCrop()
                 .fit()
