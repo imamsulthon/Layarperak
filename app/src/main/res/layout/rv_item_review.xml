@@ -25,6 +25,7 @@
             android:layout_height="32dp"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:background="@color/colorAccentGreen"
             android:src="@drawable/ic_expand_more_white_24dp"/>
 
     </RelativeLayout>
@@ -35,7 +36,6 @@
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="3"
-        android:textColor="@color/white"
         android:layout_marginBottom="@dimen/margin_large"
         android:textSize="@dimen/text_size_small"
         android:text="@string/lorem_ipsum"

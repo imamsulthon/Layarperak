@@ -7,53 +7,53 @@
     tools:context=".fragment.FavoriteFragment">
 
     <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
-    <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center_horizontal|center_vertical"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="center"-->
-            <!--android:text="Favorite" />-->
-
-        <!--<TextView-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:gravity="center_vertical|center_horizontal"-->
-            <!--android:text="@string/featur_not_available" />-->
-
-    <!--</LinearLayout>-->
-
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="Favorite" />
 
-            <com.daimajia.slider.library.SliderLayout
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"
-                custom:pager_animation="Accordion"
-                custom:auto_cycle="true"
-                custom:indicator_visibility="invisible"
-                custom:pager_animation_span="1100"/>
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:rotation="180"
-                android:src="@drawable/dark_gradient"
-                android:layout_alignParentBottom="true" />
-
-        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/featur_not_available" />
 
     </LinearLayout>
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="vertical">-->
+
+        <!--<RelativeLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content">-->
+
+            <!--<com.daimajia.slider.library.SliderLayout-->
+                <!--android:id="@+id/slider"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="270dp"-->
+                <!--custom:pager_animation="Accordion"-->
+                <!--custom:auto_cycle="true"-->
+                <!--custom:indicator_visibility="invisible"-->
+                <!--custom:pager_animation_span="1100"/>-->
+
+            <!--<ImageView-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="50dp"-->
+                <!--android:rotation="180"-->
+                <!--android:src="@drawable/dark_gradient"-->
+                <!--android:layout_alignParentBottom="true" />-->
+
+        <!--</RelativeLayout>-->
+
+    <!--</LinearLayout>-->
 
 </FrameLayout>

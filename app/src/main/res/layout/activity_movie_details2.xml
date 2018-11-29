@@ -534,6 +534,17 @@
 
                 </FrameLayout>
 
+                <TextView
+                    android:id="@+id/see_all_reviews"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/margin_small"
+                    android:layout_gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:gravity="center_horizontal"
+                    android:text="@string/see_all"/>
+
             </LinearLayout>
 
             <View

@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
@@ -33,7 +35,7 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     @NonNull
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.rv_movie_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.rv_item_movie, parent, false);
         return new MovieViewHolder(view);
     }
 
@@ -41,12 +43,14 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movieArrayList.get(position);
         if (movie.getPosterBytes() != null) {
-            Picasso.with(context)
-                    .load(movie.getPosterPath())
-                    .centerCrop()
-                    .fit()
-                    .error(R.drawable.tmdb_placeholder)
-                    .into(holder.posterImageView);
+//            Picasso.with(context)
+//                    .load(movie.getPosterPath())
+//                    .centerCrop()
+//                    .fit()
+//                    .error(R.drawable.tmdb_placeholder)
+//                    .into(holder.posterImageView);
+            holder.layout.setVisibility(View.VISIBLE);
+            holder.tvTitle.setText(movie.getTitle());
         } else {
             Picasso.with(context)
                     .load(RetrofitAPI.POSTER_BASE_URL_SMALL + movie.getPosterPath())
@@ -75,6 +79,10 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
 
         @BindView(R.id.iv_poster)
         ImageView posterImageView;
+        @BindView(R.id.layout)
+        LinearLayout layout;
+        @BindView(R.id.tv_title)
+        TextView tvTitle;
 
         private MovieViewHolder(View itemView) {
             super(itemView);

@@ -11,8 +11,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
         app:cardUseCompatPadding="true"
-        app:cardCornerRadius="@dimen/margin_small"
-        app:cardElevation="@dimen/margin_small">
+        app:cardCornerRadius="@dimen/margin_tiny"
+        app:cardElevation="@dimen/margin_tiny">
 
         <ImageView
             android:id="@+id/iv_thumbnail_image"

@@ -2,18 +2,16 @@ package com.tothon.layarperak.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.Window;
 import android.view.WindowManager;
 
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.adapter.FullCastListAdapter;
-import com.tothon.layarperak.model.Cast;
+import com.tothon.layarperak.adapter.ReviewRecyclerViewAdapter;
 import com.tothon.layarperak.model.Movie;
+import com.tothon.layarperak.model.Review;
 
 import java.util.ArrayList;
 
@@ -21,49 +19,43 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
-public class SeeAllCastActivity extends AppCompatActivity {
+public class SeeAllReviewsActivity extends AppCompatActivity {
 
-    public static final String CAST_TAG = "cast";
+    public static final String REVIEW_TAG = "review";
 
+    private ArrayList<Review> reviews = new ArrayList<>();
     private Movie movie;
-    private ArrayList<Cast> casts = new ArrayList<>();
 
     @BindView(R.id.recyclerview)
-    RecyclerView castRecyclerView;
+    RecyclerView reviewRecyclerView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    FullCastListAdapter adapter;
+    ReviewRecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_see_all_cast);
+        setContentView(R.layout.activity_see_all_reviews);
         ButterKnife.bind(this);
 
-        casts = getIntent().getParcelableArrayListExtra(CAST_TAG);
+        reviews = getIntent().getParcelableArrayListExtra(REVIEW_TAG);
         movie = getIntent().getParcelableExtra("movie");
 
-        setupToolbar();
-
-        castRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
-                LinearLayoutManager.VERTICAL, false));
-        castRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
-                DividerItemDecoration.VERTICAL));
-        adapter = new FullCastListAdapter(getApplicationContext(), casts);
-        castRecyclerView.setAdapter(new ScaleInAnimationAdapter(adapter));
-    }
-
-    private void setupToolbar() {
-        toolbar.setTitle("All Cast");
+        toolbar.setTitle("Reviews");
         toolbar.setSubtitle(movie.getTitle() + " (" + movie.getDate().substring(0, 4) + ")");
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
+                LinearLayoutManager.VERTICAL, false));
+        adapter = new ReviewRecyclerViewAdapter(getApplicationContext(), reviews);
+        reviewRecyclerView.setAdapter(new ScaleInAnimationAdapter(adapter));
+
     }
 
     @Override

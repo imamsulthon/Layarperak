@@ -2,10 +2,7 @@ package com.tothon.layarperak.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +15,6 @@ import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.PersonDetailsActivity;
 import com.tothon.layarperak.config.Config;
-import com.tothon.layarperak.fragment.PosterDialogFragment;
 import com.tothon.layarperak.model.Cast;
 import com.tothon.layarperak.service.RetrofitAPI;
 
@@ -40,7 +36,7 @@ public class FullCastListAdapter extends RecyclerView.Adapter<FullCastListAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.rv_cast_item_landscape, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.rv_item_all_cast, parent, false);
         return new ViewHolder(view);
     }
 

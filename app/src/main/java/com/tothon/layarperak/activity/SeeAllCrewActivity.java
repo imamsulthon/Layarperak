@@ -10,9 +10,10 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.tothon.layarperak.adapter.FullCrewListAdapter;
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.adapter.FullCastListAdapter;
-import com.tothon.layarperak.model.Cast;
+import com.tothon.layarperak.model.Crew;
+import com.tothon.layarperak.model.DepartmentFactory;
 import com.tothon.layarperak.model.Movie;
 
 import java.util.ArrayList;
@@ -21,43 +22,44 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
-public class SeeAllCastActivity extends AppCompatActivity {
+public class SeeAllCrewActivity extends AppCompatActivity {
 
-    public static final String CAST_TAG = "cast";
+    public static final String CREW_TAG = "crew";
 
     private Movie movie;
-    private ArrayList<Cast> casts = new ArrayList<>();
+    private ArrayList<Crew> crews;
 
     @BindView(R.id.recyclerview)
-    RecyclerView castRecyclerView;
+    RecyclerView recyclerView;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
-    FullCastListAdapter adapter;
+    FullCrewListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_see_all_cast);
+        setContentView(R.layout.activity_see_all_crew);
         ButterKnife.bind(this);
 
-        casts = getIntent().getParcelableArrayListExtra(CAST_TAG);
         movie = getIntent().getParcelableExtra("movie");
+        crews = getIntent().getParcelableArrayListExtra(CREW_TAG);
 
         setupToolbar();
 
-        castRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false));
-        castRecyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
+        recyclerView.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
                 DividerItemDecoration.VERTICAL));
-        adapter = new FullCastListAdapter(getApplicationContext(), casts);
-        castRecyclerView.setAdapter(new ScaleInAnimationAdapter(adapter));
+        adapter = new FullCrewListAdapter(this, DepartmentFactory.getAllDepartment(crews));
+        recyclerView.setAdapter(new ScaleInAnimationAdapter(adapter));
+
     }
 
     private void setupToolbar() {
-        toolbar.setTitle("All Cast");
+        toolbar.setTitle("All Crews");
         toolbar.setSubtitle(movie.getTitle() + " (" + movie.getDate().substring(0, 4) + ")");
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -75,4 +77,5 @@ public class SeeAllCastActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

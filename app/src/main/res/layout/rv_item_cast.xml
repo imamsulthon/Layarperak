@@ -7,7 +7,7 @@
     android:layout_height="170dp"
     android:layout_margin="@dimen/margin_small"
     app:cardCornerRadius="@dimen/margin_small"
-    app:cardBackgroundColor="@color/colorPrimaryLight"
+    app:cardBackgroundColor="@color/colorPrimary"
     app:cardElevation="@dimen/margin_small">
 
     <RelativeLayout
@@ -19,7 +19,8 @@
             android:id="@+id/iv_profile"
             android:layout_width="100dp"
             android:layout_height="170dp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerCrop"
+            android:src="@drawable/tmdb_placeholder"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -36,8 +37,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/metrophobic"
                 android:layout_above="@id/tv_character"
+                android:textColor="@color/titlePrimaryTextColor"
                 android:gravity="start"
-                android:textColor="#FFF"
                 android:textSize="@dimen/text_size_small"
                 android:textStyle="bold"
                 android:maxLines="2"
@@ -50,7 +51,7 @@
                 android:fontFamily="@font/metrophobic"
                 android:layout_alignParentBottom="true"
                 android:gravity="start"
-                android:textColor="#FFF"
+                android:textColor="@color/titleTertiaryTextColor"
                 android:textSize="@dimen/text_size_tiny"
                 android:maxLines="2"
                 android:textStyle="italic"

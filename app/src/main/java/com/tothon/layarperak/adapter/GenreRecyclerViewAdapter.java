@@ -15,9 +15,6 @@ import com.tothon.layarperak.model.Genre;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class GenreRecyclerViewAdapter extends RecyclerView.Adapter<GenreRecyclerViewAdapter.GenreViewHolder> {
 
     private Context context;
@@ -31,7 +28,7 @@ public class GenreRecyclerViewAdapter extends RecyclerView.Adapter<GenreRecycler
     @NonNull
     @Override
     public GenreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.rv_genre_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.rv_item_genre, parent, false);
         return new GenreViewHolder(view);
     }
 

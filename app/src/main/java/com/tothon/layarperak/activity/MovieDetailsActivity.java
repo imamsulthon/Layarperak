@@ -76,6 +76,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ArrayList<Trailer> trailerArrayList = new ArrayList<>();
     private ArrayList<Backdrop> imageArrayList = new ArrayList<>();
     private ArrayList<Review> reviewArrayList = new ArrayList<>();
+    private ArrayList<Review> allReviews = new ArrayList<>();
     private ArrayList<Movie> similarMovieList = new ArrayList<>();
 
     private Person director = null;
@@ -107,6 +108,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rv_similar_movies) RecyclerView recyclerViewSimilarMovies;
     @BindView(R.id.see_all_cast) TextView seeAllCast;
     @BindView(R.id.see_all_crew) TextView seeAllCrew;
+    @BindView(R.id.see_all_reviews) TextView seeAllReviews;
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
     @BindView(R.id.iv_homepage) ImageView icHomepage;
@@ -347,6 +349,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     seeAllCast.setOnClickListener(item -> {
                         Intent intent = new Intent(MovieDetailsActivity.this, SeeAllCastActivity.class);
                         intent.putExtra(SeeAllCastActivity.CAST_TAG, castArrayList);
+                        intent.putExtra("movie", movie);
                         startActivity(intent);
                     });
                 }
@@ -354,6 +357,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     crewArrayList.addAll(creditResponse.getCrew());
                     crewRecyclerViewAdapter.notifyDataSetChanged();
                     setDirector(crewArrayList);
+                    seeAllCrew.setOnClickListener(item -> {
+                        Intent intent = new Intent(MovieDetailsActivity.this, SeeAllCrewActivity.class);
+                        intent.putExtra("movie", movie);
+                        intent.putExtra(SeeAllCrewActivity.CREW_TAG, crewArrayList);
+                        startActivity(intent);
+                    });
                 }
             }
 
@@ -407,8 +416,22 @@ public class MovieDetailsActivity extends AppCompatActivity {
             public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
                 ReviewsResponse reviewsResponse = response.body();
                 if (reviewsResponse != null && reviewsResponse.getResults().size() != 0) {
-                    reviewArrayList.addAll(reviewsResponse.getResults());
+                    if (reviewsResponse.getResults().size() < 3) {
+                        reviewArrayList.addAll(reviewsResponse.getResults());
+                    } else {
+                        for (int i = 0; i < 3; i++) {
+                            reviewArrayList.add(reviewsResponse.getResults().get(i));
+                        }
+                    }
+                    allReviews.addAll(reviewsResponse.getResults());
                     reviewRecyclerViewAdapter.notifyDataSetChanged();
+                    seeAllReviews.setVisibility(View.VISIBLE);
+                    seeAllReviews.setOnClickListener(item -> {
+                        Intent intent = new Intent(MovieDetailsActivity.this, SeeAllReviewsActivity.class);
+                        intent.putExtra(SeeAllReviewsActivity.REVIEW_TAG, allReviews);
+                        intent.putExtra("movie", movie);
+                        startActivity(intent);
+                    });
                 }
             }
 
