@@ -1,4 +1,4 @@
-package com.tothon.layarperak.fragment;
+package com.tothon.layarperak.fragment.support;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

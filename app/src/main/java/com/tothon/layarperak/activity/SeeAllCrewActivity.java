@@ -14,7 +14,6 @@ import com.tothon.layarperak.adapter.FullCrewListAdapter;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.model.Crew;
 import com.tothon.layarperak.model.DepartmentFactory;
-import com.tothon.layarperak.model.Movie;
 
 import java.util.ArrayList;
 
@@ -24,10 +23,10 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class SeeAllCrewActivity extends AppCompatActivity {
 
-    public static final String CREW_TAG = "crew";
+    public static final String TAG = "crew";
 
-    private Movie movie;
     private ArrayList<Crew> crews;
+    private String subTitle;
 
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
@@ -44,8 +43,8 @@ public class SeeAllCrewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_see_all_crew);
         ButterKnife.bind(this);
 
-        movie = getIntent().getParcelableExtra("movie");
-        crews = getIntent().getParcelableArrayListExtra(CREW_TAG);
+        crews = getIntent().getParcelableArrayListExtra(TAG);
+        subTitle = getIntent().getStringExtra("subtitle");
 
         setupToolbar();
 
@@ -60,7 +59,7 @@ public class SeeAllCrewActivity extends AppCompatActivity {
 
     private void setupToolbar() {
         toolbar.setTitle("All Crews");
-        toolbar.setSubtitle(movie.getTitle() + " (" + movie.getDate().substring(0, 4) + ")");
+        toolbar.setSubtitle(subTitle);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

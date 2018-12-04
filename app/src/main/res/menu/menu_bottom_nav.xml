@@ -7,35 +7,35 @@
         android:id="@+id/menu_home"
         android:enabled="true"
         android:title="Popular"
+        android:icon="@drawable/window"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_movies"
+        android:enabled="true"
+        android:title="Movies"
         android:icon="@drawable/film"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/menu_television"
+        android:enabled="true"
+        android:title="Television"
+        android:icon="@drawable/television"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_search"
         android:enabled="true"
         android:title="Search"
-        android:icon="@drawable/ic_search"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/menu_favorites"
-        android:enabled="true"
-        android:title="Favorites"
-        android:icon="@drawable/love"
-        app:showAsAction="ifRoom"/>
-
-    <item
-        android:id="@+id/menu_watchlist"
-        android:enabled="true"
-        android:title="Watchlist"
-        android:icon="@drawable/ic_add"
+        android:icon="@drawable/binocular"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/menu_profile"
         android:enabled="true"
         android:title="Profile"
-        android:icon="@drawable/ic_view"
+        android:icon="@drawable/user"
         app:showAsAction="ifRoom"/>
 
 </menu>

@@ -38,7 +38,7 @@ import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.Trailer;
 import com.tothon.layarperak.model.response.TrailerResponse;
 import com.tothon.layarperak.service.NetworkUtils;
-import com.tothon.layarperak.fragment.PosterDialogFragment;
+import com.tothon.layarperak.fragment.support.PosterDialogFragment;
 import com.tothon.layarperak.model.Backdrop;
 import com.tothon.layarperak.model.Cast;
 import com.tothon.layarperak.model.Crew;
@@ -348,8 +348,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     castRecyclerViewAdapter.notifyDataSetChanged();
                     seeAllCast.setOnClickListener(item -> {
                         Intent intent = new Intent(MovieDetailsActivity.this, SeeAllCastActivity.class);
-                        intent.putExtra(SeeAllCastActivity.CAST_TAG, castArrayList);
-                        intent.putExtra("movie", movie);
+                        intent.putExtra(SeeAllCastActivity.TAG, castArrayList);
+                        String subtitle = movie.getTitle() + " (" + movie.getDate().substring(0, 4) + ")";
+                        intent.putExtra("subtitle", subtitle);
                         startActivity(intent);
                     });
                 }
@@ -359,8 +360,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     setDirector(crewArrayList);
                     seeAllCrew.setOnClickListener(item -> {
                         Intent intent = new Intent(MovieDetailsActivity.this, SeeAllCrewActivity.class);
-                        intent.putExtra("movie", movie);
-                        intent.putExtra(SeeAllCrewActivity.CREW_TAG, crewArrayList);
+                        String subtitle = movie.getTitle() + " (" + movie.getDate().substring(0, 4) + ")";
+                        intent.putExtra("subtitle", subtitle);
+                        intent.putExtra(SeeAllCrewActivity.TAG, crewArrayList);
                         startActivity(intent);
                     });
                 }
@@ -390,7 +392,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void fetchTrailer() {
         RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
-        Call<TrailerResponse> call = retrofitAPI.getTrailers(movie.getId(), TMDB_API_KEY, "en-US");
+        Call<TrailerResponse> call = retrofitAPI.getTrailers(KEY, movie.getId(), TMDB_API_KEY, "en-US");
         call.enqueue(new Callback<TrailerResponse>() {
             @Override
             public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
@@ -410,7 +412,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     private void fetchReviews() {
         RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
-        Call<ReviewsResponse> reviewsResponseCall = retrofitAPI.getReviews(movie.getId(), TMDB_API_KEY, "en-US");
+        Call<ReviewsResponse> reviewsResponseCall = retrofitAPI.getReviews(KEY, movie.getId(), TMDB_API_KEY, "en-US");
         reviewsResponseCall.enqueue(new Callback<ReviewsResponse>() {
             @Override
             public void onResponse(Call<ReviewsResponse> call, Response<ReviewsResponse> response) {
@@ -429,12 +431,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     seeAllReviews.setOnClickListener(item -> {
                         Intent intent = new Intent(MovieDetailsActivity.this, SeeAllReviewsActivity.class);
                         intent.putExtra(SeeAllReviewsActivity.REVIEW_TAG, allReviews);
-                        intent.putExtra("movie", movie);
+                        String subtitle = movie.getTitle() + " (" + movie.getDate().substring(0,4) + ")";
+                        intent.putExtra("subtitle", subtitle);
                         startActivity(intent);
                     });
                 }
             }
-
             @Override
             public void onFailure(Call<ReviewsResponse> call, Throwable t) {
 
@@ -464,7 +466,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     }
                 }
             }
-
             @Override
             public void onFailure(Call<ImagesResponse> call, Throwable t) {
 

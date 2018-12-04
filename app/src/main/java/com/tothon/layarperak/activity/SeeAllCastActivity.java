@@ -23,10 +23,11 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
 public class SeeAllCastActivity extends AppCompatActivity {
 
-    public static final String CAST_TAG = "cast";
+    public static final String TAG = SeeAllCastActivity.class.getSimpleName();
 
-    private Movie movie;
     private ArrayList<Cast> casts = new ArrayList<>();
+
+    private String subTitle;
 
     @BindView(R.id.recyclerview)
     RecyclerView castRecyclerView;
@@ -43,8 +44,8 @@ public class SeeAllCastActivity extends AppCompatActivity {
         setContentView(R.layout.activity_see_all_cast);
         ButterKnife.bind(this);
 
-        casts = getIntent().getParcelableArrayListExtra(CAST_TAG);
-        movie = getIntent().getParcelableExtra("movie");
+        casts = getIntent().getParcelableArrayListExtra(TAG);
+        subTitle = getIntent().getStringExtra("subtitle");
 
         setupToolbar();
 
@@ -58,7 +59,7 @@ public class SeeAllCastActivity extends AppCompatActivity {
 
     private void setupToolbar() {
         toolbar.setTitle("All Cast");
-        toolbar.setSubtitle(movie.getTitle() + " (" + movie.getDate().substring(0, 4) + ")");
+        toolbar.setSubtitle(subTitle);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

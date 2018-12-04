@@ -25,6 +25,7 @@ public class SeeAllReviewsActivity extends AppCompatActivity {
 
     private ArrayList<Review> reviews = new ArrayList<>();
     private Movie movie;
+    private String subTitle;
 
     @BindView(R.id.recyclerview)
     RecyclerView reviewRecyclerView;
@@ -41,21 +42,24 @@ public class SeeAllReviewsActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         reviews = getIntent().getParcelableArrayListExtra(REVIEW_TAG);
-        movie = getIntent().getParcelableExtra("movie");
+        subTitle = getIntent().getStringExtra("subtitle");
 
-        toolbar.setTitle("Reviews");
-        toolbar.setSubtitle(movie.getTitle() + " (" + movie.getDate().substring(0, 4) + ")");
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
+        setupToolbar();
 
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.VERTICAL, false));
         adapter = new ReviewRecyclerViewAdapter(getApplicationContext(), reviews);
         reviewRecyclerView.setAdapter(new ScaleInAnimationAdapter(adapter));
 
+    }
+    private void setupToolbar() {
+        toolbar.setTitle("All Crews");
+        toolbar.setSubtitle(subTitle);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
     }
 
     @Override

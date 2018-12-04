@@ -41,7 +41,8 @@
         <activity android:name=".activity.SeeMorePeopleActivity" />
         <activity android:name=".activity.SeeAllCastActivity" />
         <activity android:name=".activity.SeeAllReviewsActivity" />
-        <activity android:name=".activity.SeeAllCrewActivity"></activity>
+        <activity android:name=".activity.SeeAllCrewActivity" />
+        <activity android:name=".activity.TelevisionDetailsActivity"></activity>
     </application>
 
 </manifest>

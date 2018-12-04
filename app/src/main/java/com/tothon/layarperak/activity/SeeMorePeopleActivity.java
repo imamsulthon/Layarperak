@@ -32,7 +32,9 @@ import retrofit2.Response;
 
 public class SeeMorePeopleActivity extends AppCompatActivity {
 
+    public static final String TAG = "key";
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
+    private String type;
 
     PersonAdapter adapter;
 
@@ -59,6 +61,8 @@ public class SeeMorePeopleActivity extends AppCompatActivity {
         setContentView(R.layout.activity_see_more_people);
         ButterKnife.bind(this);
 
+        type = getIntent().getStringExtra(TAG);
+
         layoutManager = new GridLayoutManager(this, 4);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new PersonAdapter(getApplicationContext(), peoples);
@@ -69,37 +73,56 @@ public class SeeMorePeopleActivity extends AppCompatActivity {
             handler.removeCallbacks(runnable);
         }
 
-        getPersonList();
+        getPersonList(type);
         pagination();
     }
 
-    private void getPersonList() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
-        Call<PeopleResponse> personResponseCall = null;
-        personResponseCall = retrofitAPI.getPopularPerson(TMDB_API_KEY, pageIndex);
-        personResponseCall.enqueue(new Callback<PeopleResponse>() {
-            @Override
-            public void onResponse(Call<PeopleResponse> call, Response<PeopleResponse> response) {
-                PeopleResponse peopleResponse = response.body();
-                if (peopleResponse != null) {
-                    pageIndex++;
-                    if (pageIndex >= 2) {
-                        peoplesNextPage = peopleResponse.getResults();
-                        peoples.addAll(peoplesNextPage);
-                        adapter.notifyDataSetChanged();
-                        recyclerView.scrollToPosition(pastVisiblesItems);
-                    } else {
-                        peoples = peopleResponse.getResults();
-                        adapter.notifyDataSetChanged();
-                    }
-                }
-            }
+    private void getPersonList(String type) {
 
-            @Override
-            public void onFailure(Call<PeopleResponse> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Error getting people list" , Toast.LENGTH_LONG).show();
-            }
-        });
+        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        switch (type) {
+            case "trending":
+                Call<PeopleResponse> peopleResponseCall = retrofitAPI.getTrendingPeople(type, TMDB_API_KEY);
+                peopleResponseCall.enqueue(new Callback<PeopleResponse>() {
+                    @Override
+                    public void onResponse(Call<PeopleResponse> call, Response<PeopleResponse> response) {
+                        PeopleResponse peopleResponse = response.body();
+                        if (peopleResponse != null) {
+                            peoples.addAll(peopleResponse.getResults());
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<PeopleResponse> call, Throwable t) {
+                    }
+                });
+                break;
+            case "popular":
+                Call<PeopleResponse> personResponseCall = retrofitAPI.getPopularPerson(TMDB_API_KEY, pageIndex);
+                personResponseCall.enqueue(new Callback<PeopleResponse>() {
+                    @Override
+                    public void onResponse(Call<PeopleResponse> call, Response<PeopleResponse> response) {
+                        PeopleResponse peopleResponse = response.body();
+                        if (peopleResponse != null) {
+                            pageIndex++;
+                            if (pageIndex >= 2) {
+                                peoplesNextPage = peopleResponse.getResults();
+                                peoples.addAll(peoplesNextPage);
+                                adapter.notifyDataSetChanged();
+                                recyclerView.scrollToPosition(pastVisiblesItems);
+                            } else {
+                                peoples = peopleResponse.getResults();
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<PeopleResponse> call, Throwable t) {
+                        Toast.makeText(getApplicationContext(), "Error getting people list" , Toast.LENGTH_LONG).show();
+                    }
+                });
+                break;
+        }
     }
 
     private void pagination() {
@@ -130,7 +153,7 @@ public class SeeMorePeopleActivity extends AppCompatActivity {
         loadingBar.setVisibility(View.VISIBLE);
         handler = new Handler();
         runnable = () -> {
-            getPersonList();
+            getPersonList(type);
             loadingBar.setVisibility(View.GONE);
         };
         handler.postDelayed(runnable, 2000);

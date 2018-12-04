@@ -131,7 +131,7 @@ public class HomeFragment extends Fragment {
         });
 
         morePeople.setOnClickListener(item -> {
-            seeMorePeopleList();
+            seeMorePeopleList("popular");
         });
 
     }
@@ -231,8 +231,9 @@ public class HomeFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void seeMorePeopleList() {
+    private void seeMorePeopleList(String type) {
         Intent intent = new Intent(getActivity(), SeeMorePeopleActivity.class);
+        intent.putExtra(SeeMorePeopleActivity.TAG, "popular");
         startActivity(intent);
     }
 }

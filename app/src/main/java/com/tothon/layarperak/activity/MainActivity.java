@@ -12,6 +12,9 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import com.tothon.layarperak.R;
+import com.tothon.layarperak.fragment.MoviesFragment;
+import com.tothon.layarperak.fragment.TelevisionFragment;
+import com.tothon.layarperak.fragment.TrendingFragment;
 import com.tothon.layarperak.fragment.WatchlistFragment;
 import com.tothon.layarperak.fragment.FavoriteFragment;
 import com.tothon.layarperak.fragment.HomeFragment;
@@ -29,10 +32,10 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
 
     Fragment selectedFragment;
-    HomeFragment homeFragment;
+    TrendingFragment trendingFragment;
+    MoviesFragment moviesFragment;
+    TelevisionFragment televisionFragment;
     SearchFragment searchFragment;
-    FavoriteFragment favoriteFragment;
-    WatchlistFragment watchlistFragment;
     ProfileFragment profileFragment;
     FragmentManager fragmentManager;
 
@@ -44,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        selectedFragment = new HomeFragment();
-        homeFragment = new HomeFragment();
+        trendingFragment = new TrendingFragment();
+        moviesFragment = new MoviesFragment();
+        televisionFragment = new TelevisionFragment();
         searchFragment = new SearchFragment();
-        favoriteFragment = new FavoriteFragment();
-        watchlistFragment = new WatchlistFragment();
         profileFragment = new ProfileFragment();
+        selectedFragment = trendingFragment;
 
         fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.frame_container, selectedFragment).commit();
@@ -63,22 +66,22 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.menu_home:
-                    selectedFragment = homeFragment;
+                    selectedFragment = trendingFragment;
+                    break;
+                case R.id.menu_movies:
+                    selectedFragment = moviesFragment;
+                    break;
+                case R.id.menu_television:
+                    selectedFragment = televisionFragment;
                     break;
                 case R.id.menu_search:
                     selectedFragment = searchFragment;
-                    break;
-                case R.id.menu_favorites:
-                    selectedFragment = favoriteFragment;
-                    break;
-                case R.id.menu_watchlist:
-                    selectedFragment = watchlistFragment;
                     break;
                 case R.id.menu_profile:
                     selectedFragment = profileFragment;
                     break;
                 default:
-                    selectedFragment = homeFragment;
+                    selectedFragment = trendingFragment;
                     break;
             }
             return loadFragment(selectedFragment);

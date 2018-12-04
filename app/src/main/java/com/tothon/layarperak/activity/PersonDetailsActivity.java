@@ -25,7 +25,7 @@ import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.config.Config;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.config.Utils;
-import com.tothon.layarperak.fragment.PosterDialogFragment;
+import com.tothon.layarperak.fragment.support.PosterDialogFragment;
 import com.tothon.layarperak.model.Backdrop;
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.Person;

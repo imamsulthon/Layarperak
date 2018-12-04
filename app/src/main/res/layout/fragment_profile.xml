@@ -44,7 +44,7 @@
                     <!--custom:pager_animation_span="1100" />-->
 
                 <!--<ImageView-->
-                    <!--android:id="@+id/backdrop"-->
+                    <!--android:id="@+id/backdropPath"-->
                     <!--android:layout_width="match_parent"-->
                     <!--android:layout_height="100dp"-->
                     <!--android:layout_alignParentBottom="true"/>-->

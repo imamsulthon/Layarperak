@@ -8,6 +8,11 @@
     <dimen name="margin_xxlarge">20dp</dimen>
     <dimen name="margin_xxxlarge">24dp</dimen>
 
+    <dimen name="item_height_xlarge">200dp</dimen>
+    <dimen name="item_height_large">180dp</dimen>
+    <dimen name="item_heigth_medium">150dp</dimen>
+    <dimen name="item_heigth_small">100dp</dimen>
+
     <dimen name="text_size_tiny">10sp</dimen>
     <dimen name="text_size_small">12sp</dimen>
     <dimen name="text_size_medium">14sp</dimen>
@@ -15,4 +20,5 @@
     <dimen name="text_size_xlarge">18sp</dimen>
     <dimen name="text_size_xxlarge">20sp</dimen>
     <dimen name="text_size_xxxlarge">28sp</dimen>
+
 </resources>

@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.config.Config;
 import com.tothon.layarperak.config.Constants;
-import com.tothon.layarperak.fragment.YoutubeDialogFragment;
+import com.tothon.layarperak.fragment.support.YoutubeDialogFragment;
 import com.tothon.layarperak.model.Trailer;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.tothon.layarperak.fragment.YoutubeDialogFragment.TAG_YOUTUBE_FRAGMENT;
+import static com.tothon.layarperak.fragment.support.YoutubeDialogFragment.TAG_YOUTUBE_FRAGMENT;
 
 public class TrailerRecyclerViewAdapter extends RecyclerView.Adapter<TrailerRecyclerViewAdapter.TrailerViewHolder> {
 

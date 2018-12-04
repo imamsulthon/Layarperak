@@ -2,12 +2,14 @@ package com.tothon.layarperak.service;
 
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.Person;
+import com.tothon.layarperak.model.Television;
 import com.tothon.layarperak.model.response.CreditResponse;
 import com.tothon.layarperak.model.response.ImagesResponse;
 import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.model.response.PeopleResponse;
 import com.tothon.layarperak.model.response.PersonMoviesResponse;
 import com.tothon.layarperak.model.response.ReviewsResponse;
+import com.tothon.layarperak.model.response.TelevisionResponse;
 import com.tothon.layarperak.model.response.TrailerResponse;
 
 import retrofit2.Call;
@@ -32,21 +34,6 @@ public interface RetrofitAPI {
              @Query("language") String LANGUAGE,
              @Query("page") int PAGE);
 
-//    @GET("ic_search/movie")
-//    Call<TMDBResponse> searchMovies(@Query("api_key") String API_KEY, @Query("language") String LANGUAGE, @Query("page") int PAGE, @Query("query") String QUERY);
-
-    @GET("movie/{movie_id}/videos")
-    Call<TrailerResponse> getTrailers(
-            @Path("movie_id") int MOVIE_ID,
-            @Query("api_key") String API_KEY,
-            @Query("language") String LANGUAGE);
-
-    @GET("movie/{movie_id}/reviews")
-    Call<ReviewsResponse> getReviews
-            (@Path("movie_id") int MOVIE_ID,
-             @Query("api_key") String API_KEY,
-             @Query("language") String LANGUAGE);
-
     @GET("movie/{movie_id}/credits")
     Call<CreditResponse> getCredits
             (@Path("movie_id") int MOVIE_ID,
@@ -62,15 +49,6 @@ public interface RetrofitAPI {
     Call<MovieResponse> getSimilarMovies
             (@Path("movie_id") int MOVIE_ID,
              @Query("api_key") String API_KEY);
-
-    @GET("{type}/{id}/images")
-    Call<ImagesResponse> getImages
-            (@Path("type") String type,
-             @Path("id") int id,
-             @Query("api_key") String API_KEY);
-
-//    @GET("trending/{media_type}/{time_window}")
-//    Call<TMDBResponse> getTrending(@Path("media_type") String mediaType, @Path("time_window") String time_window, @Query("api_key") String API_KEY);
 
     @GET("person/popular")
     Call<PeopleResponse> getPopularPerson
@@ -91,5 +69,58 @@ public interface RetrofitAPI {
     Call<ImagesResponse> getPersonImages
             (@Path("person_id") int PERSON_ID,
              @Query("api_key") String API_KEY);
+
+    @GET("trending/movie/{time_window}")
+    Call<MovieResponse> getTrendingMovies
+            (@Path("time_window") String timeWindow,
+             @Query("api_key") String API_KEY);
+
+    @GET("trending/tv/{time_window}")
+    Call<TelevisionResponse> getTrendingTelevision
+            (@Path("time_window") String timeWindow,
+             @Query("api_key") String api_key);
+
+    @GET("trending/person/{time_window}")
+    Call<PeopleResponse> getTrendingPeople
+            (@Path("time_window") String timeWindow,
+             @Query("api_key") String api_key);
+
+    @GET("tv/{tv_id}")
+    Call<Television> getTelevisionDetails
+            (@Path("tv_id") int TV_ID,
+             @Query("api_key") String api_key);
+
+    @GET("tv/{type}")
+    Call<TelevisionResponse> getTelevision
+            (@Path("type") String type,
+             @Query("api_key") String api_key,
+             @Query("page") int page);
+
+    @GET("tv/{tv_id}/similar")
+    Call<TelevisionResponse> getSimilarTelevision
+            (@Path("tv_id") int id,
+             @Query("api_key") String api_key);
+
+    // region Media
+    @GET("{type}/{id}/images")
+    Call<ImagesResponse> getImages
+            (@Path("type") String type,
+             @Path("id") int id,
+             @Query("api_key") String api_key);
+
+    @GET("{type}/{id}/videos")
+    Call<TrailerResponse> getTrailers(
+            @Path("type") String type,
+            @Path("id") int id,
+            @Query("api_key") String api_key,
+            @Query("language") String language);
+
+    @GET("{type}/{id}/reviews")
+    Call<ReviewsResponse> getReviews
+            (@Path("type") String type,
+             @Path("id") int id,
+             @Query("api_key") String api_key,
+             @Query("language") String language);
+    //endregion
 
 }
