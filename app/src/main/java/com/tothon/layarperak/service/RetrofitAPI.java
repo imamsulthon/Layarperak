@@ -123,4 +123,8 @@ public interface RetrofitAPI {
              @Query("language") String language);
     //endregion
 
+    @GET("search/movie")
+    Call<MovieResponse> getMovieSearch
+            (@Query("query") String query,
+             @Query("api_key") String api_key);
 }
