@@ -24,7 +24,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/iv_thumbnail"
-            android:layout_margin="@dimen/margin_medium"
+            android:layout_toLeftOf="@id/iv_category"
+            android:layout_margin="@dimen/margin_small"
             android:orientation="vertical">
 
             <TextView
@@ -41,7 +42,6 @@
                 android:id="@+id/tv_year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="2010"
                 android:textSize="@dimen/text_size_medium" />
 
             <TextView
@@ -51,10 +51,22 @@
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/lorem_ipsum"
                 android:textColor="@color/titleSecondaryTextColor"
-                android:maxLines="3"
+                android:maxLines="4"
                 android:textSize="@dimen/text_size_small"/>
 
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_category"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:padding="@dimen/margin_small"
+            android:src="@drawable/television"
+            android:background="@color/colorAccentGreen"
+            android:visibility="invisible"/>
 
     </RelativeLayout>
 

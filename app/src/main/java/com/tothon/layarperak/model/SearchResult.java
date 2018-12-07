@@ -18,15 +18,13 @@ public class SearchResult {
     @SerializedName("overview") private String overview;
     @SerializedName("known_for") private ArrayList<Movie> knownFor;
 
+    @SerializedName("vote_count") private int voteCount;
+    @SerializedName("vote_average") private Double rating;
+
     @SerializedName("poster_path") private String posterPath;
     @SerializedName("profile_path") private String profilePath;
 
     public SearchResult() {
-    }
-
-    public SearchResult(int id, String mediaType) {
-        this.id = id;
-        this.mediaType = mediaType;
     }
 
     public int getId() {
@@ -83,6 +81,22 @@ public class SearchResult {
 
     public void setOverview(String overview) {
         this.overview = overview;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
+    }
+
+    public Double getRating() {
+        return rating;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 
     public ArrayList<Movie> getKnownFor() {

@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.activity.SeeMoreMoviesActivity;
-import com.tothon.layarperak.activity.SeeMorePeopleActivity;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.PersonAdapter;
 import com.tothon.layarperak.adapter.TelevisionAdapter;

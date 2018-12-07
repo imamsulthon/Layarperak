@@ -53,7 +53,7 @@ public class SeeAllReviewsActivity extends AppCompatActivity {
 
     }
     private void setupToolbar() {
-        toolbar.setTitle("All Crews");
+        toolbar.setTitle("All Reviews");
         toolbar.setSubtitle(subTitle);
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {

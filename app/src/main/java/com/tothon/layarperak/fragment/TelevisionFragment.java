@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.activity.SeeMoreMoviesActivity;
+import com.tothon.layarperak.activity.SeeMoreTelevisionActivity;
 import com.tothon.layarperak.adapter.TelevisionAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.model.Television;
@@ -78,15 +78,15 @@ public class TelevisionFragment extends Fragment {
         fetchAlltelevision();
 
         moreOnAir.setOnClickListener(item -> {
-            seeMoreMovieList("on_the_air");
+            seeMoreTelevisionList("on_the_air");
         });
 
         morePopular.setOnClickListener(item -> {
-            seeMoreMovieList("popular");
+            seeMoreTelevisionList("popular");
         });
 
         moreTopRated.setOnClickListener(item -> {
-            seeMoreMovieList("top_rated");
+            seeMoreTelevisionList("top_rated");
         });
     }
 
@@ -140,6 +140,9 @@ public class TelevisionFragment extends Fragment {
         });
     }
 
-    private void seeMoreMovieList(String type) {
+    private void seeMoreTelevisionList(String type) {
+        Intent intent = new Intent(getActivity(), SeeMoreTelevisionActivity.class);
+        intent.putExtra(SeeMoreTelevisionActivity.TELEVISION_TAG, type);
+        startActivity(intent);
     }
 }

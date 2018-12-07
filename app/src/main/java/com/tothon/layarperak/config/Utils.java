@@ -38,16 +38,7 @@ public class Utils {
             gender = "Unidentified";
         }
         String result = gender;
-        return gender;
+        return result;
     }
 
-    public static boolean isNetworkAvailable(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        if ((activeNetworkInfo != null) && (activeNetworkInfo.isConnected())) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

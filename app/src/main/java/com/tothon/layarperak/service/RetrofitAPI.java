@@ -9,6 +9,7 @@ import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.model.response.PeopleResponse;
 import com.tothon.layarperak.model.response.PersonMoviesResponse;
 import com.tothon.layarperak.model.response.ReviewsResponse;
+import com.tothon.layarperak.model.response.SearchResponse;
 import com.tothon.layarperak.model.response.TelevisionResponse;
 import com.tothon.layarperak.model.response.TrailerResponse;
 
@@ -127,4 +128,11 @@ public interface RetrofitAPI {
     Call<MovieResponse> getMovieSearch
             (@Query("query") String query,
              @Query("api_key") String api_key);
+
+    @GET("search/{media_type}")
+    Call<SearchResponse> getSearchResult
+            (@Path("media_type") String mediaType,
+             @Query("query") String query,
+             @Query("api_key") String apiKey);
+
 }

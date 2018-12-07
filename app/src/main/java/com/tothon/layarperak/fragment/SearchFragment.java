@@ -23,8 +23,8 @@ import android.widget.LinearLayout;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.SearchAdapter;
 import com.tothon.layarperak.config.Constants;
-import com.tothon.layarperak.model.Movie;
-import com.tothon.layarperak.model.response.MovieResponse;
+import com.tothon.layarperak.model.SearchResult;
+import com.tothon.layarperak.model.response.SearchResponse;
 import com.tothon.layarperak.service.NetworkUtils;
 import com.tothon.layarperak.service.RetrofitAPI;
 
@@ -48,7 +48,7 @@ public class SearchFragment extends Fragment {
     @BindView(R.id.clear_search) ImageView btnClear;
 
     Context context;
-    ArrayList<Movie> movieResults = new ArrayList<>();
+    ArrayList<SearchResult> searchResults = new ArrayList<>();
 
     SearchAdapter searchAdapter;
 
@@ -65,7 +65,7 @@ public class SearchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false));
-        searchAdapter = new SearchAdapter(context, movieResults);
+        searchAdapter = new SearchAdapter(context, searchResults);
         recyclerView.setAdapter(searchAdapter);
 
         editTextQuery.addTextChangedListener(new TextWatcher() {
@@ -115,25 +115,25 @@ public class SearchFragment extends Fragment {
     private void getResult(CharSequence charSequence) {
         String query = charSequence.toString();
         RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity()).create(RetrofitAPI.class);
-        Call<MovieResponse> resultResponseCall = retrofitAPI.getMovieSearch(query, TMDB_API_KEY);
-        resultResponseCall.enqueue(new Callback<MovieResponse>() {
+        Call<SearchResponse> searchResponseCall = retrofitAPI.getSearchResult("multi", query, TMDB_API_KEY);
+        searchResponseCall.enqueue(new Callback<SearchResponse>() {
             @Override
-            public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
-                MovieResponse movieResponse = response.body();
+            public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {
+                SearchResponse searchResponse = response.body();
                 try {
-                    if (movieResponse.getResults() != null) {
-                        movieResults.clear();
-                        movieResults = movieResponse.getResults();
+                    if (searchResponse != null) {
+                        searchResults.clear();
+                        searchResults = searchResponse.getResults();
                         recyclerView.setLayoutManager(new LinearLayoutManager(context,
                                 LinearLayoutManager.VERTICAL, false));
-                        recyclerView.setAdapter(new SearchAdapter(context, movieResults));
+                        recyclerView.setAdapter(new SearchAdapter(context, searchResults));
                     }
                 } catch (Exception e) {
                     Log.e("exception: ", e.toString());
                 }
             }
             @Override
-            public void onFailure(Call<MovieResponse> call, Throwable t) {
+            public void onFailure(Call<SearchResponse> call, Throwable t) {
                 Log.e("exception: ", t.toString());
             }
         });

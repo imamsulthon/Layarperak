@@ -54,6 +54,13 @@ public class Television implements Parcelable {
     public Television() {
     }
 
+    public Television(int id, String posterPath, String title, String firstAirDate) {
+        this.id = id;
+        this.posterPath = posterPath;
+        this.title = title;
+        this.firstAirDate = firstAirDate;
+    }
+
     public int getId() {
         return id;
     }
