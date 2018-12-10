@@ -43,7 +43,7 @@ import com.tothon.layarperak.model.response.ImagesResponse;
 import com.tothon.layarperak.model.response.ReviewsResponse;
 import com.tothon.layarperak.model.response.TelevisionResponse;
 import com.tothon.layarperak.model.response.TrailerResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -228,7 +228,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchMoreDetails() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<Television> televisionCall = retrofitAPI.getTelevisionDetails(television.getId(), TMDB_API_KEY);
         televisionCall.enqueue(new Callback<Television>() {
             @Override
@@ -288,7 +288,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchCredits() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         final Call<CreditResponse> call = retrofitAPI.getCredits(television.getId(), TMDB_API_KEY);
         call.enqueue(new Callback<CreditResponse>() {
             @Override
@@ -340,7 +340,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchReviews() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<ReviewsResponse> reviewsResponseCall = retrofitAPI.getReviews(KEY, television.getId(), TMDB_API_KEY, "en-US");
         reviewsResponseCall.enqueue(new Callback<ReviewsResponse>() {
             @Override
@@ -373,7 +373,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchTelevisionsImages() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<ImagesResponse> imagesResponseCall = retrofitAPI.getImages(KEY, television.getId(), TMDB_API_KEY);
         imagesResponseCall.enqueue(new Callback<ImagesResponse>() {
             @Override
@@ -400,7 +400,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchTrailer() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<TrailerResponse> call = retrofitAPI.getTrailers(KEY, television.getId(), TMDB_API_KEY, "en-US");
         call.enqueue(new Callback<TrailerResponse>() {
             @Override
@@ -418,7 +418,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchSimilarTelevision() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<TelevisionResponse> responseCall = retrofitAPI.getSimilarTelevision(television.getId(), TMDB_API_KEY);
         responseCall.enqueue(new Callback<TelevisionResponse>() {
             @Override

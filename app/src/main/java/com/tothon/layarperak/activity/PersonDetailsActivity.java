@@ -31,7 +31,7 @@ import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.response.ImagesResponse;
 import com.tothon.layarperak.model.response.PersonMoviesResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -138,7 +138,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     }
 
     private void getPersonDetails() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<Person> call = retrofitAPI.getPersonDetails(person.getId(), TMDB_API_KEY);
         call.enqueue(new Callback<Person>() {
             @Override
@@ -202,7 +202,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchPersonMovies() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<PersonMoviesResponse> call = retrofitAPI.getPersonCredits(person.getId(), TMDB_API_KEY);
         call.enqueue(new Callback<PersonMoviesResponse>() {
            @Override
@@ -227,7 +227,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchPersonsImages() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<ImagesResponse> imagesResponseCall = retrofitAPI.getImages("person", person.getId(),
                 TMDB_API_KEY);
         imagesResponseCall.enqueue(new Callback<ImagesResponse>() {

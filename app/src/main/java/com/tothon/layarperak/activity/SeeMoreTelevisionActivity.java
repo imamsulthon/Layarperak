@@ -18,7 +18,7 @@ import com.tothon.layarperak.adapter.TelevisionAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.model.Television;
 import com.tothon.layarperak.model.response.TelevisionResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -78,7 +78,7 @@ public class SeeMoreTelevisionActivity extends AppCompatActivity {
     }
 
     private void getMovieList(String type) {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<TelevisionResponse> televisionResponseCall = retrofitAPI.getTelevision(type, TMDB_API_KEY, pageIndex);
         televisionResponseCall.enqueue(new Callback<TelevisionResponse>() {
             @Override

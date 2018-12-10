@@ -40,14 +40,14 @@ public class FullCrewListAdapter extends ExpandableRecyclerViewAdapter<FullCrewL
 
     @Override
     public DepartmentViewHolder onCreateGroupViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_group_all_crew,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_all_crew_group,
                 parent, false);
         return new DepartmentViewHolder(view);
     }
 
     @Override
     public CrewViewHolder onCreateChildViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_child_all_crew,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.rv_item_all_crew_child,
                 parent, false);
         return new CrewViewHolder(view);
     }

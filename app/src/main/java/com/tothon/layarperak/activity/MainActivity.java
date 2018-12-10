@@ -15,9 +15,6 @@ import com.tothon.layarperak.R;
 import com.tothon.layarperak.fragment.MoviesFragment;
 import com.tothon.layarperak.fragment.TelevisionFragment;
 import com.tothon.layarperak.fragment.TrendingFragment;
-import com.tothon.layarperak.fragment.WatchlistFragment;
-import com.tothon.layarperak.fragment.FavoriteFragment;
-import com.tothon.layarperak.fragment.HomeFragment;
 import com.tothon.layarperak.fragment.ProfileFragment;
 import com.tothon.layarperak.fragment.SearchFragment;
 
@@ -32,12 +29,13 @@ public class MainActivity extends AppCompatActivity {
     FrameLayout frameLayout;
 
     Fragment selectedFragment;
+    FragmentManager fragmentManager;
+
     TrendingFragment trendingFragment;
     MoviesFragment moviesFragment;
     TelevisionFragment televisionFragment;
     SearchFragment searchFragment;
     ProfileFragment profileFragment;
-    FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

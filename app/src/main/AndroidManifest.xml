@@ -10,9 +10,9 @@
     <application
         android:name=".App"
         android:allowBackup="true"
-        android:icon="@mipmap/reel"
+        android:icon="@mipmap/ic_reel"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/reel"
+        android:roundIcon="@mipmap/ic_reel"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity

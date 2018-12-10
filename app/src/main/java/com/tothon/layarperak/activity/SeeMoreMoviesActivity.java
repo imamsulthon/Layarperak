@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.service.RetrofitAPI;
@@ -78,7 +78,7 @@ public class SeeMoreMoviesActivity extends AppCompatActivity {
     }
 
     private void getMovieList(String type) {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<MovieResponse> movieResponseCall = null;
         movieResponseCall = retrofitAPI.getMovies(type, TMDB_API_KEY, "en-US", pageIndex);
         movieResponseCall.enqueue(new Callback<MovieResponse>() {

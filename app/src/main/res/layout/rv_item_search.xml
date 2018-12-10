@@ -64,7 +64,7 @@
             android:layout_marginTop="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
             android:padding="@dimen/margin_small"
-            android:src="@drawable/television"
+            android:src="@drawable/ic_television"
             android:background="@color/colorAccentGreen"
             android:visibility="invisible"/>
 

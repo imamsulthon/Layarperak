@@ -25,7 +25,7 @@ import com.tothon.layarperak.adapter.SearchAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.model.SearchResult;
 import com.tothon.layarperak.model.response.SearchResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -38,8 +38,9 @@ import retrofit2.Response;
 
 public class SearchFragment extends Fragment {
 
-    public static final String TAG = SearchFragment.class.getSimpleName();
-    private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
+    private static final String API_KEY = Constants.TMDB_API_KEY;
+
+    ArrayList<SearchResult> searchResults = new ArrayList<>();
 
     @BindView(R.id.edit_query) EditText editTextQuery;
     @BindView(R.id.recyclerview_search) RecyclerView recyclerView;
@@ -48,8 +49,6 @@ public class SearchFragment extends Fragment {
     @BindView(R.id.clear_search) ImageView btnClear;
 
     Context context;
-    ArrayList<SearchResult> searchResults = new ArrayList<>();
-
     SearchAdapter searchAdapter;
 
     @Override
@@ -114,8 +113,8 @@ public class SearchFragment extends Fragment {
 
     private void getResult(CharSequence charSequence) {
         String query = charSequence.toString();
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity()).create(RetrofitAPI.class);
-        Call<SearchResponse> searchResponseCall = retrofitAPI.getSearchResult("multi", query, TMDB_API_KEY);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity()).create(RetrofitAPI.class);
+        Call<SearchResponse> searchResponseCall = retrofitAPI.getSearchResult("multi", query, API_KEY);
         searchResponseCall.enqueue(new Callback<SearchResponse>() {
             @Override
             public void onResponse(Call<SearchResponse> call, Response<SearchResponse> response) {

@@ -19,7 +19,7 @@ import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.response.MovieResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -33,18 +33,16 @@ import retrofit2.Response;
 
 public class MoviesFragment extends Fragment {
 
-    private static final String TMDB_API_TOKEN = Constants.TMDB_API_KEY;
+    private static final String API_KEY = Constants.TMDB_API_KEY;
 
+    ///region Model
     private ArrayList<Movie> popularMovieList = new ArrayList<>();
     private ArrayList<Movie> topRatedMovieList = new ArrayList<>();
     private ArrayList<Movie> upcomingMovieList = new ArrayList<>();
     private ArrayList<Movie> nowPlayingMovieList = new ArrayList<>();
+    //endregion
 
-    private MovieRecyclerViewAdapter popularMoviesAdapter;
-    private MovieRecyclerViewAdapter topRatedMoviesAdapter;
-    private MovieRecyclerViewAdapter upcomingMoviesAdapter;
-    private MovieRecyclerViewAdapter nowPlayingMoviesAdapter;
-
+    //region View
     @BindView(R.id.loading_indicator)
     ProgressBar progressBar;
     @BindView(R.id.rv_popular)
@@ -63,6 +61,14 @@ public class MoviesFragment extends Fragment {
     TextView moreTopRated;
     @BindView(R.id.see_more_upcoming)
     TextView moreUpcoming;
+    //endregion
+
+    //region Presenter
+    private MovieRecyclerViewAdapter popularMoviesAdapter;
+    private MovieRecyclerViewAdapter topRatedMoviesAdapter;
+    private MovieRecyclerViewAdapter upcomingMoviesAdapter;
+    private MovieRecyclerViewAdapter nowPlayingMoviesAdapter;
+    //endregion
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,10 +122,10 @@ public class MoviesFragment extends Fragment {
     }
 
     private void fetchAllMovies() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity().getApplicationContext())
                 .create(RetrofitAPI.class);
 
-        Call<MovieResponse> popularMoviesCall = retrofitAPI.getMovies("popular", TMDB_API_TOKEN, "en-US", 1);
+        Call<MovieResponse> popularMoviesCall = retrofitAPI.getMovies("popular", API_KEY, "en-US", 1);
         popularMoviesCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -135,7 +141,7 @@ public class MoviesFragment extends Fragment {
             }
         });
 
-        Call<MovieResponse> topRatedMoviesCall = retrofitAPI.getMovies("top_rated", TMDB_API_TOKEN, "en-US", 1);
+        Call<MovieResponse> topRatedMoviesCall = retrofitAPI.getMovies("top_rated", API_KEY, "en-US", 1);
         topRatedMoviesCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -150,7 +156,7 @@ public class MoviesFragment extends Fragment {
             }
         });
 
-        Call<MovieResponse> upcomingMoviesCall = retrofitAPI.getMovies("upcoming", TMDB_API_TOKEN, "en-US", 1);
+        Call<MovieResponse> upcomingMoviesCall = retrofitAPI.getMovies("upcoming", API_KEY, "en-US", 1);
         upcomingMoviesCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
@@ -165,7 +171,7 @@ public class MoviesFragment extends Fragment {
             }
         });
 
-        Call<MovieResponse> nowPlayingMoviesCall = retrofitAPI.getMovies("now_playing", TMDB_API_TOKEN, "en-US", 1);
+        Call<MovieResponse> nowPlayingMoviesCall = retrofitAPI.getMovies("now_playing", API_KEY, "en-US", 1);
         nowPlayingMoviesCall.enqueue(new Callback<MovieResponse>() {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {

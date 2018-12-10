@@ -12,7 +12,7 @@ import okhttp3.Request;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class NetworkUtils {
+public class ApiClient {
 
     public static Retrofit getCacheEnabledRetrofit(final Context context) {
         OkHttpClient okHttpClient = new OkHttpClient.Builder()

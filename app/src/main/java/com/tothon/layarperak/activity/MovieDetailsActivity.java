@@ -37,7 +37,7 @@ import com.tothon.layarperak.config.Utils;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.Trailer;
 import com.tothon.layarperak.model.response.TrailerResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.fragment.support.PosterDialogFragment;
 import com.tothon.layarperak.model.Backdrop;
 import com.tothon.layarperak.model.Cast;
@@ -252,7 +252,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchMoreDetails() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<Movie> movieCall = retrofitAPI.getDetails(movie.getId(), TMDB_API_KEY, "en-US");
         movieCall.enqueue(new Callback<Movie>() {
             @Override
@@ -331,13 +331,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
             }
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
-
             }
         });
     }
 
     private void fetchCredits() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         final Call<CreditResponse> call = retrofitAPI.getCredits(movie.getId(), TMDB_API_KEY);
         call.enqueue(new Callback<CreditResponse>() {
             @Override
@@ -367,10 +366,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     });
                 }
             }
-
             @Override
             public void onFailure(Call<CreditResponse> call, Throwable t) {
-
             }
         });
     }
@@ -391,7 +388,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchTrailer() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<TrailerResponse> call = retrofitAPI.getTrailers(KEY, movie.getId(), TMDB_API_KEY, "en-US");
         call.enqueue(new Callback<TrailerResponse>() {
             @Override
@@ -411,7 +408,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchReviews() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<ReviewsResponse> reviewsResponseCall = retrofitAPI.getReviews(KEY, movie.getId(), TMDB_API_KEY, "en-US");
         reviewsResponseCall.enqueue(new Callback<ReviewsResponse>() {
             @Override
@@ -435,6 +432,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         intent.putExtra("subtitle", subtitle);
                         startActivity(intent);
                     });
+                } else {
+                    seeAllReviews.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -445,7 +444,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchMoviesImage() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<ImagesResponse> imagesResponseCall = retrofitAPI.getImages("movie", movie.getId(),
                 TMDB_API_KEY);
         imagesResponseCall.enqueue(new Callback<ImagesResponse>() {
@@ -474,7 +473,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     }
 
     private void fetchSimilarMovies() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<MovieResponse> call = retrofitAPI.getSimilarMovies(movie.getId(), TMDB_API_KEY);
         call.enqueue(new Callback<MovieResponse>() {
             @Override

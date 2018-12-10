@@ -23,7 +23,7 @@ import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.response.PeopleResponse;
 import com.tothon.layarperak.service.RetrofitAPI;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.response.MovieResponse;
 
@@ -137,7 +137,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchAllMovies() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity().getApplicationContext())
                 .create(RetrofitAPI.class);
 
         Call<MovieResponse> popularMoviesCall = retrofitAPI.getMovies("popular", TMDB_API_TOKEN, "en-US", 1);
@@ -207,7 +207,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void fetchAllPopularPeoples() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity().getApplicationContext())
                 .create(RetrofitAPI.class);
         Call<PeopleResponse> call = retrofitAPI.getPopularPerson(TMDB_API_TOKEN, 1);
         call.enqueue(new Callback<PeopleResponse>() {

@@ -51,7 +51,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
 
         switch (object.getMediaType()) {
             case "movie":
-                holder.category.setImageResource(R.drawable.film);
+                holder.category.setImageResource(R.drawable.ic_film);
                 holder.category.setVisibility(View.VISIBLE);
                 Movie movie = new Movie();
                 movie.setId(object.getId());
@@ -80,7 +80,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 });
                 break;
             case "tv":
-                holder.category.setImageResource(R.drawable.television);
+                holder.category.setImageResource(R.drawable.ic_television);
                 holder.category.setVisibility(View.VISIBLE);
                 Television television = new Television();
                 television.setId(object.getId());
@@ -105,7 +105,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.ViewHolder
                 });
                 break;
             case "person":
-                holder.category.setImageResource(R.drawable.reputation);
+                holder.category.setImageResource(R.drawable.ic_reputation);
                 holder.category.setVisibility(View.VISIBLE);
                 Person person = new Person();
                 person.setId(object.getId());

@@ -1,6 +1,5 @@
 package com.tothon.layarperak.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
@@ -23,7 +21,7 @@ import com.tothon.layarperak.model.Television;
 import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.model.response.PeopleResponse;
 import com.tothon.layarperak.model.response.TelevisionResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -84,7 +82,7 @@ public class TrendingFragment extends Fragment {
     }
 
     private void fetchAllTrending(String type) {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity().getApplicationContext())
                 .create(RetrofitAPI.class);
 
         Call<MovieResponse> popularMoviesCall = retrofitAPI.getTrendingMovies(type, TMDB_API_TOKEN);
@@ -115,7 +113,6 @@ public class TrendingFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<TelevisionResponse> call, Throwable t) {
-
             }
         });
 
@@ -131,7 +128,6 @@ public class TrendingFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<PeopleResponse> call, Throwable t) {
-
             }
         });
     }

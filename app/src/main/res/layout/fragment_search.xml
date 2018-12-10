@@ -16,12 +16,12 @@
             android:id="@+id/edit_query"
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="@dimen/margin_xxxlarge"
             android:hint="Search..."
             android:imeOptions="actionSearch"
             android:inputType="text"
-            android:paddingLeft="10dp"
-            android:paddingRight="40dp"
+            android:paddingLeft="@dimen/margin_large"
+            android:paddingRight="@dimen/margin_large"
             android:textColor="@color/titlePrimaryTextColor"
             android:textColorHint="@color/titlePrimaryTextColor" />
 
@@ -30,7 +30,7 @@
             android:layout_height="24dp"
             android:padding="@dimen/margin_tiny"
             android:layout_centerVertical="true"
-            android:src="@drawable/search" />
+            android:src="@drawable/ic_search_white" />
 
         <ImageView
             android:id="@+id/clear_search"
@@ -50,7 +50,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:padding="20dp"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_marginBottom="130dp"
         android:orientation="vertical">
 
@@ -58,18 +58,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="You 're offline"
-            android:textSize="@dimen/margin_xxlarge"
-            android:textStyle="normal"
+            android:textSize="@dimen/text_size_medium"
             android:gravity="center"
-            android:textColor="#f2ffffff" />
+            android:textColor="@color/titlePrimaryTextColor" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Please connect to the internet and try again."
-            android:textSize="@dimen/text_size_large"
-            android:textColor="#aeffffff" />
+            android:textSize="@dimen/text_size_medium"
+            android:textColor="@color/titlePrimaryTextColor" />
 
     </LinearLayout>
 
@@ -85,7 +84,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Find your favorite movies, tv series and celebrities"
-            android:textSize="@dimen/text_size_xlarge"
+            android:textSize="@dimen/text_size_medium"
             android:layout_margin="@dimen/margin_large"
             android:textAlignment="center"
             android:textColor="@color/titlePrimaryTextColor" />

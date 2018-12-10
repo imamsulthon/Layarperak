@@ -18,7 +18,7 @@ import com.tothon.layarperak.adapter.TelevisionAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.model.Television;
 import com.tothon.layarperak.model.response.TelevisionResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -32,22 +32,28 @@ import retrofit2.Response;
 
 public class TelevisionFragment extends Fragment {
 
-    private static final String TMDB_API_TOKEN = Constants.TMDB_API_KEY;
+    private static final String API_KEY = Constants.TMDB_API_KEY;
 
+    //region model
     private ArrayList<Television> onAirTelevisionList = new ArrayList<>();
     private ArrayList<Television> popularTelevisionList = new ArrayList<>();
     private ArrayList<Television> topRatedTelevisionList = new ArrayList<>();
+    //endregion
 
-    private TelevisionAdapter onAirAdapter;
-    private TelevisionAdapter popularAdapter;
-    private TelevisionAdapter topRatedAdapter;
-
+    //region view
     @BindView(R.id.rv_on_air) RecyclerView recyclerViewOnAir;
     @BindView(R.id.rv_popular) RecyclerView recyclerViewPopular;
     @BindView(R.id.rv_toprated) RecyclerView recyclerViewTopRated;
     @BindView(R.id.see_more_on_air) TextView moreOnAir;
     @BindView(R.id.see_more_popular) TextView morePopular;
     @BindView(R.id.see_more_top_rated) TextView moreTopRated;
+    //endregion
+
+    //region presenter
+    private TelevisionAdapter onAirAdapter;
+    private TelevisionAdapter popularAdapter;
+    private TelevisionAdapter topRatedAdapter;
+    //endregion
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,10 +97,10 @@ public class TelevisionFragment extends Fragment {
     }
 
     private void fetchAlltelevision() {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity().getApplicationContext())
                 .create(RetrofitAPI.class);
 
-        Call<TelevisionResponse> onAirCall = retrofitAPI.getTelevision("on_the_air", TMDB_API_TOKEN, 1);
+        Call<TelevisionResponse> onAirCall = retrofitAPI.getTelevision("on_the_air", API_KEY, 1);
         onAirCall.enqueue(new Callback<TelevisionResponse>() {
             @Override
             public void onResponse(Call<TelevisionResponse> call, Response<TelevisionResponse> response) {
@@ -109,7 +115,7 @@ public class TelevisionFragment extends Fragment {
             }
         });
 
-        Call<TelevisionResponse> popularCall = retrofitAPI.getTelevision("popular", TMDB_API_TOKEN, 1);
+        Call<TelevisionResponse> popularCall = retrofitAPI.getTelevision("popular", API_KEY, 1);
         popularCall.enqueue(new Callback<TelevisionResponse>() {
             @Override
             public void onResponse(Call<TelevisionResponse> call, Response<TelevisionResponse> response) {
@@ -124,7 +130,7 @@ public class TelevisionFragment extends Fragment {
             }
         });
 
-        Call<TelevisionResponse> topRatedCall = retrofitAPI.getTelevision("top_rated", TMDB_API_TOKEN, 1);
+        Call<TelevisionResponse> topRatedCall = retrofitAPI.getTelevision("top_rated", API_KEY, 1);
         topRatedCall.enqueue(new Callback<TelevisionResponse>() {
             @Override
             public void onResponse(Call<TelevisionResponse> call, Response<TelevisionResponse> response) {

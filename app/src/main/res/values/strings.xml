@@ -3,7 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="featur_not_available">This feature currently not available</string>
+    <string name="feature_not_available">This feature currently under development</string>
 
     <string name="poster_info">Poster Of The Movie</string>
     <string name="backdrop_info">Backdrop of The Movie</string>

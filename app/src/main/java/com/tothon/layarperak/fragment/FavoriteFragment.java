@@ -21,7 +21,7 @@ import com.tothon.layarperak.model.Television;
 import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.model.response.PeopleResponse;
 import com.tothon.layarperak.model.response.TelevisionResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class FavoriteFragment extends Fragment {
     }
 
     private void fetchAllTrending(String type) {
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity().getApplicationContext())
                 .create(RetrofitAPI.class);
 
         Call<MovieResponse> popularMoviesCall = retrofitAPI.getTrendingMovies(type, TMDB_API_TOKEN);

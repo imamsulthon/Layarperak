@@ -18,7 +18,7 @@ import com.tothon.layarperak.adapter.PersonAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.response.PeopleResponse;
-import com.tothon.layarperak.service.NetworkUtils;
+import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -79,7 +79,7 @@ public class SeeMorePeopleActivity extends AppCompatActivity {
 
     private void getPersonList(String type) {
 
-        RetrofitAPI retrofitAPI = NetworkUtils.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         switch (type) {
             case "trending":
                 Call<PeopleResponse> peopleResponseCall = retrofitAPI.getTrendingPeople(type, TMDB_API_KEY);
