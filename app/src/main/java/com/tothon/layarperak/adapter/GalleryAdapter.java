@@ -8,26 +8,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.ImageFullScreenActivity;
 import com.tothon.layarperak.model.Backdrop;
 import com.tothon.layarperak.service.RetrofitAPI;
+import com.tothon.layarperak.widget.DynamicImageView;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder> {
+public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
 
     private Context context;
     private ArrayList<Backdrop> imageList;
     private String title;
 
-    public ImageRecyclerViewAdapter(Context context, ArrayList<Backdrop> imageList, String title) {
+    public GalleryAdapter(Context context, ArrayList<Backdrop> imageList, String title) {
         this.context = context;
         this.imageList = imageList;
         this.title = title;
@@ -35,21 +36,26 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
     @NonNull
     @Override
-    public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.rv_item_image, parent, false);
-        return new ImageViewHolder(view);
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.rv_item_gallery, null);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Backdrop image = imageList.get(position);
+        RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) holder.thumbnail.getLayoutParams();
+        float height = image.getHeight();
+        float width = image.getWidth();
+        float ratio = height/width;
+        rlp.height = (int) (rlp.width * ratio);
+        holder.thumbnail.setLayoutParams(rlp);
+        holder.thumbnail.setRatio(ratio);
         Picasso.with(context)
                 .load(RetrofitAPI.BACKDROP_BASE_URL_SMALL + image.getFilePath())
-                .error(R.drawable.tmdb_placeholder)
-                .centerCrop()
-                .fit()
+                .placeholder(R.drawable.tmdb_placeholder_land)
                 .into(holder.thumbnail);
-        holder.thumbnail.setOnClickListener(item -> {
+        holder.thumbnail.setOnClickListener(v -> {
             Intent intent = new Intent(context, ImageFullScreenActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString(ImageFullScreenActivity.KEY_TITLE, title);
@@ -62,18 +68,17 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
     @Override
     public int getItemCount() {
-        return imageList.size();
+        return (imageList == null) ? 0 : imageList.size();
     }
 
-    public class ImageViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.iv_thumbnail_image)
-        ImageView thumbnail;
+        @BindView(R.id.iv_thumbnail)
+        DynamicImageView thumbnail;
 
-        ImageViewHolder(View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
     }
-
 }

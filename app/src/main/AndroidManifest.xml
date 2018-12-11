@@ -43,7 +43,9 @@
         <activity android:name=".activity.SeeAllReviewsActivity" />
         <activity android:name=".activity.SeeAllCrewActivity" />
         <activity android:name=".activity.TelevisionDetailsActivity" />
-        <activity android:name=".activity.SeeMoreTelevisionActivity"></activity>
+        <activity android:name=".activity.SeeMoreTelevisionActivity" />
+        <activity android:name=".activity.GalleryActivity" />
+        <activity android:name=".activity.ImageFullScreenActivity"/>
     </application>
 
 </manifest>

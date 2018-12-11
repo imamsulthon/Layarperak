@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
-import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -20,14 +19,11 @@ import butterknife.ButterKnife;
 public class PosterDialogFragment extends DialogFragment {
 
     public static final String KEY = "imagePath";
-    public static String POSTER_DIALOG_TAG = "POSTER_FRAGMENT";
-    private static String IMAGE_URL;
+    public static final String TAG = PosterDialogFragment.class.getSimpleName();
+    private static String imageUrl;
 
     @BindView(R.id.iv_poster)
     ImageView ivPoster;
-
-    ScaleGestureDetector scaleGestureDetector;
-    private float scaleFactor = 1.0f;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,35 +34,22 @@ public class PosterDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_poster_view, container, false);
         ButterKnife.bind(this, rootView);
-
-        IMAGE_URL = getArguments().getString(KEY);
-
+        imageUrl = getArguments().getString(KEY);
         return rootView;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (IMAGE_URL != null && !IMAGE_URL.equals("")) {
+        if (imageUrl != null && !imageUrl.equals("")) {
             loadPoster();
         }
     }
 
     private void loadPoster() {
         Picasso.with(getContext())
-                .load(RetrofitAPI.POSTER_BASE_URL_MEDIUM + IMAGE_URL)
+                .load(RetrofitAPI.POSTER_BASE_URL_MEDIUM + imageUrl)
                 .error(R.drawable.tmdb_placeholder)
                 .into(ivPoster);
-    }
-
-    private class ScaleListener extends ScaleGestureDetector.SimpleOnScaleGestureListener {
-
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-            scaleFactor *= scaleGestureDetector.getScaleFactor();
-            ivPoster.setScaleX(scaleFactor);
-            ivPoster.setScaleY(scaleFactor);
-            return true;
-        }
     }
 }

@@ -109,6 +109,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @BindView(R.id.see_all_cast) TextView seeAllCast;
     @BindView(R.id.see_all_crew) TextView seeAllCrew;
     @BindView(R.id.see_all_reviews) TextView seeAllReviews;
+    @BindView(R.id.see_all_images) TextView seeAllImages;
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
     @BindView(R.id.iv_homepage) ImageView icHomepage;
@@ -165,7 +166,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         recyclerViewImage.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
-        imageRecyclerViewAdapter = new ImageRecyclerViewAdapter(getApplicationContext(), imageArrayList);
+        imageRecyclerViewAdapter = new ImageRecyclerViewAdapter(getApplicationContext(), imageArrayList, movie.getTitle());
         recyclerViewImage.setAdapter(new ScaleInAnimationAdapter(imageRecyclerViewAdapter));
 
         recyclerViewReviews.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
@@ -191,7 +192,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 bundle.putString(PosterDialogFragment.KEY, movie.getPosterPath());
                 dialogFragment.setArguments(bundle);
                 FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-                dialogFragment.show(fm, PosterDialogFragment.POSTER_DIALOG_TAG);
+                dialogFragment.show(fm, PosterDialogFragment.TAG);
             });
         }
 
@@ -459,6 +460,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
                             imageArrayList.addAll(backdrops);
                             imageRecyclerViewAdapter.notifyDataSetChanged();
                             changeBackdrop(backdrops);
+                            seeAllImages.setOnClickListener(item -> {
+                                Intent intent = new Intent(MovieDetailsActivity.this, GalleryActivity.class);
+                                intent.putExtra(GalleryActivity.KEY_TITLE, movie.getTitle());
+                                intent.putExtra(GalleryActivity.KEY_IMAGES, imageArrayList);
+                                startActivity(intent);
+                            });
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -502,7 +509,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 runtime = String.valueOf(minutes) + " min";
             }
         }catch (Exception e){
-            Log.i("POSTER_DIALOG_TAG :",e.toString());
+            Log.i("TAG :",e.toString());
         }
         return runtime;
     }

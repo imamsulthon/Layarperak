@@ -245,16 +245,35 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_margin="@dimen/margin_medium">
-
-            <TextView
-                android:id="@+id/label_images"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="Images"
-                android:textAllCaps="true"
-                android:textSize="@dimen/text_size_large"
-                android:textStyle="bold"/>
+                android:layout_marginRight="@dimen/margin_tiny"
+                android:layout_marginLeft="@dimen/margin_tiny">
+
+                <TextView
+                    android:id="@+id/label_images"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_centerVertical="true"
+                    android:text="Images"
+                    android:textAllCaps="true"
+                    android:textSize="@dimen/text_size_large"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/see_all_images"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/see_all"
+                    android:textColor="@color/colorAccentGreen"
+                    android:textSize="12sp"
+                    android:textStyle="bold"/>
+
+            </RelativeLayout>
 
             <FrameLayout
                 android:layout_width="wrap_content"

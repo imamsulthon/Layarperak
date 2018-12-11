@@ -66,6 +66,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tv_popularity) TextView tvPopularity;
     @BindView(R.id.rv_filmography) RecyclerView recyclerViewFilmography;
     @BindView(R.id.rv_images) RecyclerView recyclerViewImages;
+    @BindView(R.id.see_all_images) TextView seeAllImages;
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
     @BindView(R.id.iv_homepage) ImageView icHomepage;
@@ -101,7 +102,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
 
         recyclerViewImages.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
-        imageRecyclerViewAdapter = new ImageRecyclerViewAdapter(getApplicationContext(), imageArrayList);
+        imageRecyclerViewAdapter = new ImageRecyclerViewAdapter(getApplicationContext(), imageArrayList, person.getName());
         recyclerViewImages.setAdapter(new ScaleInAnimationAdapter(imageRecyclerViewAdapter));
 
         tvPersonName.setText(person.getName());
@@ -117,7 +118,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 bundle.putString(PosterDialogFragment.KEY, person.getProfilePath());
                 dialogFragment.setArguments(bundle);
                 FragmentTransaction fm = getSupportFragmentManager().beginTransaction();
-                dialogFragment.show(fm, PosterDialogFragment.POSTER_DIALOG_TAG);
+                dialogFragment.show(fm, PosterDialogFragment.TAG);
             });
         }
         tvPopularity.setText(String.valueOf(person.getPopularity()));
@@ -246,8 +247,16 @@ public class PersonDetailsActivity extends AppCompatActivity {
                                     imageArrayList.add(backdrops.get(i));
                                 }
                             }
+                            imageRecyclerViewAdapter.notifyDataSetChanged();
+                            ArrayList<Backdrop> data = new ArrayList<>();
+                            data.addAll(backdrops);
+                            seeAllImages.setOnClickListener(item -> {
+                                Intent intent = new Intent(PersonDetailsActivity.this, GalleryActivity.class);
+                                intent.putExtra(GalleryActivity.KEY_TITLE, person.getName());
+                                intent.putExtra(GalleryActivity.KEY_IMAGES, data);
+                                startActivity(intent);
+                            });
                         }
-                        imageRecyclerViewAdapter.notifyDataSetChanged();
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

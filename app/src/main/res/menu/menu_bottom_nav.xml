@@ -6,7 +6,7 @@
     <item
         android:id="@+id/menu_home"
         android:enabled="true"
-        android:title="Popular"
+        android:title="Home"
         android:icon="@drawable/ic_window"
         app:showAsAction="ifRoom"/>
 

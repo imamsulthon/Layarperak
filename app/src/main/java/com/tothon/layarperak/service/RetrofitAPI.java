@@ -25,8 +25,11 @@ public interface RetrofitAPI {
     String POSTER_BASE_URL_SMALL = "http://image.tmdb.org/t/p/w342";
     String POSTER_BASE_URL_MEDIUM = "http://image.tmdb.org/t/p/w500";
     String POSTER_BASE_URL_LARGE = "http://image.tmdb.org/t/p/w780";
+    String POSTER_BASE_URL_ORIGINAL = "http://image.tmdb.org/t/p/original";
+    String BACKDROP_BASE_URL_SMALL = "http://image.tmdb.org/t/p/w300";
     String BACKDROP_BASE_URL_MEDIUM = "http://image.tmdb.org/t/p/w780";
-    String BACKDROP_BASE_URL_SMALL = "http://image.tmdb.org/t/p/w500";
+    String BACKDROP_BASE_URL_LARGE = "http://image.tmdb.org/t/p/w1280";
+    String BACKDROP_BASE_URL_ORIGINAL = "http://image.tmdb.org/t/p/original";
 
     @GET("movie/{type}")
     Call<MovieResponse> getMovies
