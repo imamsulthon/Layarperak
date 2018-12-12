@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.HomeFragment">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_small"
+        android:background="@color/colorPrimary">
 
         <ProgressBar
             android:id="@+id/loading_indicator"
@@ -23,264 +24,191 @@
             android:id="@+id/layout_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="@dimen/margin_large"
             android:orientation="vertical">
 
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:cardBackgroundColor="@color/colorPrimaryLight"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="@dimen/margin_small"
-                app:cardElevation="@dimen/margin_small">
+                android:layout_height="@dimen/item_height_large"
+                android:layout_margin="@dimen/margin_medium"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/margin_small"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/label_now_playing"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/margin_tiny"
-                        android:layout_marginLeft="@dimen/margin_tiny">
+                        android:text="@string/now_playing"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/label_now_playing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/now_playing"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/see_more_now_playing"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/see_more"
+                        android:textColor="@color/colorAccentGreen"
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/see_more_now_playing"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="@string/see_more"
-                            android:textColor="@color/colorAccentGreen"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
+                </RelativeLayout>
 
-                    </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:background="@color/colorPrimaryLight"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_nowplaying"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_nowplaying"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
-                </LinearLayout>
+            </LinearLayout>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:cardBackgroundColor="@color/colorPrimaryLight"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="@dimen/margin_small"
-                app:cardElevation="@dimen/margin_small">
+                android:layout_height="@dimen/item_height_large"
+                android:layout_margin="@dimen/margin_medium"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/margin_small"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/label_popular"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/margin_tiny"
-                        android:layout_marginLeft="@dimen/margin_tiny">
+                        android:text="@string/popular"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/label_popular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/popular"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/see_more_popular"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/see_more"
+                        android:textColor="@color/colorAccentGreen"
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/see_more_popular"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="@string/see_more"
-                            android:textColor="@color/colorAccentGreen"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
+                </RelativeLayout>
 
-                    </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:background="@color/colorPrimaryLight"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_popular"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_popular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
 
-                </LinearLayout>
+            </LinearLayout>
 
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:cardBackgroundColor="@color/colorPrimaryLight"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="@dimen/margin_small"
-                app:cardElevation="@dimen/margin_small">
+                android:layout_height="@dimen/item_height_large"
+                android:layout_margin="@dimen/margin_medium"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/margin_small"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/label_toprated"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/margin_tiny"
-                        android:layout_marginLeft="@dimen/margin_tiny">
+                        android:text="@string/top_rated"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/label_toprated"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/top_rated"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/see_more_top_rated"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/see_more"
+                        android:textColor="@color/colorAccentGreen"
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/see_more_top_rated"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="@string/see_more"
-                            android:textColor="@color/colorAccentGreen"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
+                </RelativeLayout>
 
-                    </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:background="@color/colorPrimaryLight"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_toprated"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_toprated"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
 
-                </LinearLayout>
+            </LinearLayout>
 
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                app:cardBackgroundColor="@color/colorPrimaryLight"
-                app:cardUseCompatPadding="true"
-                app:cardCornerRadius="@dimen/margin_small"
-                app:cardElevation="@dimen/margin_small">
+                android:layout_height="@dimen/item_height_large"
+                android:layout_margin="@dimen/margin_medium"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/margin_small"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/label_upcoming"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/margin_tiny"
-                        android:layout_marginLeft="@dimen/margin_tiny">
+                        android:text="@string/upcoming"
+                        android:textSize="16sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/label_upcoming"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/upcoming"
-                            android:textSize="16sp"
-                            android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/see_more_upcoming"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/see_more"
+                        android:textColor="@color/colorAccentGreen"
+                        android:textSize="12sp"
+                        android:textStyle="bold"/>
 
-                        <TextView
-                            android:id="@+id/see_more_upcoming"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="@string/see_more"
-                            android:textColor="@color/colorAccentGreen"
-                            android:textSize="12sp"
-                            android:textStyle="bold"/>
+                </RelativeLayout>
 
-                    </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:layout_marginBottom="@dimen/margin_small"
+                    android:background="@color/colorPrimaryLight"/>
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv_upcoming"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                    </android.support.v7.widget.RecyclerView>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_upcoming"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </android.support.v7.widget.RecyclerView>
 
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <!--<android.support.v7.widget.CardView-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--app:cardBackgroundColor="@color/colorPrimaryLight"-->
-                <!--app:cardUseCompatPadding="true"-->
-                <!--app:cardCornerRadius="@dimen/margin_small"-->
-                <!--app:cardElevation="@dimen/margin_small">-->
-
-                <!--<LinearLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:layout_margin="@dimen/margin_small"-->
-                    <!--android:orientation="vertical">-->
-
-                    <!--<RelativeLayout-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_marginRight="@dimen/margin_tiny"-->
-                        <!--android:layout_marginLeft="@dimen/margin_tiny">-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/label_people"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="@string/popular_person"-->
-                            <!--android:textSize="16sp"-->
-                            <!--android:textStyle="bold"/>-->
-
-                        <!--<TextView-->
-                            <!--android:id="@+id/see_more_people"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_alignParentRight="true"-->
-                            <!--android:layout_centerVertical="true"-->
-                            <!--android:text="@string/see_more"-->
-                            <!--android:textColor="@color/colorAccentGreen"-->
-                            <!--android:textSize="12sp"-->
-                            <!--android:textStyle="bold"/>-->
-
-                    <!--</RelativeLayout>-->
-
-                    <!--<android.support.v7.widget.RecyclerView-->
-                        <!--android:id="@+id/rv_people"-->
-                        <!--android:layout_width="match_parent"-->
-                        <!--android:layout_height="wrap_content">-->
-                    <!--</android.support.v7.widget.RecyclerView>-->
-
-                <!--</LinearLayout>-->
-
-            <!--</android.support.v7.widget.CardView>-->
+            </LinearLayout>
 
         </LinearLayout>
 
