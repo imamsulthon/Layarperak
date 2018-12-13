@@ -30,7 +30,7 @@ import com.tothon.layarperak.adapter.TrailerRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.config.Utils;
 import com.tothon.layarperak.fragment.support.PosterDialogFragment;
-import com.tothon.layarperak.model.Backdrop;
+import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.model.Cast;
 import com.tothon.layarperak.model.Crew;
 import com.tothon.layarperak.model.Genre;
@@ -69,7 +69,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     private ArrayList<Cast> castArrayList = new ArrayList<>();
     private ArrayList<Crew> crewArrayList = new ArrayList<>();
     private ArrayList<Trailer> trailerArrayList = new ArrayList<>();
-    private ArrayList<Backdrop> imageArrayList = new ArrayList<>();
+    private ArrayList<Image> imageArrayList = new ArrayList<>();
     private ArrayList<Review> reviewArrayList = new ArrayList<>();
     private ArrayList<Review> allReviews = new ArrayList<>();
     private ArrayList<Television> similarTelevisionList = new ArrayList<>();
@@ -381,7 +381,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
             public void onResponse(Call<ImagesResponse> call, Response<ImagesResponse> response) {
                 ImagesResponse imagesResponse = response.body();
                 if (imagesResponse != null) {
-                    List<Backdrop> backdrops = null;
+                    List<Image> backdrops = null;
                     try {
                         backdrops = response.body().getBackdrops();
                         if (backdrops.size() > 0) {
@@ -442,7 +442,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void changeBackdrop(List<Backdrop> imageArray) {
+    private void changeBackdrop(List<Image> imageArray) {
         handler = new Handler();
         runnable = new Runnable() {
             int i = 0;

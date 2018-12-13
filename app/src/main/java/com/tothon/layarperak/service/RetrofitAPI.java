@@ -112,6 +112,12 @@ public interface RetrofitAPI {
              @Path("id") int id,
              @Query("api_key") String api_key);
 
+    @GET("{type}/{id}/tagged_images")
+    Call<ImagesResponse> getTaggedImage(
+            @Path("type") String type,
+            @Path("id") int id,
+            @Query("api_key") String ap_key);
+
     @GET("{type}/{id}/videos")
     Call<TrailerResponse> getTrailers(
             @Path("type") String type,

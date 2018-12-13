@@ -43,12 +43,6 @@ public class MovieRecyclerViewAdapter extends RecyclerView.Adapter<MovieRecycler
     public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
         Movie movie = movieArrayList.get(position);
         if (movie.getPosterBytes() != null) {
-//            Picasso.with(context)
-//                    .load(movie.getPosterPath())
-//                    .centerCrop()
-//                    .fit()
-//                    .error(R.drawable.tmdb_placeholder)
-//                    .into(holder.posterImageView);
             holder.layout.setVisibility(View.VISIBLE);
             holder.tvTitle.setText(movie.getTitle());
         } else {

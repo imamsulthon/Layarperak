@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.ImageFullScreenActivity;
-import com.tothon.layarperak.model.Backdrop;
+import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -24,10 +24,10 @@ import butterknife.ButterKnife;
 public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecyclerViewAdapter.ImageViewHolder> {
 
     private Context context;
-    private ArrayList<Backdrop> imageList;
+    private ArrayList<Image> imageList;
     private String title;
 
-    public ImageRecyclerViewAdapter(Context context, ArrayList<Backdrop> imageList, String title) {
+    public ImageRecyclerViewAdapter(Context context, ArrayList<Image> imageList, String title) {
         this.context = context;
         this.imageList = imageList;
         this.title = title;
@@ -42,7 +42,7 @@ public class ImageRecyclerViewAdapter extends RecyclerView.Adapter<ImageRecycler
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        Backdrop image = imageList.get(position);
+        Image image = imageList.get(position);
         Picasso.with(context)
                 .load(RetrofitAPI.BACKDROP_BASE_URL_SMALL + image.getFilePath())
                 .error(R.drawable.tmdb_placeholder)

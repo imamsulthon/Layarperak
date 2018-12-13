@@ -26,7 +26,7 @@ import com.tothon.layarperak.config.Config;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.config.Utils;
 import com.tothon.layarperak.fragment.support.PosterDialogFragment;
-import com.tothon.layarperak.model.Backdrop;
+import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.response.ImagesResponse;
@@ -51,7 +51,8 @@ public class PersonDetailsActivity extends AppCompatActivity {
     public static final String KEY = "person";
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
 
-    ArrayList<Backdrop> imageArrayList = new ArrayList<>();
+    ArrayList<Image> imageArrayList = new ArrayList<>();
+    ArrayList<Image> allImages = new ArrayList<>();
     ArrayList<Movie> knownForMovies = new ArrayList<>();
 
     @BindView(R.id.iv_photo_profile) ImageView thumbnail;
@@ -135,7 +136,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
 
         getPersonDetails();
         fetchPersonsImages();
-        fetchPersonMovies();
+        fetchPersonsMovies();
     }
 
     private void getPersonDetails() {
@@ -202,7 +203,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
         });
     }
 
-    private void fetchPersonMovies() {
+    private void fetchPersonsMovies() {
         RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
         Call<PersonMoviesResponse> call = retrofitAPI.getPersonCredits(person.getId(), TMDB_API_KEY);
         call.enqueue(new Callback<PersonMoviesResponse>() {
@@ -236,24 +237,23 @@ public class PersonDetailsActivity extends AppCompatActivity {
             public void onResponse(Call<ImagesResponse> call, Response<ImagesResponse> response) {
                 ImagesResponse imagesResponse = response.body();
                 if (imagesResponse != null) {
-                    List<Backdrop> backdrops = null;
+                    List<Image> mainImages = null;
                     try {
-                        backdrops = response.body().getProfiles();
-                        if (backdrops.size() > 0) {
-                            if (backdrops.size() < 5) {
-                                imageArrayList.addAll(backdrops);
+                        mainImages = response.body().getProfiles();
+                        if (mainImages.size() > 0) {
+                            if (mainImages.size() < 5) {
+                                imageArrayList.addAll(mainImages);
                             } else {
                                 for (int i = 0; i < 5; i++) {
-                                    imageArrayList.add(backdrops.get(i));
+                                    imageArrayList.add(mainImages.get(i));
                                 }
                             }
                             imageRecyclerViewAdapter.notifyDataSetChanged();
-                            ArrayList<Backdrop> data = new ArrayList<>();
-                            data.addAll(backdrops);
+                            allImages.addAll(mainImages);
                             seeAllImages.setOnClickListener(item -> {
                                 Intent intent = new Intent(PersonDetailsActivity.this, GalleryActivity.class);
                                 intent.putExtra(GalleryActivity.KEY_TITLE, person.getName());
-                                intent.putExtra(GalleryActivity.KEY_IMAGES, data);
+                                intent.putExtra(GalleryActivity.KEY_IMAGES, imageArrayList);
                                 startActivity(intent);
                             });
                         }

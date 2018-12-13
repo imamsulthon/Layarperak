@@ -3,10 +3,8 @@ package com.tothon.layarperak.model.response;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.tothon.layarperak.model.Backdrop;
-import com.tothon.layarperak.model.Poster;
+import com.tothon.layarperak.model.Image;
 
 import java.util.List;
 
@@ -15,11 +13,43 @@ public class ImagesResponse implements Parcelable {
     @SerializedName("id")
     private Integer id;
     @SerializedName("backdrops")
-    private List<Backdrop> backdrops = null;
+    private List<Image> backdrops = null;
     @SerializedName("posters")
-    private List<Poster> posters = null;
+    private List<Image> posters = null;
     @SerializedName("profiles")
-    private List<Backdrop> profiles = null;
+    private List<Image> profiles = null;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public List<Image> getBackdrops() {
+        return backdrops;
+    }
+
+    public void setBackdrops(List<Image> backdrops) {
+        this.backdrops = backdrops;
+    }
+
+    public List<Image> getPosters() {
+        return posters;
+    }
+
+    public void setPosters(List<Image> posters) {
+        this.posters = posters;
+    }
+
+    public List<Image> getProfiles() {
+        return profiles;
+    }
+
+    public void setProfiles(List<Image> profiles) {
+        this.profiles = profiles;
+    }
 
     protected ImagesResponse(Parcel in) {
         if (in.readByte() == 0) {
@@ -27,7 +57,9 @@ public class ImagesResponse implements Parcelable {
         } else {
             id = in.readInt();
         }
-        posters = in.createTypedArrayList(Poster.CREATOR);
+        backdrops = in.createTypedArrayList(Image.CREATOR);
+        posters = in.createTypedArrayList(Image.CREATOR);
+        profiles = in.createTypedArrayList(Image.CREATOR);
     }
 
     public static final Creator<ImagesResponse> CREATOR = new Creator<ImagesResponse>() {
@@ -41,40 +73,6 @@ public class ImagesResponse implements Parcelable {
             return new ImagesResponse[size];
         }
     };
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public List<Backdrop> getBackdrops() {
-        return backdrops;
-    }
-
-    public void setBackdrops(List<Backdrop> backdrops) {
-        this.backdrops = backdrops;
-    }
-
-    public List<Poster> getPosters() {
-        return posters;
-    }
-
-    public void setPosters(List<Poster> posters) {
-        this.posters = posters;
-    }
-
-    public List<Backdrop> getProfiles() {
-        return profiles;
-    }
-
-    public void setProfiles(List<Backdrop> profiles) {
-        this.profiles = profiles;
-        this.backdrops = backdrops;
-        this.profiles = profiles;
-    }
 
     @Override
     public int describeContents() {

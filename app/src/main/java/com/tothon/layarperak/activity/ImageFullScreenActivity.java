@@ -17,7 +17,7 @@ import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.FullScreenImageAdapter;
-import com.tothon.layarperak.model.Backdrop;
+import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.service.DownloadImage;
 import com.tothon.layarperak.service.RetrofitAPI;
 
@@ -34,7 +34,7 @@ public class ImageFullScreenActivity extends AppCompatActivity implements
     public static final String KEY_TITLE = "title";
 
     private String title;
-    private ArrayList<Backdrop> images;
+    private ArrayList<Image> images;
     private int position;
 
     @BindView(R.id.viewpager) ViewPager viewPager;

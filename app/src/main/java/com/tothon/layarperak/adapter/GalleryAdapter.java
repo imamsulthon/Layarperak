@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.ImageFullScreenActivity;
-import com.tothon.layarperak.model.Backdrop;
+import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.service.RetrofitAPI;
 import com.tothon.layarperak.widget.DynamicImageView;
 
@@ -25,10 +25,10 @@ import butterknife.ButterKnife;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<Backdrop> imageList;
+    private ArrayList<Image> imageList;
     private String title;
 
-    public GalleryAdapter(Context context, ArrayList<Backdrop> imageList, String title) {
+    public GalleryAdapter(Context context, ArrayList<Image> imageList, String title) {
         this.context = context;
         this.imageList = imageList;
         this.title = title;
@@ -43,7 +43,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Backdrop image = imageList.get(position);
+        Image image = imageList.get(position);
         RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) holder.thumbnail.getLayoutParams();
         float height = image.getHeight();
         float width = image.getWidth();

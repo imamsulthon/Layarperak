@@ -11,16 +11,16 @@ import android.widget.RelativeLayout;
 
 import com.etiennelawlor.imagegallery.library.utilities.DisplayUtility;
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.model.Backdrop;
+import com.tothon.layarperak.model.Image;
 
 import java.util.ArrayList;
 
 public class FullScreenImageAdapter extends PagerAdapter {
 
-    private ArrayList<Backdrop> images;
+    private ArrayList<Image> images;
     private FullScreenImageLoader fullScreenImageLoader;
 
-    public FullScreenImageAdapter(ArrayList<Backdrop> images) {
+    public FullScreenImageAdapter(ArrayList<Image> images) {
         this.images = images;
     }
 

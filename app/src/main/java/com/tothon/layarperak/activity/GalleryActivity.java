@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.GalleryAdapter;
-import com.tothon.layarperak.model.Backdrop;
+import com.tothon.layarperak.model.Image;
 
 import java.util.ArrayList;
 
@@ -24,7 +24,7 @@ public class GalleryActivity extends AppCompatActivity {
     public static final String KEY_IMAGES = "images";
 
     private String title;
-    private ArrayList<Backdrop> images = new ArrayList<>();
+    private ArrayList<Image> images = new ArrayList<>();
 
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;

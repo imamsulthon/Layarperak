@@ -5,7 +5,7 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Poster implements Parcelable {
+public class Image implements Parcelable {
 
     @SerializedName("aspect_ratio")
     private Double aspectRatio;
@@ -20,7 +20,7 @@ public class Poster implements Parcelable {
     private Integer width;
 
     @SerializedName("iso_639_1")
-    private String iso6391;
+    private Object iso6391;
 
     @SerializedName("vote_average")
     private double voteAverage;
@@ -28,10 +28,10 @@ public class Poster implements Parcelable {
     @SerializedName("vote_count")
     private Integer voteCount;
 
-    public Poster() {
+    public Image() {
     }
 
-    protected Poster(Parcel in) {
+    protected Image(Parcel in) {
         if (in.readByte() == 0) {
             aspectRatio = null;
         } else {
@@ -48,7 +48,6 @@ public class Poster implements Parcelable {
         } else {
             width = in.readInt();
         }
-        iso6391 = in.readString();
         voteAverage = in.readDouble();
         if (in.readByte() == 0) {
             voteCount = null;
@@ -57,15 +56,15 @@ public class Poster implements Parcelable {
         }
     }
 
-    public static final Creator<Poster> CREATOR = new Creator<Poster>() {
+    public static final Creator<Image> CREATOR = new Creator<Image>() {
         @Override
-        public Poster createFromParcel(Parcel in) {
-            return new Poster(in);
+        public Image createFromParcel(Parcel in) {
+            return new Image(in);
         }
 
         @Override
-        public Poster[] newArray(int size) {
-            return new Poster[size];
+        public Image[] newArray(int size) {
+            return new Image[size];
         }
     };
 
@@ -101,11 +100,11 @@ public class Poster implements Parcelable {
         this.width = width;
     }
 
-    public String getIso6391() {
+    public Object getIso6391() {
         return iso6391;
     }
 
-    public void setIso6391(String iso6391) {
+    public void setIso6391(Object iso6391) {
         this.iso6391 = iso6391;
     }
 
@@ -151,7 +150,6 @@ public class Poster implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeInt(width);
         }
-        dest.writeString(iso6391);
         dest.writeDouble(voteAverage);
         if (voteCount == null) {
             dest.writeByte((byte) 0);
@@ -160,5 +158,4 @@ public class Poster implements Parcelable {
             dest.writeInt(voteCount);
         }
     }
-
 }
