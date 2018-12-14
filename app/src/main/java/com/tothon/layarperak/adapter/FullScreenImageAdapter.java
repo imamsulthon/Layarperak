@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.etiennelawlor.imagegallery.library.utilities.DisplayUtility;
 import com.tothon.layarperak.R;
@@ -30,13 +31,20 @@ public class FullScreenImageAdapter extends PagerAdapter {
         LayoutInflater inflater = (LayoutInflater) container.getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.fullscreen_image, null);
-        ImageView imageView = (ImageView) view.findViewById(R.id.iv);
-        RelativeLayout layout = (RelativeLayout) view.findViewById(R.id.layout);
 
-        String image = images.get(position).getFilePath();
+        ImageView imageView = view.findViewById(R.id.iv);
+        TextView textView = view.findViewById(R.id.tv_image_description);
+        RelativeLayout layout = view.findViewById(R.id.layout);
+
+        Image image = images.get(position);
+        String filePath = image.getFilePath();
+        String description = "";
+        if (image.getMedia() != null) {
+            description = image.getMedia().getTitle() + " (" + image.getMedia().getDate().substring(0,4) + ")";
+        }
         Context context = imageView.getContext();
         int width = DisplayUtility.getScreenWidth(context);
-        fullScreenImageLoader.loadFullScreenImage(imageView, image, width, layout);
+        fullScreenImageLoader.loadFullScreenImage(imageView, filePath, textView, description, width, layout);
         container.addView(view, 0);
 
         return view;
@@ -58,7 +66,8 @@ public class FullScreenImageAdapter extends PagerAdapter {
     }
 
     public interface FullScreenImageLoader {
-        void loadFullScreenImage(ImageView iv, String imageUrl, int width, RelativeLayout layout);
+        void loadFullScreenImage(ImageView iv, String imageUrl, TextView textView, String description,
+                                 int width, RelativeLayout layout);
     }
     public void setFullScreenImageLoader(FullScreenImageLoader loader) {
         this.fullScreenImageLoader = loader;

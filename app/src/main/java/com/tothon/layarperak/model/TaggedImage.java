@@ -12,6 +12,24 @@ public class TaggedImage extends Image {
     public TaggedImage() {
     }
 
+    protected TaggedImage(Parcel in) {
+        super(in);
+        mediaType = in.readString();
+        media = in.readParcelable(Media.class.getClassLoader());
+    }
+
+    public static final Creator<TaggedImage> CREATOR = new Creator<TaggedImage>() {
+        @Override
+        public TaggedImage createFromParcel(Parcel in) {
+            return new TaggedImage(in);
+        }
+
+        @Override
+        public TaggedImage[] newArray(int size) {
+            return new TaggedImage[size];
+        }
+    };
+
     public String getMediaType() {
         return mediaType;
     }
@@ -30,11 +48,13 @@ public class TaggedImage extends Image {
 
     @Override
     public int describeContents() {
-        return super.describeContents();
+        return 0;
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
+        dest.writeString(mediaType);
+        dest.writeParcelable(media, flags);
     }
 }

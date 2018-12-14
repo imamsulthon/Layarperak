@@ -7,9 +7,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class Image implements Parcelable {
 
-    @SerializedName("aspect_ratio")
-    private Double aspectRatio;
-
     @SerializedName("file_path")
     private String filePath;
 
@@ -19,6 +16,9 @@ public class Image implements Parcelable {
     @SerializedName("width")
     private Integer width;
 
+    @SerializedName("aspect_ratio")
+    private Double aspectRatio;
+
     @SerializedName("iso_639_1")
     private Object iso6391;
 
@@ -27,6 +27,12 @@ public class Image implements Parcelable {
 
     @SerializedName("vote_count")
     private Integer voteCount;
+
+    @SerializedName("media_type")
+    private String mediaType;
+
+    @SerializedName("media")
+    private Media media;
 
     public Image() {
     }
@@ -54,6 +60,8 @@ public class Image implements Parcelable {
         } else {
             voteCount = in.readInt();
         }
+        mediaType = in.readString();
+        media = in.readParcelable(Media.class.getClassLoader());
     }
 
     public static final Creator<Image> CREATOR = new Creator<Image>() {
@@ -124,6 +132,22 @@ public class Image implements Parcelable {
         this.voteCount = voteCount;
     }
 
+    public String getMediaType() {
+        return mediaType;
+    }
+
+    public void setMediaType(String mediaType) {
+        this.mediaType = mediaType;
+    }
+
+    public Media getMedia() {
+        return media;
+    }
+
+    public void setMedia(Media media) {
+        this.media = media;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -157,5 +181,7 @@ public class Image implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeInt(voteCount);
         }
+        dest.writeString(mediaType);
+        dest.writeParcelable(media, flags);
     }
 }

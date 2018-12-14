@@ -10,6 +10,7 @@ import com.tothon.layarperak.model.response.PeopleResponse;
 import com.tothon.layarperak.model.response.PersonMoviesResponse;
 import com.tothon.layarperak.model.response.ReviewsResponse;
 import com.tothon.layarperak.model.response.SearchResponse;
+import com.tothon.layarperak.model.response.TaggedImageResponse;
 import com.tothon.layarperak.model.response.TelevisionResponse;
 import com.tothon.layarperak.model.response.TrailerResponse;
 
@@ -113,7 +114,7 @@ public interface RetrofitAPI {
              @Query("api_key") String api_key);
 
     @GET("{type}/{id}/tagged_images")
-    Call<ImagesResponse> getTaggedImage(
+    Call<TaggedImageResponse> getTaggedImage(
             @Path("type") String type,
             @Path("id") int id,
             @Query("api_key") String ap_key);

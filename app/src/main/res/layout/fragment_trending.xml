@@ -30,7 +30,7 @@
                         android:id="@+id/label_movie"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Popular Movie This Week"
+                        android:text="Popular Movies This Week"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"/>
 
@@ -64,7 +64,7 @@
                         android:id="@+id/label_television"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Popular Television This Week"
+                        android:text="Popular Televisions This Week"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"/>
 
@@ -98,7 +98,7 @@
                         android:id="@+id/label_celebrity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Popular Celebrity This Week"
+                        android:text="Popular Celebrities This Week"
                         android:textSize="@dimen/text_size_medium"
                         android:textStyle="bold"/>
 

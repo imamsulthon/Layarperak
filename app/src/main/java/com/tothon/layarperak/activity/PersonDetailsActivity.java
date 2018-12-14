@@ -3,12 +3,14 @@ package com.tothon.layarperak.activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.transition.Slide;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -31,6 +33,7 @@ import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.response.ImagesResponse;
 import com.tothon.layarperak.model.response.PersonMoviesResponse;
+import com.tothon.layarperak.model.response.TaggedImageResponse;
 import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
 
@@ -54,7 +57,12 @@ public class PersonDetailsActivity extends AppCompatActivity {
     ArrayList<Image> imageArrayList = new ArrayList<>();
     ArrayList<Image> allImages = new ArrayList<>();
     ArrayList<Movie> knownForMovies = new ArrayList<>();
+    Person person;
 
+    @BindView(R.id.backdrop) ImageView ivBackdrop;
+    @BindView(R.id.tv_backdrop_desc) LinearLayout backdropDesc;
+    @BindView(R.id.tv_backdrop_title) TextView backdropTitle;
+    @BindView(R.id.tv_backdrop_year) TextView backdropYear;
     @BindView(R.id.iv_photo_profile) ImageView thumbnail;
     @BindView(R.id.tv_person_name) TextView tvPersonName;
     @BindView(R.id.tv_also_known_as) TextView tvOtherPersonName;
@@ -75,7 +83,8 @@ public class PersonDetailsActivity extends AppCompatActivity {
     MovieRecyclerViewAdapter movieRecyclerViewAdapter;
     ImageRecyclerViewAdapter imageRecyclerViewAdapter;
 
-    Person person;
+    Handler handler;
+    Runnable runnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,6 +146,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
         getPersonDetails();
         fetchPersonsImages();
         fetchPersonsMovies();
+
     }
 
     private void getPersonDetails() {
@@ -195,7 +205,6 @@ public class PersonDetailsActivity extends AppCompatActivity {
                     });
                 }
             }
-
             @Override
             public void onFailure(Call<Person> call, Throwable t) {
 
@@ -230,6 +239,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
 
     private void fetchPersonsImages() {
         RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getApplicationContext()).create(RetrofitAPI.class);
+
         Call<ImagesResponse> imagesResponseCall = retrofitAPI.getImages("person", person.getId(),
                 TMDB_API_KEY);
         imagesResponseCall.enqueue(new Callback<ImagesResponse>() {
@@ -250,12 +260,6 @@ public class PersonDetailsActivity extends AppCompatActivity {
                             }
                             imageRecyclerViewAdapter.notifyDataSetChanged();
                             allImages.addAll(mainImages);
-                            seeAllImages.setOnClickListener(item -> {
-                                Intent intent = new Intent(PersonDetailsActivity.this, GalleryActivity.class);
-                                intent.putExtra(GalleryActivity.KEY_TITLE, person.getName());
-                                intent.putExtra(GalleryActivity.KEY_IMAGES, imageArrayList);
-                                startActivity(intent);
-                            });
                         }
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -266,6 +270,77 @@ public class PersonDetailsActivity extends AppCompatActivity {
             public void onFailure(Call<ImagesResponse> call, Throwable t) {
             }
         });
+
+        Call<TaggedImageResponse> taggedImageResponseCall = retrofitAPI.getTaggedImage("person",
+                person.getId(), TMDB_API_KEY);
+        taggedImageResponseCall.enqueue(new Callback<TaggedImageResponse>() {
+            @Override
+            public void onResponse(Call<TaggedImageResponse> call, Response<TaggedImageResponse> response) {
+                TaggedImageResponse taggedImageResponse = response.body();
+                if (taggedImageResponse != null) {
+                    List<Image> taggedImages = null;
+                    try {
+                        taggedImages = taggedImageResponse.getResults();
+                        if (taggedImages.size() > 0) {
+                            changeBackdrop(taggedImages);
+                            allImages.addAll(taggedImages);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<TaggedImageResponse> call, Throwable t) {
+            }
+        });
+
+        seeAllImages.setOnClickListener(item -> {
+            Intent intent = new Intent(PersonDetailsActivity.this, GalleryActivity.class);
+            intent.putExtra(GalleryActivity.KEY_TITLE, person.getName());
+            intent.putExtra(GalleryActivity.KEY_IMAGES, allImages);
+            startActivity(intent);
+        });
     }
 
+    private void changeBackdrop(List<Image> imageArray) {
+        handler = new Handler();
+        runnable = new Runnable() {
+            int i = 0;
+            @Override
+            public void run() {
+                backdropDesc.setVisibility(View.VISIBLE);
+                backdropTitle.setText(imageArray.get(i).getMedia().getTitle());
+                backdropYear.setText((imageArray.get(i).getMedia().getDate()).substring(0, 4));
+                Picasso.with(getApplicationContext())
+                        .load(RetrofitAPI.BACKDROP_BASE_URL_MEDIUM + imageArray.get(i).getFilePath())
+                        .into(ivBackdrop, new com.squareup.picasso.Callback() {
+                            @Override
+                            public void onSuccess() {
+                                supportStartPostponedEnterTransition();
+                            }
+                            @Override
+                            public void onError() {
+                                supportStartPostponedEnterTransition();
+                            }
+                        });
+                Log.e(TAG, "change image");
+                i++;
+                if (i > imageArray.size() - 1) {
+                    i = 0;
+                }
+                handler.postDelayed(this, 10000);
+            }
+        };
+        handler.postDelayed(runnable, 5000);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (runnable != null) {
+            handler.removeCallbacksAndMessages(null);
+            handler.removeCallbacks(runnable);
+        }
+    }
 }

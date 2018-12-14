@@ -12,80 +12,211 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_large"
-            android:layout_alignParentBottom="true"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/iv_photo_profile"
-                android:layout_width="100dp"
-                android:layout_height="150dp"
-                android:contentDescription="@string/poster_info"
-                android:src="@drawable/tmdb_placeholder"/>
+                android:id="@+id/backdrop"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/no_image"
+                android:visibility="visible" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="190dp"
+                android:visibility="visible"
+                android:rotation="180"
+                android:src="@drawable/dark_gradient"
+                android:layout_alignParentBottom="true"/>
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
+                android:id="@+id/tv_backdrop_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_large"
+                android:background="@color/colorBlackLabel"
+                android:paddingRight="@dimen/margin_small"
+                android:paddingLeft="@dimen/margin_small"
+                android:visibility="gone"
+                android:layout_alignParentEnd="true"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_person_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:gravity="bottom"
-                    android:layout_gravity="bottom"
-                    android:text="Monica Bellucci"
-                    android:maxLines="2"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/text_size_xlarge"/>
+                    android:id="@+id/tv_backdrop_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/titlePrimaryTextColor"
+                    android:textSize="@dimen/text_size_small" />
 
                 <TextView
-                    android:id="@+id/tv_also_known_as"
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_backdrop_year"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:maxLines="1"
-                    android:visibility="visible"
-                    android:textStyle="italic"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/titlePrimaryTextColor"
                     android:textSize="@dimen/text_size_small"/>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_alignParentBottom="true"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/iv_photo_profile"
+                    android:layout_width="100dp"
+                    android:layout_height="150dp"
+                    android:contentDescription="@string/poster_info"
+                    android:src="@drawable/tmdb_placeholder"/>
+
                 <LinearLayout
-                    android:id="@+id/layout_born"
-                    android:layout_marginTop="@dimen/margin_small"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:orientation="vertical">
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Born: "
-                        android:textSize="@dimen/text_size_small"
-                        android:textAllCaps="true"/>
+                        android:id="@+id/tv_person_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:gravity="bottom"
+                        android:layout_gravity="bottom"
+                        android:text="Monica Bellucci"
+                        android:maxLines="2"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/text_size_xlarge"/>
 
                     <TextView
-                        android:id="@+id/tv_birthday"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_also_known_as"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold"/>
+                        android:gravity="bottom"
+                        android:maxLines="1"
+                        android:visibility="visible"
+                        android:textStyle="italic"
+                        android:textSize="@dimen/text_size_small"/>
 
-                    <TextView
-                        android:id="@+id/tv_place_of_birth"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/layout_born"
+                        android:layout_marginTop="@dimen/margin_small"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_size_medium"/>
+                        android:visibility="invisible"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Born: "
+                            android:textSize="@dimen/text_size_tiny"
+                            android:textAllCaps="true"/>
+
+                        <TextView
+                            android:id="@+id/tv_birthday"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:textStyle="bold"
+                            android:maxLines="1"/>
+
+                        <TextView
+                            android:id="@+id/tv_place_of_birth"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/text_size_small"
+                            android:maxLines="1"/>
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </RelativeLayout>
+
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="@dimen/margin_large"-->
+            <!--android:layout_alignParentBottom="true"-->
+            <!--android:orientation="horizontal">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/iv_photo_profile"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="150dp"-->
+                <!--android:contentDescription="@string/poster_info"-->
+                <!--android:src="@drawable/tmdb_placeholder"/>-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_person_name"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="50dp"-->
+                    <!--android:gravity="bottom"-->
+                    <!--android:layout_gravity="bottom"-->
+                    <!--android:text="Monica Bellucci"-->
+                    <!--android:maxLines="2"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:textSize="@dimen/text_size_xlarge"/>-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/tv_also_known_as"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:gravity="bottom"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:visibility="visible"-->
+                    <!--android:textStyle="italic"-->
+                    <!--android:textSize="@dimen/text_size_small"/>-->
+
+                <!--<LinearLayout-->
+                    <!--android:id="@+id/layout_born"-->
+                    <!--android:layout_marginTop="@dimen/margin_small"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:visibility="gone"-->
+                    <!--android:orientation="vertical">-->
+
+                    <!--<TextView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:text="Born: "-->
+                        <!--android:textSize="@dimen/text_size_small"-->
+                        <!--android:textAllCaps="true"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_birthday"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="@dimen/text_size_medium"-->
+                        <!--android:textStyle="bold"/>-->
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/tv_place_of_birth"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:textSize="@dimen/text_size_medium"/>-->
+
+                <!--</LinearLayout>-->
+
+            <!--</LinearLayout>-->
+
+        <!--</LinearLayout>-->
 
         <LinearLayout
             android:layout_width="match_parent"

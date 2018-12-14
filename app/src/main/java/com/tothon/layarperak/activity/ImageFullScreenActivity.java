@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -136,15 +137,17 @@ public class ImageFullScreenActivity extends AppCompatActivity implements
         setActionToolbarSubtitle(position);
     }
 
-    @Override
-    public void loadFullScreenImage(ImageView iv, String imageUrl, int width, RelativeLayout bglinearLayout) {
-        Picasso.with(getApplicationContext())
-                .load(RetrofitAPI.BACKDROP_BASE_URL_LARGE + imageUrl)
-                .into(iv);
-    }
-
     private void removeListeners() {
         viewPager.removeOnPageChangeListener(viewPagerOnPageChangeListener);
     }
 
+    @Override
+    public void loadFullScreenImage(ImageView iv, String imageUrl, TextView textView, String description, int width, RelativeLayout layout) {
+        Picasso.with(getApplicationContext())
+                .load(RetrofitAPI.BACKDROP_BASE_URL_LARGE + imageUrl)
+                .into(iv);
+        if (description != null && !description.equals("")) {
+            textView.setText(description);
+        }
+    }
 }
