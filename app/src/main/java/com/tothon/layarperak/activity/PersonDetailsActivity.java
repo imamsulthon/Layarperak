@@ -75,6 +75,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tv_popularity) TextView tvPopularity;
     @BindView(R.id.rv_filmography) RecyclerView recyclerViewFilmography;
     @BindView(R.id.rv_images) RecyclerView recyclerViewImages;
+    @BindView(R.id.see_all_filmography) TextView seeAllFilmography;
     @BindView(R.id.see_all_images) TextView seeAllImages;
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
@@ -131,7 +132,6 @@ public class PersonDetailsActivity extends AppCompatActivity {
                 dialogFragment.show(fm, PosterDialogFragment.TAG);
             });
         }
-        tvPopularity.setText(String.valueOf(person.getPopularity()));
         tvBiography.setTypeface(config.getTypeface());
         icGoogle.setOnClickListener(item -> {
             try {
@@ -163,6 +163,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
                     }
                     tvBirthPlace.setText(person.getPlaceOfBirth());
 
+                    tvPopularity.setText(String.valueOf(person.getPopularity()));
                     tvDepartment.setText(person.getDepartment());
                     tvGender.setText(Utils.convertGenderString(person.getGender()));
 
@@ -229,6 +230,13 @@ public class PersonDetailsActivity extends AppCompatActivity {
                        }
                    }
                    movieRecyclerViewAdapter.notifyDataSetChanged();
+
+                   seeAllFilmography.setOnClickListener(item -> {
+                       Intent intent = new Intent(PersonDetailsActivity.this, PersonMoviesActivity.class);
+                       intent.putExtra(PersonMoviesActivity.KEY_PERSON, person);
+                       startActivity(intent);
+                   });
+
                }
            }
            @Override
@@ -309,9 +317,23 @@ public class PersonDetailsActivity extends AppCompatActivity {
             int i = 0;
             @Override
             public void run() {
-                backdropDesc.setVisibility(View.VISIBLE);
-                backdropTitle.setText(imageArray.get(i).getMedia().getTitle());
-                backdropYear.setText((imageArray.get(i).getMedia().getDate()).substring(0, 4));
+                Image image = imageArray.get(i);
+                if (image.getMedia().getTitle() != null && ((image.getMedia().getDate() != null) || (image.getMedia().getFirstAirdate() != null))) {
+                    backdropDesc.setVisibility(View.VISIBLE);
+                    backdropTitle.setText(image.getMedia().getTitle());
+                    if (image.getMediaType().equals("movie")) {
+                        if (image.getMedia().getDate() != null) {
+                            backdropYear.setText(image.getMedia().getDate().substring(0, 4));
+                        }
+                    } else if (image.getMediaType().equals("tv")) {
+                        if (image.getMedia().getFirstAirdate() != null) {
+                            backdropYear.setText(image.getMedia().getFirstAirdate().substring(0, 4));
+                        }
+                    }
+                } else {
+                    backdropDesc.setVisibility(View.GONE);
+                }
+
                 Picasso.with(getApplicationContext())
                         .load(RetrofitAPI.BACKDROP_BASE_URL_MEDIUM + imageArray.get(i).getFilePath())
                         .into(ivBackdrop, new com.squareup.picasso.Callback() {

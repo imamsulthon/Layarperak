@@ -40,7 +40,11 @@ public class FullScreenImageAdapter extends PagerAdapter {
         String filePath = image.getFilePath();
         String description = "";
         if (image.getMedia() != null) {
-            description = image.getMedia().getTitle() + " (" + image.getMedia().getDate().substring(0,4) + ")";
+            if (image.getMediaType().equals("movie")) {
+                description = image.getMedia().getTitle() + " (" + image.getMedia().getDate().substring(0,4) + ")";
+            } else if (image.getMediaType().equals("tv")) {
+                description = image.getMedia().getTitle() + " (" + image.getMedia().getFirstAirdate().substring(0,4) + ")";
+            }
         }
         Context context = imageView.getContext();
         int width = DisplayUtility.getScreenWidth(context);

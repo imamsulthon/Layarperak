@@ -13,11 +13,14 @@ public class Media implements Parcelable {
     private String title;
     @SerializedName("release_date")
     private String date;
+    @SerializedName("first_air_date")
+    private String firstAirdate;
 
     private Media(Parcel in) {
         id = in.readInt();
         title = in.readString();
         date = in.readString();
+        firstAirdate = in.readString();
     }
 
     public int getId() {
@@ -44,6 +47,14 @@ public class Media implements Parcelable {
         this.date = date;
     }
 
+    public String getFirstAirdate() {
+        return firstAirdate;
+    }
+
+    public void setFirstAirdate(String firstAirdate) {
+        this.firstAirdate = firstAirdate;
+    }
+
     public static final Creator<Media> CREATOR = new Creator<Media>() {
         @Override
         public Media createFromParcel(Parcel in) {
@@ -66,5 +77,6 @@ public class Media implements Parcelable {
         dest.writeInt(id);
         dest.writeString(title);
         dest.writeString(date);
+        dest.writeString(firstAirdate);
     }
 }

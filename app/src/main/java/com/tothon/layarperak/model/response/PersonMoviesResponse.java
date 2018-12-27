@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.tothon.layarperak.model.Movie;
+import com.tothon.layarperak.model.MovieGroupByCrew;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PersonMoviesResponse implements Parcelable {
 
@@ -15,14 +15,14 @@ public class PersonMoviesResponse implements Parcelable {
     private ArrayList<Movie> moviesAsCast = null;
 
     @SerializedName("crew")
-    private ArrayList<Movie> moviesAsCrew = null;
+    private ArrayList<MovieGroupByCrew> moviesGroupAsCrews = null;
 
     public PersonMoviesResponse() {
     }
 
     protected PersonMoviesResponse(Parcel in) {
         moviesAsCast = in.createTypedArrayList(Movie.CREATOR);
-        moviesAsCrew = in.createTypedArrayList(Movie.CREATOR);
+        moviesGroupAsCrews = in.createTypedArrayList(MovieGroupByCrew.CREATOR);
     }
 
     public static final Creator<PersonMoviesResponse> CREATOR = new Creator<PersonMoviesResponse>() {
@@ -45,12 +45,12 @@ public class PersonMoviesResponse implements Parcelable {
         this.moviesAsCast = moviesAsCast;
     }
 
-    public ArrayList<Movie> getMoviesAsCrew() {
-        return moviesAsCrew;
+    public ArrayList<MovieGroupByCrew> getMoviesGroupAsCrews() {
+        return moviesGroupAsCrews;
     }
 
-    public void setMoviesAsCrew(ArrayList<Movie> moviesAsCrew) {
-        this.moviesAsCrew = moviesAsCrew;
+    public void setMoviesGroupAsCrews(ArrayList<MovieGroupByCrew> moviesGroupAsCrews) {
+        this.moviesGroupAsCrews = moviesGroupAsCrews;
     }
 
     @Override
@@ -61,6 +61,6 @@ public class PersonMoviesResponse implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeTypedList(moviesAsCast);
-        dest.writeTypedList(moviesAsCrew);
+        dest.writeTypedList(moviesGroupAsCrews);
     }
 }
