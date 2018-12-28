@@ -46,7 +46,8 @@
         <activity android:name=".activity.SeeMoreTelevisionActivity" />
         <activity android:name=".activity.GalleryActivity" />
         <activity android:name=".activity.ImageFullScreenActivity" />
-        <activity android:name=".activity.PersonMoviesActivity"></activity>
+        <activity android:name=".activity.PersonMoviesActivity" />
+        <activity android:name=".activity.MovieGridActivity"></activity>
     </application>
 
 </manifest>

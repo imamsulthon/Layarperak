@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,9 +15,12 @@ import android.widget.TextView;
 
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.SeeMoreTelevisionActivity;
+import com.tothon.layarperak.adapter.GenreAdapterGrid;
 import com.tothon.layarperak.adapter.TelevisionAdapter;
 import com.tothon.layarperak.config.Constants;
+import com.tothon.layarperak.model.Genre;
 import com.tothon.layarperak.model.Television;
+import com.tothon.layarperak.model.response.GenreResponse;
 import com.tothon.layarperak.model.response.TelevisionResponse;
 import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
@@ -38,21 +42,25 @@ public class TelevisionFragment extends Fragment {
     private ArrayList<Television> onAirTelevisionList = new ArrayList<>();
     private ArrayList<Television> popularTelevisionList = new ArrayList<>();
     private ArrayList<Television> topRatedTelevisionList = new ArrayList<>();
+    private ArrayList<Genre> genreArrayList = new ArrayList<>();
     //endregion
 
     //region view
     @BindView(R.id.rv_on_air) RecyclerView recyclerViewOnAir;
     @BindView(R.id.rv_popular) RecyclerView recyclerViewPopular;
     @BindView(R.id.rv_toprated) RecyclerView recyclerViewTopRated;
+    @BindView(R.id.rv_genres) RecyclerView recyclerViewGenres;
     @BindView(R.id.see_more_on_air) TextView moreOnAir;
     @BindView(R.id.see_more_popular) TextView morePopular;
     @BindView(R.id.see_more_top_rated) TextView moreTopRated;
+    @BindView(R.id.label_genres) TextView moreGenres;
     //endregion
 
     //region presenter
     private TelevisionAdapter onAirAdapter;
     private TelevisionAdapter popularAdapter;
     private TelevisionAdapter topRatedAdapter;
+    private GenreAdapterGrid genreAdapter;
     //endregion
 
     @Override
@@ -81,7 +89,13 @@ public class TelevisionFragment extends Fragment {
         topRatedAdapter = new TelevisionAdapter(getActivity(), topRatedTelevisionList);
         recyclerViewTopRated.setAdapter(new ScaleInAnimationAdapter(topRatedAdapter));
 
+
+        recyclerViewGenres.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        genreAdapter = new GenreAdapterGrid(getActivity(), "tv", genreArrayList);
+        recyclerViewGenres.setAdapter(genreAdapter);
+
         fetchAlltelevision();
+        getAllGenre();
 
         moreOnAir.setOnClickListener(item -> {
             seeMoreTelevisionList("on_the_air");
@@ -142,6 +156,26 @@ public class TelevisionFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<TelevisionResponse> call, Throwable t) {
+            }
+        });
+    }
+
+    private void getAllGenre() {
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+                .create(RetrofitAPI.class);
+        Call<GenreResponse> responseCall = retrofitAPI.getGenres("tv", API_KEY);
+        responseCall.enqueue(new Callback<GenreResponse>() {
+            @Override
+            public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
+                GenreResponse genreResponse = response.body();
+                genreArrayList.clear();
+                if (genreResponse != null) {
+                    genreArrayList.addAll(genreResponse.getGenres());
+                    genreAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<GenreResponse> call, Throwable t) {
             }
         });
     }

@@ -12,6 +12,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -124,6 +126,8 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         setContentView(R.layout.activity_television_details);
         ButterKnife.bind(this);
         television = getIntent().getParcelableExtra(KEY);
@@ -147,7 +151,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
 
         recyclerViewGenre.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
-        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(getApplicationContext(), genreArrayList);
+        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(getApplicationContext(), "tv", genreArrayList);
         recyclerViewGenre.setAdapter(new ScaleInAnimationAdapter(genreRecyclerViewAdapter));
 
         recyclerViewCast.setLayoutManager(new LinearLayoutManager(getApplicationContext(),

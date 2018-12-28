@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,9 +16,12 @@ import android.widget.TextView;
 
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.SeeMoreMoviesActivity;
+import com.tothon.layarperak.adapter.GenreAdapterGrid;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
+import com.tothon.layarperak.model.Genre;
 import com.tothon.layarperak.model.Movie;
+import com.tothon.layarperak.model.response.GenreResponse;
 import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
@@ -40,27 +44,20 @@ public class MoviesFragment extends Fragment {
     private ArrayList<Movie> topRatedMovieList = new ArrayList<>();
     private ArrayList<Movie> upcomingMovieList = new ArrayList<>();
     private ArrayList<Movie> nowPlayingMovieList = new ArrayList<>();
+    private ArrayList<Genre> genreArrayList = new ArrayList<>();
     //endregion
 
     //region View
-    @BindView(R.id.loading_indicator)
-    ProgressBar progressBar;
-    @BindView(R.id.rv_popular)
-    RecyclerView recyclerViewPopular;
-    @BindView(R.id.rv_toprated)
-    RecyclerView recyclerViewTopRated;
-    @BindView(R.id.rv_upcoming)
-    RecyclerView recyclerViewUpcoming;
-    @BindView(R.id.rv_nowplaying)
-    RecyclerView recyclerViewNowPlaying;
-    @BindView(R.id.see_more_popular)
-    TextView morePopular;
-    @BindView(R.id.see_more_now_playing)
-    TextView moreNowPlaying;
-    @BindView(R.id.see_more_top_rated)
-    TextView moreTopRated;
-    @BindView(R.id.see_more_upcoming)
-    TextView moreUpcoming;
+    @BindView(R.id.loading_indicator) ProgressBar progressBar;
+    @BindView(R.id.rv_popular) RecyclerView recyclerViewPopular;
+    @BindView(R.id.rv_toprated) RecyclerView recyclerViewTopRated;
+    @BindView(R.id.rv_upcoming) RecyclerView recyclerViewUpcoming;
+    @BindView(R.id.rv_nowplaying) RecyclerView recyclerViewNowPlaying;
+    @BindView(R.id.rv_genres) RecyclerView recyclerViewGenres;
+    @BindView(R.id.see_more_popular) TextView morePopular;
+    @BindView(R.id.see_more_now_playing) TextView moreNowPlaying;
+    @BindView(R.id.see_more_top_rated) TextView moreTopRated;
+    @BindView(R.id.see_more_upcoming) TextView moreUpcoming;
     //endregion
 
     //region Presenter
@@ -68,6 +65,7 @@ public class MoviesFragment extends Fragment {
     private MovieRecyclerViewAdapter topRatedMoviesAdapter;
     private MovieRecyclerViewAdapter upcomingMoviesAdapter;
     private MovieRecyclerViewAdapter nowPlayingMoviesAdapter;
+    private GenreAdapterGrid genreAdapter;
     //endregion
 
     @Override
@@ -101,7 +99,12 @@ public class MoviesFragment extends Fragment {
         nowPlayingMoviesAdapter = new MovieRecyclerViewAdapter(getActivity(), nowPlayingMovieList);
         recyclerViewNowPlaying.setAdapter(new ScaleInAnimationAdapter(nowPlayingMoviesAdapter));
 
+        recyclerViewGenres.setLayoutManager(new GridLayoutManager(getActivity(), 4));
+        genreAdapter = new GenreAdapterGrid(getActivity(), "movie", genreArrayList);
+        recyclerViewGenres.setAdapter(genreAdapter);
+
         fetchAllMovies();
+        getAllGenre();
 
         moreNowPlaying.setOnClickListener(item -> {
             seeMoreMovieList("now_playing");
@@ -146,6 +149,7 @@ public class MoviesFragment extends Fragment {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 MovieResponse movieResponse = response.body();
+                topRatedMovieList.clear();
                 if (movieResponse != null) {
                     topRatedMovieList.addAll(movieResponse.getResults());
                     topRatedMoviesAdapter.notifyDataSetChanged();
@@ -161,6 +165,7 @@ public class MoviesFragment extends Fragment {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 MovieResponse movieResponse = response.body();
+                upcomingMovieList.clear();
                 if (movieResponse != null) {
                     upcomingMovieList.addAll(movieResponse.getResults());
                     upcomingMoviesAdapter.notifyDataSetChanged();
@@ -176,6 +181,7 @@ public class MoviesFragment extends Fragment {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 MovieResponse movieResponse = response.body();
+                nowPlayingMovieList.clear();
                 if (movieResponse != null) {
                     nowPlayingMovieList.addAll(movieResponse.getResults());
                     nowPlayingMoviesAdapter.notifyDataSetChanged();
@@ -183,6 +189,26 @@ public class MoviesFragment extends Fragment {
             }
             @Override
             public void onFailure(Call<MovieResponse> call, Throwable t) {
+            }
+        });
+    }
+
+    private void getAllGenre() {
+        RetrofitAPI retrofitAPI = ApiClient.getCacheEnabledRetrofit(getActivity().getApplicationContext())
+                .create(RetrofitAPI.class);
+        Call<GenreResponse> responseCall = retrofitAPI.getGenres("movie", API_KEY);
+        responseCall.enqueue(new Callback<GenreResponse>() {
+            @Override
+            public void onResponse(Call<GenreResponse> call, Response<GenreResponse> response) {
+                GenreResponse genreResponse = response.body();
+                genreArrayList.clear();
+                if (genreResponse != null) {
+                    genreArrayList.addAll(genreResponse.getGenres());
+                    genreAdapter.notifyDataSetChanged();
+                }
+            }
+            @Override
+            public void onFailure(Call<GenreResponse> call, Throwable t) {
             }
         });
     }

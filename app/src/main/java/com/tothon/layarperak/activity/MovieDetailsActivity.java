@@ -146,7 +146,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
         recyclerViewGenre.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
-        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(getApplicationContext(), genreArrayList);
+        genreRecyclerViewAdapter = new GenreRecyclerViewAdapter(getApplicationContext(),"movie", genreArrayList);
         recyclerViewGenre.setAdapter(new ScaleInAnimationAdapter(genreRecyclerViewAdapter));
 
         recyclerViewCast.setLayoutManager(new LinearLayoutManager(getApplicationContext(),

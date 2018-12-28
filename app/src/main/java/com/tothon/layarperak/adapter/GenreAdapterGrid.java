@@ -15,20 +15,19 @@ import android.widget.TextView;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.MovieGridActivity;
 import com.tothon.layarperak.model.Genre;
-import com.tothon.layarperak.model.Movie;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class GenreRecyclerViewAdapter extends RecyclerView.Adapter<GenreRecyclerViewAdapter.GenreViewHolder> {
+public class GenreAdapterGrid extends RecyclerView.Adapter<GenreAdapterGrid.GenreViewHolder> {
 
     private Context context;
     private String category;
     private ArrayList<Genre> genreArrayList;
 
-    public GenreRecyclerViewAdapter(Context context, String category, ArrayList<Genre> genreArrayList) {
+    public GenreAdapterGrid(Context context, String category, ArrayList<Genre> genreArrayList) {
         this.context = context;
         this.category = category;
         this.genreArrayList = genreArrayList;
@@ -37,7 +36,7 @@ public class GenreRecyclerViewAdapter extends RecyclerView.Adapter<GenreRecycler
     @NonNull
     @Override
     public GenreViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.rv_item_genre, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.rv_item_genre_grid, parent, false);
         return new GenreViewHolder(view);
     }
 
@@ -57,18 +56,14 @@ public class GenreRecyclerViewAdapter extends RecyclerView.Adapter<GenreRecycler
 
     @Override
     public int getItemCount() {
-        if (genreArrayList != null) {
-            return genreArrayList.size();
-        } else {
-            return 0;
-        }
+        return genreArrayList.size();
     }
 
     public class GenreViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.layout)
         CardView layout;
-        @BindView(R.id.tv_genre)
+        @BindView(R.id.tv_title)
         TextView tvGenre;
 
         public GenreViewHolder(View itemView) {

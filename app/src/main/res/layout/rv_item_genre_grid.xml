@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="90dp"
+    android:layout_height="50dp"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginRight="@dimen/margin_small"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        app:cardBackgroundColor="@color/colorPrimaryLight"
+        app:cardCornerRadius="@dimen/margin_tiny"
+        app:cardElevation="@dimen/margin_tiny"
+        app:cardUseCompatPadding="true">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_small"
+            android:layout_gravity="center"
+            android:fontFamily="@font/metrophobic"
+            android:gravity="center"
+            android:textColor="@color/titlePrimaryTextColor"
+            android:textSize="@dimen/text_size_tiny"
+            android:maxLines="1"
+            android:textStyle="bold"
+            tools:text="Comedy"/>
+
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>
