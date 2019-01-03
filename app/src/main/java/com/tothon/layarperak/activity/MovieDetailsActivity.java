@@ -111,6 +111,12 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rv_images) RecyclerView recyclerViewImage;
     @BindView(R.id.rv_reviews) RecyclerView recyclerViewReviews;
     @BindView(R.id.rv_similar_movies) RecyclerView recyclerViewSimilarMovies;
+    @BindView(R.id.layout_cast) LinearLayout layoutCast;
+    @BindView(R.id.layout_crew) LinearLayout layoutCrew;
+    @BindView(R.id.layout_trailers) LinearLayout layoutTrailers;
+    @BindView(R.id.layout_images) LinearLayout layoutImages;
+    @BindView(R.id.layout_reviews) LinearLayout layoutReviews;
+    @BindView(R.id.layout_similar_movies) LinearLayout layoutSimilarMovies;
     @BindView(R.id.see_all_cast) TextView seeAllCast;
     @BindView(R.id.see_all_crew) TextView seeAllCrew;
     @BindView(R.id.see_all_reviews) TextView seeAllReviews;
@@ -393,7 +399,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         intent.putExtra("subtitle", subtitle);
                         startActivity(intent);
                     });
+                } else {
+                    layoutCast.setVisibility(View.GONE);
                 }
+
                 if (creditResponse != null && creditResponse.getCrew().size() != 0) {
                     crewArrayList.addAll(creditResponse.getCrew());
                     crewRecyclerViewAdapter.notifyDataSetChanged();
@@ -405,6 +414,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         intent.putExtra(SeeAllCrewActivity.TAG, crewArrayList);
                         startActivity(intent);
                     });
+                } else {
+                    layoutCrew.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -438,9 +449,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 if (trailerResponse != null && trailerResponse.getResults().size() != 0) {
                     trailerArrayList.addAll(trailerResponse.getResults());
                     trailerRecyclerViewAdapter.notifyDataSetChanged();
+                } else {
+                    layoutTrailers.setVisibility(View.GONE);
                 }
             }
-
             @Override
             public void onFailure(Call<TrailerResponse> call, Throwable t) {
 
@@ -474,7 +486,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         startActivity(intent);
                     });
                 } else {
-                    seeAllReviews.setVisibility(View.GONE);
+                    layoutReviews.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -492,7 +504,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ImagesResponse> call, Response<ImagesResponse> response) {
                 ImagesResponse imagesResponse = response.body();
-                if (imagesResponse != null) {
+                if (imagesResponse != null && imagesResponse.getBackdrops().size() != 0) {
                     List<Image> backdrops = null;
                     try {
                         backdrops = response.body().getBackdrops();
@@ -510,6 +522,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                } else {
+                    layoutImages.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -526,9 +540,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                 MovieResponse movieResponse = response.body();
-                if (movieResponse != null) {
+                if (movieResponse != null && movieResponse.getResults().size() != 0) {
                     similarMovieList.addAll(movieResponse.getResults());
                     similarMoviesAdapter.notifyDataSetChanged();
+                } else {
+                    layoutSimilarMovies.setVisibility(View.GONE);
                 }
             }
             @Override

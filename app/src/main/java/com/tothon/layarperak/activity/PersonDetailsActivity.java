@@ -76,6 +76,8 @@ public class PersonDetailsActivity extends AppCompatActivity {
     @BindView(R.id.tv_popularity) TextView tvPopularity;
     @BindView(R.id.rv_filmography) RecyclerView recyclerViewFilmography;
     @BindView(R.id.rv_images) RecyclerView recyclerViewImages;
+    @BindView(R.id.layout_filmography) LinearLayout layoutFilmography;
+    @BindView(R.id.layout_images) LinearLayout layoutImages;
     @BindView(R.id.see_all_filmography) TextView seeAllFilmography;
     @BindView(R.id.see_all_images) TextView seeAllImages;
     @BindView(R.id.fav_button) FloatingActionButton fabFavorite;
@@ -223,22 +225,34 @@ public class PersonDetailsActivity extends AppCompatActivity {
            public void onResponse(Call<PersonMoviesResponse> call, Response<PersonMoviesResponse> response) {
                PersonMoviesResponse personMoviesResponse = response.body();
                ArrayList<Movie> moviesAsCast = personMoviesResponse.getMoviesAsCast();
-               if (moviesAsCast != null) {
-                   if (moviesAsCast.size() < 8) {
-                       knownForMovies.addAll(moviesAsCast);
-                   } else {
-                       for (int i = 0; i < 8; i++) {
-                           knownForMovies.add(moviesAsCast.get(i));
+               ArrayList<Movie> moviesAsCrew = personMoviesResponse.getMoviesAsCrew();
+               if (moviesAsCast.size() != 0 || moviesAsCrew.size() != 0) {
+                   if (moviesAsCast.size() != 0) {
+                       if (moviesAsCast.size() < 8) {
+                           knownForMovies.addAll(moviesAsCast);
+                       } else {
+                           for (int i = 0; i < 8; i++) {
+                               knownForMovies.add(moviesAsCast.get(i));
+                           }
                        }
+                       movieRecyclerViewAdapter.notifyDataSetChanged();
+                   } else if (moviesAsCrew.size() != 0) {
+                       if (moviesAsCrew.size() < 8) {
+                           knownForMovies.addAll(moviesAsCrew);
+                       } else {
+                           for (int i = 0; i < 8; i++) {
+                               knownForMovies.add(moviesAsCrew.get(i));
+                           }
+                       }
+                       movieRecyclerViewAdapter.notifyDataSetChanged();
                    }
-                   movieRecyclerViewAdapter.notifyDataSetChanged();
-
                    seeAllFilmography.setOnClickListener(item -> {
                        Intent intent = new Intent(PersonDetailsActivity.this, PersonMoviesActivity.class);
                        intent.putExtra(PersonMoviesActivity.KEY_PERSON, person);
                        startActivity(intent);
                    });
-
+               } else {
+                   layoutFilmography.setVisibility(View.GONE);
                }
            }
            @Override
@@ -256,7 +270,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<ImagesResponse> call, Response<ImagesResponse> response) {
                 ImagesResponse imagesResponse = response.body();
-                if (imagesResponse != null) {
+                if (imagesResponse != null && imagesResponse.getProfiles().size() != 0) {
                     List<Image> mainImages = null;
                     try {
                         mainImages = response.body().getProfiles();
@@ -274,6 +288,8 @@ public class PersonDetailsActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                } else {
+                    layoutImages.setVisibility(View.GONE);
                 }
             }
             @Override

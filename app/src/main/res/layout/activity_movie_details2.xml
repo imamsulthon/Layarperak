@@ -154,10 +154,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:textSize="12sp"
-                        android:textStyle="italic"
+                        android:maxLines="2"
                         android:textAlignment="center"
-                        android:maxLines="2"/>
+                        android:textSize="12sp"
+                        android:textStyle="italic" />
 
                     <at.blogc.android.views.ExpandableTextView
                         android:id="@+id/tv_overview"
@@ -165,21 +165,21 @@
                         android:layout_height="wrap_content"
                         android:ellipsize="end"
                         android:fontFamily="@font/metrophobic"
-                        android:textColor="@color/titleSecondaryTextColor"
                         android:maxLines="4"
                         android:text="@string/lorem_ipsum"
+                        android:textColor="@color/titleSecondaryTextColor"
                         android:textSize="14sp"
                         android:typeface="normal"
                         app:animation_duration="750" />
 
-                </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="@color/colorPrimaryLight" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@color/colorPrimaryLight"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,17 +197,17 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:textSize="@dimen/text_size_small"
                             android:text="Vote"
-                            android:textAllCaps="true"/>
+                            android:textAlignment="center"
+                            android:textAllCaps="true"
+                            android:textSize="@dimen/text_size_small" />
 
                         <TextView
                             android:id="@+id/tv_vote"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textAlignment="center"
-                            android:text="3456"/>
+                            android:text="3456"
+                            android:textAlignment="center" />
 
                     </LinearLayout>
 
@@ -221,28 +221,28 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Rating"
+                            android:textAlignment="center"
                             android:textAllCaps="true"
-                            android:textSize="@dimen/text_size_small"
-                            android:textAlignment="center"/>
+                            android:textSize="@dimen/text_size_small" />
 
                         <RatingBar
                             android:id="@+id/ratingBar"
+                            style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="85dp"
                             android:layout_height="wrap_content"
-                            android:numStars="5"
-                            android:stepSize="1"
-                            android:rating="3.5"
-                            android:padding="3dp"
                             android:layout_gravity="center"
-                            style="?android:attr/ratingBarStyleSmall"/>
+                            android:numStars="5"
+                            android:padding="3dp"
+                            android:rating="3.5"
+                            android:stepSize="1" />
 
                         <TextView
                             android:id="@+id/tv_rating"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textAlignment="center"
                             android:text="7/10"
-                            android:textSize="@dimen/text_size_tiny"/>
+                            android:textAlignment="center"
+                            android:textSize="@dimen/text_size_tiny" />
 
                     </LinearLayout>
 
@@ -256,18 +256,18 @@
                             android:id="@+id/tv_realease_status"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:text="Realeased"
                             android:textAlignment="center"
-                            android:textSize="@dimen/text_size_small"
                             android:textAllCaps="true"
-                            android:text="Realeased"/>
+                            android:textSize="@dimen/text_size_small" />
 
                         <TextView
                             android:id="@+id/tv_realease_date"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textAlignment="center"
                             android:text="23 March 2010"
-                            android:textSize="@dimen/text_size_small"/>
+                            android:textAlignment="center"
+                            android:textSize="@dimen/text_size_small" />
 
                     </LinearLayout>
 
@@ -276,15 +276,14 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@color/colorPrimaryLight"/>
+                    android:layout_margin="@dimen/margin_medium"
+                    android:background="@color/colorPrimaryLight" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/margin_medium">
+                    android:layout_margin="@dimen/margin_medium"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/genres_label_tv"
@@ -293,7 +292,7 @@
                         android:text="Genres"
                         android:textAllCaps="true"
                         android:textSize="@dimen/text_size_large"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <FrameLayout
                         android:layout_width="wrap_content"
@@ -304,30 +303,31 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_genre"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                     </FrameLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorPrimaryLight" />
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorPrimaryLight"/>
-
                 <LinearLayout
+                    android:id="@+id/layout_cast"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/margin_medium">
+                    android:layout_margin="@dimen/margin_medium"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/margin_tiny"
-                        android:layout_marginLeft="@dimen/margin_tiny">
+                        android:layout_marginLeft="@dimen/margin_tiny"
+                        android:layout_marginRight="@dimen/margin_tiny">
 
                         <TextView
                             android:id="@+id/cast_label_tv"
@@ -338,7 +338,7 @@
                             android:text="Cast"
                             android:textAllCaps="true"
                             android:textSize="@dimen/text_size_large"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/see_all_cast"
@@ -349,7 +349,7 @@
                             android:text="@string/see_all"
                             android:textColor="@color/colorAccentGreen"
                             android:textSize="12sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </RelativeLayout>
 
@@ -362,41 +362,41 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_cast"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"/>
+                            android:layout_height="match_parent" />
 
                     </FrameLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="@color/colorPrimaryLight" />
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@color/colorPrimaryLight"/>
-
                 <LinearLayout
+                    android:id="@+id/layout_crew"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/margin_medium">
+                    android:layout_margin="@dimen/margin_medium"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/margin_tiny"
-                        android:layout_marginLeft="@dimen/margin_tiny">
+                        android:layout_marginLeft="@dimen/margin_tiny"
+                        android:layout_marginRight="@dimen/margin_tiny">
 
                         <TextView
                             android:id="@+id/label_crew"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_medium"
                             android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/margin_medium"
                             android:text="Crew"
                             android:textAllCaps="true"
                             android:textSize="@dimen/text_size_large"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/see_all_crew"
@@ -407,7 +407,7 @@
                             android:text="@string/see_all"
                             android:textColor="@color/colorAccentGreen"
                             android:textSize="12sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </RelativeLayout>
 
@@ -420,24 +420,24 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_crew"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                     </FrameLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="@color/colorPrimaryLight" />
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@color/colorPrimaryLight"/>
-
                 <LinearLayout
+                    android:id="@+id/layout_trailers"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/margin_medium">
+                    android:layout_margin="@dimen/margin_medium"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/label_trailers"
@@ -447,7 +447,7 @@
                         android:text="Trailers"
                         android:textAllCaps="true"
                         android:textSize="@dimen/text_size_large"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <FrameLayout
                         android:layout_width="wrap_content"
@@ -458,41 +458,41 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_trailers"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                     </FrameLayout>
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="@dimen/margin_medium"
+                        android:background="@color/colorPrimaryLight" />
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@color/colorPrimaryLight"/>
-
                 <LinearLayout
+                    android:id="@+id/layout_images"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/margin_medium">
+                    android:layout_margin="@dimen/margin_medium"
+                    android:orientation="vertical">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="@dimen/margin_tiny"
-                        android:layout_marginLeft="@dimen/margin_tiny">
+                        android:layout_marginLeft="@dimen/margin_tiny"
+                        android:layout_marginRight="@dimen/margin_tiny">
 
                         <TextView
                             android:id="@+id/label_images"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/margin_medium"
                             android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/margin_medium"
                             android:text="Images"
                             android:textAllCaps="true"
                             android:textSize="@dimen/text_size_large"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/see_all_images"
@@ -503,7 +503,7 @@
                             android:text="@string/see_all"
                             android:textColor="@color/colorAccentGreen"
                             android:textSize="12sp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </RelativeLayout>
 
@@ -516,25 +516,24 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_images"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                     </FrameLayout>
 
-                </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="@color/colorPrimaryLight" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@color/colorPrimaryLight"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_reviews"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/margin_medium">
+                    android:layout_margin="@dimen/margin_medium"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/label_reviews"
@@ -544,7 +543,7 @@
                         android:text="Reviews"
                         android:textAllCaps="true"
                         android:textSize="@dimen/text_size_large"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <FrameLayout
                         android:layout_width="wrap_content"
@@ -555,36 +554,36 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_reviews"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                     </FrameLayout>
 
                     <TextView
                         android:id="@+id/see_all_reviews"
-                        android:layout_marginTop="@dimen/margin_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_small"
                         android:layout_gravity="center_horizontal"
-                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/margin_medium"
                         android:gravity="center_horizontal"
-                        android:text="@string/see_all"/>
+                        android:padding="@dimen/margin_small"
+                        android:text="@string/see_all"
+                        android:visibility="gone" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginBottom="@dimen/margin_medium"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="@color/colorPrimaryLight" />
 
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@color/colorPrimaryLight"/>
 
                 <LinearLayout
                     android:id="@+id/layout_similar_movies"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/margin_medium">
+                    android:layout_margin="@dimen/margin_medium"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/label_similar_movies"
@@ -594,7 +593,7 @@
                         android:text="Similar Movies"
                         android:textAllCaps="true"
                         android:textSize="@dimen/text_size_large"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <FrameLayout
                         android:layout_width="wrap_content"
@@ -605,24 +604,23 @@
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/rv_similar_movies"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="wrap_content" />
 
                     </FrameLayout>
 
-                </LinearLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="2dp"
+                        android:layout_marginTop="@dimen/margin_medium"
+                        android:background="@color/colorPrimaryLight" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2dp"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
-                    android:background="@color/colorPrimaryLight"/>
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_margin="@dimen/margin_medium">
+                    android:layout_margin="@dimen/margin_medium"
+                    android:orientation="vertical">
 
                     <TextView
                         android:id="@+id/label_open_with"
@@ -630,7 +628,7 @@
                         android:layout_height="wrap_content"
                         android:text="Open With: "
                         android:textSize="@dimen/text_size_medium"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -661,7 +659,7 @@
                             android:layout_marginLeft="@dimen/margin_medium"
                             android:layout_toRightOf="@id/iv_google"
                             android:contentDescription="@string/content_icon"
-                            android:src="@drawable/ic_home_green"/>
+                            android:src="@drawable/ic_home_green" />
 
                     </RelativeLayout>
 

@@ -106,6 +106,12 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rv_images) RecyclerView recyclerViewImage;
     @BindView(R.id.rv_reviews) RecyclerView recyclerViewReviews;
     @BindView(R.id.rv_similar_movies) RecyclerView recyclerViewSimilarMovies;
+    @BindView(R.id.layout_cast) LinearLayout layoutCast;
+    @BindView(R.id.layout_crew) LinearLayout layoutCrew;
+    @BindView(R.id.layout_trailers) LinearLayout layoutTrailers;
+    @BindView(R.id.layout_images) LinearLayout layoutImages;
+    @BindView(R.id.layout_reviews) LinearLayout layoutReviews;
+    @BindView(R.id.layout_similar_television) LinearLayout layoutSimilarTelevision;
     @BindView(R.id.see_all_cast) TextView seeAllCast;
     @BindView(R.id.see_all_crew) TextView seeAllCrew;
     @BindView(R.id.see_all_reviews) TextView seeAllReviews;
@@ -133,7 +139,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_television_details);
         ButterKnife.bind(this);
 
@@ -351,6 +357,8 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
                         intent.putExtra("subtitle", subtitle);
                         startActivity(intent);
                     });
+                } else {
+                    layoutCast.setVisibility(View.GONE);
                 }
                 if (creditResponse != null && creditResponse.getCrew().size() != 0) {
                     crewArrayList.addAll(creditResponse.getCrew());
@@ -363,6 +371,8 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
                         intent.putExtra("subtitle", subtitle);
                         startActivity(intent);
                     });
+                } else {
+                    layoutCrew.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -411,6 +421,8 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
                         intent.putExtra("subtitle", subtitle);
                         startActivity(intent);
                     });
+                } else {
+                    layoutReviews.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -444,6 +456,8 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                } else {
+                    layoutImages.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -462,6 +476,8 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
                 if (trailerResponse != null && trailerResponse.getResults().size() != 0) {
                     trailerArrayList.addAll(trailerResponse.getResults());
                     trailerRecyclerViewAdapter.notifyDataSetChanged();
+                } else {
+                    layoutTrailers.setVisibility(View.GONE);
                 }
             }
             @Override
@@ -480,6 +496,8 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
                 if (televisionResponse != null) {
                     similarTelevisionList.addAll(televisionResponse.getResults());
                     similarTelevisionAdapter.notifyDataSetChanged();
+                } else {
+                    layoutSimilarTelevision.setVisibility(View.GONE);
                 }
             }
             @Override
