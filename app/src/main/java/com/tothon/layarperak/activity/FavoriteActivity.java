@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.ViewPagerAdapter;
 import com.tothon.layarperak.data.MovieDataSource;
-import com.tothon.layarperak.fragment.AsCastFragment;
 import com.tothon.layarperak.fragment.FavoriteItemFragmentMovie;
 import com.tothon.layarperak.fragment.FavoriteItemFragmentTv;
 import com.tothon.layarperak.model.Movie;
@@ -83,6 +82,9 @@ public class FavoriteActivity extends AppCompatActivity {
             televisionArrayList = televisions;
             setupViewpager(viewPager);
             tabLayout.setupWithViewPager(viewPager);
+        } else {
+            loading.setVisibility(View.VISIBLE);
+            contentLayout.setVisibility(View.GONE);
         }
     }
 

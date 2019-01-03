@@ -37,6 +37,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     // region View
     @BindView(R.id.layout_layarperak)
     LinearLayout layarperak;
+    @BindView(R.id.layout_recent_activity)
+    LinearLayout layoutRecentAcitivity;
     @BindView(R.id.rv_favorite_movies)
     RecyclerView rvFavoriteMovie;
     @BindView(R.id.layout_favorite)
@@ -88,14 +90,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     private void fetchFavorite() {
         movieArrayList.clear();
         ArrayList<Movie> movies = dataSource.getAllFavoriteMovies();
-        if (movies.size() <= 8) {
-            movieArrayList.addAll(movies);
-        } else {
-            for (int i = 0; i < 8; i++) {
-                movieArrayList.add(movies.get(i));
+        if (movies.size() > 0) {
+            layoutRecentAcitivity.setVisibility(View.VISIBLE);
+            if (movies.size() <= 8) {
+                movieArrayList.addAll(movies);
+            } else {
+                for (int i = 0; i < 8; i++) {
+                    movieArrayList.add(movies.get(i));
+                }
             }
+            moviesAdapter.notifyDataSetChanged();
+        } else {
+            layoutRecentAcitivity.setVisibility(View.GONE);
         }
-        moviesAdapter.notifyDataSetChanged();
     }
 
     @Override

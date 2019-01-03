@@ -277,16 +277,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 fabFavorite.setImageResource(R.drawable.ic_favorite);
                 CookieBar.build(MovieDetailsActivity.this)
                         .setBackgroundColor(R.color.colorAccentGreen)
-                        .setTitle("Movie added to Favorites!")
-                        .setMessage("You can now see the details even when offline in favorite tabs")
+                        .setTitle(movie.getTitle())
+                        .setMessage("This movie has been add to your favorite")
                         .show();
             } else {
                 dataSource.deleteMovieFromFavorite(transactedMovie);
                 fabFavorite.setImageResource(R.drawable.ic_favorite_border);
                 CookieBar.build(MovieDetailsActivity.this)
                         .setBackgroundColor(android.R.color.holo_red_dark)
-                        .setTitle("Movie removed from favorites!")
-                        .setMessage("But did you really have to?")
+                        .setTitle(movie.getTitle())
+                        .setMessage("This movie has been removed from your favorites")
                         .show();
             }
         });
