@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -54,10 +55,10 @@ public class PersonDetailsActivity extends AppCompatActivity {
     public static final String KEY = "person";
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
 
+    Person person;
     ArrayList<Image> imageArrayList = new ArrayList<>();
     ArrayList<Image> allImages = new ArrayList<>();
     ArrayList<Movie> knownForMovies = new ArrayList<>();
-    Person person;
 
     @BindView(R.id.backdrop) ImageView ivBackdrop;
     @BindView(R.id.tv_backdrop_desc) LinearLayout backdropDesc;
@@ -77,6 +78,7 @@ public class PersonDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rv_images) RecyclerView recyclerViewImages;
     @BindView(R.id.see_all_filmography) TextView seeAllFilmography;
     @BindView(R.id.see_all_images) TextView seeAllImages;
+    @BindView(R.id.fav_button) FloatingActionButton fabFavorite;
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
     @BindView(R.id.iv_homepage) ImageView icHomepage;

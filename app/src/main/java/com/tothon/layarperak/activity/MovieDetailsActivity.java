@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ import com.tothon.layarperak.adapter.ReviewRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.TrailerRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.config.Utils;
+import com.tothon.layarperak.data.MovieDataSource;
 import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.Trailer;
@@ -50,6 +52,8 @@ import com.tothon.layarperak.model.response.ImagesResponse;
 import com.tothon.layarperak.model.response.MovieResponse;
 import com.tothon.layarperak.model.response.ReviewsResponse;
 import com.tothon.layarperak.service.RetrofitAPI;
+
+import org.aviran.cookiebar2.CookieBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,7 +73,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
 
     // region Models
-    Movie movie;
+    Movie movie, tempMovie;
     private ArrayList<Genre> genreArrayList = new ArrayList<>();
     private ArrayList<Cast> castArrayList = new ArrayList<>();
     private ArrayList<Crew> crewArrayList = new ArrayList<>();
@@ -80,6 +84,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ArrayList<Movie> similarMovieList = new ArrayList<>();
 
     private Person director = null;
+    private MovieDataSource dataSource;
     // endregion
 
     // region Views
@@ -110,6 +115,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @BindView(R.id.see_all_crew) TextView seeAllCrew;
     @BindView(R.id.see_all_reviews) TextView seeAllReviews;
     @BindView(R.id.see_all_images) TextView seeAllImages;
+    @BindView(R.id.fav_button) FloatingActionButton fabFavorite;
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
     @BindView(R.id.iv_homepage) ImageView icHomepage;
@@ -143,6 +149,10 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
 
         movie = getIntent().getParcelableExtra(KEY);
+        dataSource = new MovieDataSource();
+        dataSource.open();
+
+        favButtonInit(movie.getId());
 
         recyclerViewGenre.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
@@ -248,6 +258,36 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             } else {
                 Toast.makeText(MovieDetailsActivity.this, "Director not found", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void favButtonInit(int id) {
+        Movie checkedMovie = dataSource.findMovieWithId(id);
+        if (checkedMovie == null) {
+            fabFavorite.setImageResource(R.drawable.ic_favorite_border);
+        } else {
+            fabFavorite.setImageResource(R.drawable.ic_favorite);
+        }
+        fabFavorite.setOnClickListener(view -> {
+            Movie transactedMovie = dataSource.findMovieWithId(id);
+            if (transactedMovie == null) {
+                tempMovie = movie;
+                dataSource.addMovieToFavorite(tempMovie);
+                fabFavorite.setImageResource(R.drawable.ic_favorite);
+                CookieBar.build(MovieDetailsActivity.this)
+                        .setBackgroundColor(R.color.colorAccentGreen)
+                        .setTitle("Movie added to Favorites!")
+                        .setMessage("You can now see the details even when offline in favorite tabs")
+                        .show();
+            } else {
+                dataSource.deleteMovieFromFavorite(transactedMovie);
+                fabFavorite.setImageResource(R.drawable.ic_favorite_border);
+                CookieBar.build(MovieDetailsActivity.this)
+                        .setBackgroundColor(android.R.color.holo_red_dark)
+                        .setTitle("Movie removed from favorites!")
+                        .setMessage("But did you really have to?")
+                        .show();
             }
         });
     }
@@ -551,5 +591,11 @@ public class MovieDetailsActivity extends AppCompatActivity {
             handler.removeCallbacksAndMessages(null);
             handler.removeCallbacks(runnable);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dataSource.close();
     }
 }

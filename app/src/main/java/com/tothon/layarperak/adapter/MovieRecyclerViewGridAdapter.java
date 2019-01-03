@@ -15,7 +15,6 @@ import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.MovieDetailsActivity;
 import com.tothon.layarperak.model.Movie;
-import com.tothon.layarperak.model.MovieGroupByCrew;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -26,9 +25,9 @@ import butterknife.ButterKnife;
 public class MovieRecyclerViewGridAdapter extends RecyclerView.Adapter<MovieRecyclerViewGridAdapter.MovieViewHolder>{
 
     private Context context;
-    private ArrayList<MovieGroupByCrew> movieArrayList;
+    private ArrayList<Movie> movieArrayList;
 
-    public MovieRecyclerViewGridAdapter(Context context, ArrayList<MovieGroupByCrew> movieArrayList) {
+    public MovieRecyclerViewGridAdapter(Context context, ArrayList<Movie> movieArrayList) {
         this.context = context;
         this.movieArrayList = movieArrayList;
     }

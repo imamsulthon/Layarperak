@@ -47,7 +47,10 @@
         <activity android:name=".activity.GalleryActivity" />
         <activity android:name=".activity.ImageFullScreenActivity" />
         <activity android:name=".activity.PersonMoviesActivity" />
-        <activity android:name=".activity.MovieGridActivity"></activity>
+        <activity android:name=".activity.MovieGridActivity" />
+        <activity android:name=".activity.FavoriteActivity" />
+        <activity android:name=".activity.AboutActivity" />
+        <activity android:name=".activity.SettingsActivity"></activity>
     </application>
 
 </manifest>

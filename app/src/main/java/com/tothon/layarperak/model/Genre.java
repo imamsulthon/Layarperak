@@ -5,8 +5,13 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Genre implements Parcelable {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
+
+public class Genre extends RealmObject implements Parcelable {
+
+    @PrimaryKey
     @SerializedName("id")
     private int id;
     @SerializedName("name")

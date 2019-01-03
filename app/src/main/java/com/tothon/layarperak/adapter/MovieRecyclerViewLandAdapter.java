@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.MovieDetailsActivity;
 import com.tothon.layarperak.config.Config;
-import com.tothon.layarperak.model.MovieGroupByCrew;
+import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.service.RetrofitAPI;
 
 import java.util.ArrayList;
@@ -26,9 +26,9 @@ import butterknife.ButterKnife;
 public class MovieRecyclerViewLandAdapter extends RecyclerView.Adapter<MovieRecyclerViewLandAdapter.ViewHolder> {
 
     private Context context;
-    private ArrayList<MovieGroupByCrew> movieArrayList;
+    private ArrayList<Movie> movieArrayList;
 
-    public MovieRecyclerViewLandAdapter(Context context, ArrayList<MovieGroupByCrew> movieArrayList) {
+    public MovieRecyclerViewLandAdapter(Context context, ArrayList<Movie> movieArrayList) {
         this.context = context;
         this.movieArrayList = movieArrayList;
     }
@@ -42,7 +42,7 @@ public class MovieRecyclerViewLandAdapter extends RecyclerView.Adapter<MovieRecy
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        MovieGroupByCrew movie = movieArrayList.get(position);
+        Movie movie = movieArrayList.get(position);
         Picasso.with(context)
                 .load(RetrofitAPI.POSTER_BASE_URL_SMALL + movie.getPosterPath())
                 .error(R.drawable.tmdb_placeholder)

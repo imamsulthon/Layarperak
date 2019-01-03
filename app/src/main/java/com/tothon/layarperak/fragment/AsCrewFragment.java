@@ -14,7 +14,7 @@ import android.widget.RelativeLayout;
 
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.ViewPagerAdapter;
-import com.tothon.layarperak.model.MovieGroupByCrew;
+import com.tothon.layarperak.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class AsCrewFragment extends Fragment {
     private static final String TAG = "tag";
 
     // region Model
-    ArrayList<MovieGroupByCrew> allMovies = new ArrayList<>();
+    ArrayList<Movie> allMovies = new ArrayList<>();
     // endregion
 
     // region View
@@ -41,7 +41,7 @@ public class AsCrewFragment extends Fragment {
     ViewPager viewPager;
     // endregion
 
-    public AsCrewFragment newInstance(ArrayList<MovieGroupByCrew> movies) {
+    public AsCrewFragment newInstance(ArrayList<Movie> movies) {
         AsCrewFragment fragment = new AsCrewFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(TAG, movies);
@@ -81,14 +81,14 @@ public class AsCrewFragment extends Fragment {
         List<String> titleList = getAllDepartmenNamet(allMovies);
         for (int i = 0; i < titleList.size(); i++) {
             String deptName = titleList.get(i);
-            ArrayList<MovieGroupByCrew> movieList = addMoviesInDepartment(deptName, allMovies);
+            ArrayList<Movie> movieList = addMoviesInDepartment(deptName, allMovies);
             String tabTitle = deptName + " (" + movieList.size() + ")";
             adapter.addFragment(new AsCrewFragmentChild().newInstance(movieList), tabTitle);
         }
         viewPager.setAdapter(adapter);
     }
 
-    private static List<String> getAllDepartmenNamet(ArrayList<MovieGroupByCrew> movies) {
+    private static List<String> getAllDepartmenNamet(ArrayList<Movie> movies) {
         List<String> result = new ArrayList<>();
         for (int i = 0; i < movies.size(); i++) {
             String department = movies.get(i).getDepartment();
@@ -110,8 +110,8 @@ public class AsCrewFragment extends Fragment {
         return result;
     }
 
-    private static ArrayList<MovieGroupByCrew> addMoviesInDepartment(String department, List<MovieGroupByCrew> movies) {
-        ArrayList<MovieGroupByCrew> result = new ArrayList<>();
+    private static ArrayList<Movie> addMoviesInDepartment(String department, List<Movie> movies) {
+        ArrayList<Movie> result = new ArrayList<>();
         for (int i = 0; i < movies.size(); i++) {
             if (movies.get(i).getDepartment().equals(department)) {
                 result.add(movies.get(i));

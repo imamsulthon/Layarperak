@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
-public class AsCastFragment extends Fragment {
+public class FavoriteItemFragmentMovie extends Fragment {
 
     private static final String TAG = "tag";
 

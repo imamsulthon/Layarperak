@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.AboutActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/layout_layarperak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+           <ImageView
+                android:layout_width="@dimen/item_heigth_medium"
+                android:layout_height="@dimen/item_heigth_medium"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/layarperak_logo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/app_name"
+                android:textSize="38dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_created_by"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_above="@id/layout_social_media"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Created by: "
+                android:textSize="@dimen/text_size_small"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Imam Sulthon"
+                android:textSize="@dimen/text_size_large"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layout_social_media"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/margin_xxlarge">
+
+            <ImageView
+                android:id="@+id/iv_instagram"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:src="@drawable/ic_instagram"/>
+
+            <ImageView
+                android:id="@+id/iv_twitter"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:src="@drawable/ic_twitter"/>
+
+            <ImageView
+                android:id="@+id/iv_github"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:src="@drawable/ic_github"/>
+
+            <ImageView
+                android:id="@+id/iv_linkedin"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="@dimen/margin_medium"
+                android:layout_marginEnd="@dimen/margin_medium"
+                android:src="@drawable/ic_linkedin"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

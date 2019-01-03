@@ -5,11 +5,11 @@ import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
+import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Movie implements Parcelable {
+public class Movie extends RealmObject implements Parcelable {
 
     @PrimaryKey
     @SerializedName("id")
@@ -31,7 +31,7 @@ public class Movie implements Parcelable {
     @SerializedName("status")
     private String status;
     @SerializedName("genres")
-    private List<Genre> genres;
+    private RealmList<Genre> genres;
     @SerializedName("release_date")
     private String date;
     @SerializedName("vote_count")
@@ -44,8 +44,50 @@ public class Movie implements Parcelable {
     private String backdropPath;
     private byte[] posterBytes;
 
+    // person's movie as crew (PersonMoviesResponse.class)
+    @SerializedName("job")
+    private String job;
+    @SerializedName("department")
+    private String department;
+
     public Movie() {
     }
+
+    protected Movie(Parcel in) {
+        id = in.readInt();
+        imdbId = in.readString();
+        posterPath = in.readString();
+        title = in.readString();
+        originalTitle = in.readString();
+        homepage = in.readString();
+        tagline = in.readString();
+        overview = in.readString();
+        status = in.readString();
+        date = in.readString();
+        voteCount = in.readInt();
+        if (in.readByte() == 0) {
+            rating = null;
+        } else {
+            rating = in.readDouble();
+        }
+        runtime = in.readInt();
+        backdropPath = in.readString();
+        posterBytes = in.createByteArray();
+        job = in.readString();
+        department = in.readString();
+    }
+
+    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel in) {
+            return new Movie(in);
+        }
+
+        @Override
+        public Movie[] newArray(int size) {
+            return new Movie[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -123,11 +165,11 @@ public class Movie implements Parcelable {
         this.status = status;
     }
 
-    public List<Genre> getGenres() {
+    public RealmList<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(RealmList<Genre> genres) {
         this.genres = genres;
     }
 
@@ -179,27 +221,25 @@ public class Movie implements Parcelable {
         this.posterBytes = posterBytes;
     }
 
-    protected Movie(Parcel in) {
-        id = in.readInt();
-        imdbId = in.readString();
-        posterPath = in.readString();
-        title = in.readString();
-        originalTitle = in.readString();
-        homepage = in.readString();
-        tagline = in.readString();
-        overview = in.readString();
-        status = in.readString();
-        genres = in.createTypedArrayList(Genre.CREATOR);
-        date = in.readString();
-        voteCount = in.readInt();
-        if (in.readByte() == 0) {
-            rating = null;
-        } else {
-            rating = in.readDouble();
-        }
-        runtime = in.readInt();
-        backdropPath = in.readString();
-        posterBytes = in.createByteArray();
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     @Override
@@ -213,7 +253,6 @@ public class Movie implements Parcelable {
         dest.writeString(tagline);
         dest.writeString(overview);
         dest.writeString(status);
-        dest.writeTypedList(genres);
         dest.writeString(date);
         dest.writeInt(voteCount);
         if (rating == null) {
@@ -222,26 +261,10 @@ public class Movie implements Parcelable {
             dest.writeByte((byte) 1);
             dest.writeDouble(rating);
         }
-        dest.writeInt(this.runtime);
+        dest.writeInt(runtime);
         dest.writeString(backdropPath);
         dest.writeByteArray(posterBytes);
+        dest.writeString(this.job);
+        dest.writeString(this.department);
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<Movie> CREATOR = new Creator<Movie>() {
-        @Override
-        public Movie createFromParcel(Parcel in) {
-            return new Movie(in);
-        }
-
-        @Override
-        public Movie[] newArray(int size) {
-            return new Movie[size];
-        }
-    };
-
 }

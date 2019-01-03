@@ -16,7 +16,7 @@ import android.widget.LinearLayout;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.MovieRecyclerViewGridAdapter;
 import com.tothon.layarperak.adapter.MovieRecyclerViewLandAdapter;
-import com.tothon.layarperak.model.MovieGroupByCrew;
+import com.tothon.layarperak.model.Movie;
 
 import java.util.ArrayList;
 
@@ -29,7 +29,7 @@ public class AsCrewFragmentChild extends Fragment {
     private static final String TAG = "params";
 
     // region Model
-    ArrayList<MovieGroupByCrew> movieArrayList = new ArrayList<>();
+    ArrayList<Movie> movieArrayList = new ArrayList<>();
     // endregion
 
     // region View
@@ -46,7 +46,7 @@ public class AsCrewFragmentChild extends Fragment {
     int recyclerviewType = 0;
     // endregion
 
-    public AsCrewFragmentChild newInstance(ArrayList<MovieGroupByCrew> movies) {
+    public AsCrewFragmentChild newInstance(ArrayList<Movie> movies) {
         AsCrewFragmentChild fragment = new AsCrewFragmentChild();
         Bundle args = new Bundle();
         args.putParcelableArrayList(TAG, movies);

@@ -18,7 +18,6 @@ import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.fragment.AsCastFragment;
 import com.tothon.layarperak.fragment.AsCrewFragment;
 import com.tothon.layarperak.model.Movie;
-import com.tothon.layarperak.model.MovieGroupByCrew;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.response.PersonMoviesResponse;
 import com.tothon.layarperak.service.ApiClient;
@@ -38,7 +37,7 @@ public class PersonMoviesActivity extends AppCompatActivity {
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
 
     ArrayList<Movie> moviesAsCast = new ArrayList<>();
-    ArrayList<MovieGroupByCrew> moviesAsCrew = new ArrayList<>();
+    ArrayList<Movie> moviesAsCrew = new ArrayList<>();
     Person person;
 
     @BindView(R.id.progressBar_layout)
@@ -88,7 +87,7 @@ public class PersonMoviesActivity extends AppCompatActivity {
                     contentLayout.setVisibility(View.VISIBLE);
                     if (moviesAsCrew != null || moviesAsCast != null) {
                         moviesAsCast = personMoviesResponse.getMoviesAsCast();
-                        moviesAsCrew = personMoviesResponse.getMoviesGroupAsCrews();
+                        moviesAsCrew = personMoviesResponse.getMoviesAsCrew();
                         setupViewpager(viewPager);
                         tabLayout.setupWithViewPager(viewPager);
                     }

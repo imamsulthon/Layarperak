@@ -8,9 +8,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class Television implements Parcelable {
+public class Television extends RealmObject implements Parcelable {
 
     @PrimaryKey
     @SerializedName("id")
@@ -42,7 +44,7 @@ public class Television implements Parcelable {
     @SerializedName("status")
     private String status;
     @SerializedName("genres")
-    private List<Genre> genres;
+    private RealmList<Genre> genres;
     @SerializedName("vote_count")
     private int voteCount;
     @SerializedName("vote_average")
@@ -165,11 +167,11 @@ public class Television implements Parcelable {
         this.status = status;
     }
 
-    public List<Genre> getGenres() {
+    public RealmList<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(List<Genre> genres) {
+    public void setGenres(RealmList<Genre> genres) {
         this.genres = genres;
     }
 
@@ -217,7 +219,6 @@ public class Television implements Parcelable {
         tagline = in.readString();
         overview = in.readString();
         status = in.readString();
-        genres = in.createTypedArrayList(Genre.CREATOR);
         voteCount = in.readInt();
         if (in.readByte() == 0) {
             rating = null;
@@ -258,7 +259,6 @@ public class Television implements Parcelable {
         dest.writeString(tagline);
         dest.writeString(overview);
         dest.writeString(status);
-        dest.writeTypedList(genres);
         dest.writeInt(voteCount);
         if (rating == null) {
             dest.writeByte((byte) 0);
