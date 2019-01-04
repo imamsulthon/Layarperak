@@ -265,16 +265,16 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
                 fabFavorite.setImageResource(R.drawable.ic_favorite);
                 CookieBar.build(TelevisionDetailsActivity.this)
                         .setBackgroundColor(R.color.colorAccentGreen)
-                        .setTitle("Movie added to Favorites!")
-                        .setMessage("You can now see the details even when offline in favorite tabs")
+                        .setTitle(television.getTitle())
+                        .setMessage("This movie has been add to your favorite")
                         .show();
             } else {
                 dataSource.deleteTelevisionFromFavorite(transactedMovie);
                 fabFavorite.setImageResource(R.drawable.ic_favorite_border);
                 CookieBar.build(TelevisionDetailsActivity.this)
                         .setBackgroundColor(android.R.color.holo_red_dark)
-                        .setTitle("Movie removed from favorites!")
-                        .setMessage("But did you really have to?")
+                        .setTitle(television.getTitle())
+                        .setMessage("This movie has been removed from your favorites")
                         .show();
             }
         });

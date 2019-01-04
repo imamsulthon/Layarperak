@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
-import com.tothon.layarperak.model.Movie;
+import com.tothon.layarperak.adapter.PersonAdapter;
+import com.tothon.layarperak.model.Person;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
-public class FavoriteItemFragmentMovie extends Fragment {
+public class FavoriteItemFragmentPeople extends Fragment {
 
     private static final String TAG = "tag";
 
     // region Model
-    ArrayList<Movie> allMovies = new ArrayList<>();
+    ArrayList<Person> allPerson = new ArrayList<>();
     // endregion
 
     // region View
@@ -40,22 +40,22 @@ public class FavoriteItemFragmentMovie extends Fragment {
     // endregion
 
     // region Presenter
-    MovieRecyclerViewAdapter adapter;
+    PersonAdapter adapter;
     // endregion
 
-    public FavoriteItemFragmentMovie newInstance(ArrayList<Movie> movieArrayList) {
-        FavoriteItemFragmentMovie fragment = new FavoriteItemFragmentMovie();
+    public FavoriteItemFragmentPeople newInstance(ArrayList<Person> personArrayList) {
+        FavoriteItemFragmentPeople fragment = new FavoriteItemFragmentPeople();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(TAG, movieArrayList);
+        args.putParcelableArrayList(TAG, personArrayList);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            allMovies = getArguments().getParcelableArrayList(TAG);
+            allPerson = getArguments().getParcelableArrayList(TAG);
         }
     }
 
@@ -69,11 +69,11 @@ public class FavoriteItemFragmentMovie extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (allMovies.size() != 0) {
+        if (allPerson.size() != 0) {
             layoutEmpty.setVisibility(View.GONE);
             layoutContent.setVisibility(View.VISIBLE);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-            adapter = new MovieRecyclerViewAdapter(getActivity(), allMovies);
+            adapter = new PersonAdapter(getActivity(), allPerson);
             recyclerView.setAdapter(new ScaleInAnimationAdapter(adapter));
         }
     }

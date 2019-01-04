@@ -52,6 +52,23 @@ public class Person implements Parcelable {
     public Person() {
     }
 
+    public Person(int id, String name, String birthday, String deathday, int gender, String department,
+                  String biography, Double popularity, String profilePath, String placeOfBirth,
+                  String imdbId, String homepage) {
+        this.id = id;
+        this.name = name;
+        this.birthday = birthday;
+        this.deathday = deathday;
+        this.gender = gender;
+        this.department = department;
+        this.biography = biography;
+        this.popularity = popularity;
+        this.profilePath = profilePath;
+        this.placeOfBirth = placeOfBirth;
+        this.imdbId = imdbId;
+        this.homepage = homepage;
+    }
+
     public int getId() {
         return id;
     }

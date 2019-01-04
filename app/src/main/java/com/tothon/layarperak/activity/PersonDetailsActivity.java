@@ -28,6 +28,7 @@ import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.config.Config;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.config.Utils;
+import com.tothon.layarperak.data.PersonDataSource;
 import com.tothon.layarperak.fragment.support.PosterDialogFragment;
 import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.model.Movie;
@@ -37,6 +38,8 @@ import com.tothon.layarperak.model.response.PersonMoviesResponse;
 import com.tothon.layarperak.model.response.TaggedImageResponse;
 import com.tothon.layarperak.service.ApiClient;
 import com.tothon.layarperak.service.RetrofitAPI;
+
+import org.aviran.cookiebar2.CookieBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,11 +58,16 @@ public class PersonDetailsActivity extends AppCompatActivity {
     public static final String KEY = "person";
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
 
-    Person person;
+    // region Model
+    Person person, tempPerson;
     ArrayList<Image> imageArrayList = new ArrayList<>();
     ArrayList<Image> allImages = new ArrayList<>();
     ArrayList<Movie> knownForMovies = new ArrayList<>();
 
+    private PersonDataSource dataSource;
+    // endregion
+
+    // region View
     @BindView(R.id.backdrop) ImageView ivBackdrop;
     @BindView(R.id.tv_backdrop_desc) LinearLayout backdropDesc;
     @BindView(R.id.tv_backdrop_title) TextView backdropTitle;
@@ -84,9 +92,12 @@ public class PersonDetailsActivity extends AppCompatActivity {
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
     @BindView(R.id.iv_homepage) ImageView icHomepage;
+    // endregion
 
+    // region Presenter
     MovieRecyclerViewAdapter movieRecyclerViewAdapter;
     ImageRecyclerViewAdapter imageRecyclerViewAdapter;
+    // endregion
 
     Handler handler;
     Runnable runnable;
@@ -108,6 +119,10 @@ public class PersonDetailsActivity extends AppCompatActivity {
         Config config = new Config(this);
 
         person = getIntent().getParcelableExtra(KEY);
+        dataSource = new PersonDataSource(this);
+        dataSource.open();
+
+        favButtonInit(person.getId());
 
         recyclerViewFilmography.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
@@ -151,6 +166,58 @@ public class PersonDetailsActivity extends AppCompatActivity {
         fetchPersonsImages();
         fetchPersonsMovies();
 
+    }
+
+    private boolean checkedPerson(int id) {
+        boolean isChecked = false;
+        ArrayList<Person> personArrayList = dataSource.getAllFavoritePerson();
+        if (personArrayList != null && personArrayList.size() > 0) {
+            for (Person p: personArrayList) {
+                if (p.getId() == id) {
+                    isChecked = true;
+                    break;
+                }
+            }
+        }
+        return isChecked;
+    }
+
+    private void favButtonInit(int id) {
+        boolean isChecked = false;
+        ArrayList<Person> personArrayList = dataSource.getAllFavoritePerson();
+        if (personArrayList != null && personArrayList.size() > 0) {
+            for (Person p: personArrayList) {
+                if (p.getId() == id) {
+                    isChecked = true;
+                    break;
+                }
+            }
+            if (isChecked) {
+                fabFavorite.setImageResource(R.drawable.ic_favorite);
+            } else {
+                fabFavorite.setImageResource(R.drawable.ic_favorite_border);
+            }
+        }
+        fabFavorite.setOnClickListener(view -> {
+            if (checkedPerson(id)) {
+                dataSource.removePersonFromFavorite(person);
+                fabFavorite.setImageResource(R.drawable.ic_favorite_border);
+                CookieBar.build(PersonDetailsActivity.this)
+                        .setBackgroundColor(android.R.color.holo_red_dark)
+                        .setTitle(person.getName())
+                        .setMessage("This person has been removed from your favorites")
+                        .show();
+            } else {
+                tempPerson = person;
+                dataSource.addFavoritePerson(tempPerson);
+                fabFavorite.setImageResource(R.drawable.ic_favorite);
+                CookieBar.build(PersonDetailsActivity.this)
+                        .setBackgroundColor(R.color.colorAccentGreen)
+                        .setTitle(person.getName())
+                        .setMessage("This person has been add to your favorite")
+                        .show();
+            }
+        });
     }
 
     private void getPersonDetails() {
@@ -382,5 +449,11 @@ public class PersonDetailsActivity extends AppCompatActivity {
             handler.removeCallbacksAndMessages(null);
             handler.removeCallbacks(runnable);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dataSource.close();
     }
 }

@@ -15,9 +15,12 @@ import android.widget.LinearLayout;
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.ViewPagerAdapter;
 import com.tothon.layarperak.data.MovieDataSource;
+import com.tothon.layarperak.data.PersonDataSource;
 import com.tothon.layarperak.fragment.FavoriteItemFragmentMovie;
+import com.tothon.layarperak.fragment.FavoriteItemFragmentPeople;
 import com.tothon.layarperak.fragment.FavoriteItemFragmentTv;
 import com.tothon.layarperak.model.Movie;
+import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.Television;
 
 import java.util.ArrayList;
@@ -29,8 +32,10 @@ public class FavoriteActivity extends AppCompatActivity {
 
     // region Model
     private MovieDataSource dataSource;
+    private PersonDataSource personDataSource;
     private ArrayList<Movie> movieArrayList = new ArrayList<>();
     private ArrayList<Television> televisionArrayList = new ArrayList<>();
+    private ArrayList<Person> personArrayList = new ArrayList<>();
     // endregion
 
     // region View
@@ -57,6 +62,9 @@ public class FavoriteActivity extends AppCompatActivity {
         dataSource = new MovieDataSource();
         dataSource.open();
 
+        personDataSource = new PersonDataSource(this);
+        personDataSource.open();
+
         getFavorite();
         setupToolbar();
     }
@@ -67,19 +75,24 @@ public class FavoriteActivity extends AppCompatActivity {
                 + " ("+ movieArrayList.size() + ")");
         adapter.addFragment(new FavoriteItemFragmentTv().newInstance(televisionArrayList), "Television"
                 + " (" + televisionArrayList.size() + ")");
+        adapter.addFragment(new FavoriteItemFragmentPeople().newInstance(personArrayList), "Celebrity"
+                + " (" + personArrayList.size() + ")");
         viewPager.setAdapter(adapter);
     }
 
     private void getFavorite() {
         ArrayList<Movie> movies = dataSource.getAllFavoriteMovies();
         ArrayList<Television> televisions = dataSource.getAllFavoriteTelevisions();
+        ArrayList<Person> people = personDataSource.getAllFavoritePerson();
         movieArrayList.clear();
         televisionArrayList.clear();
-        if (movies.size() > 0 || televisions.size() > 0) {
+        personArrayList.clear();
+        if (movies.size() > 0 || televisions.size() > 0 || people.size() > 0) {
             loading.setVisibility(View.GONE);
             contentLayout.setVisibility(View.VISIBLE);
             movieArrayList = movies;
             televisionArrayList = televisions;
+            personArrayList = people;
             setupViewpager(viewPager);
             tabLayout.setupWithViewPager(viewPager);
         } else {
@@ -107,4 +120,10 @@ public class FavoriteActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dataSource.close();
+        personDataSource.close();
+    }
 }
