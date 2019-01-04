@@ -14,7 +14,7 @@ import android.widget.LinearLayout;
 
 import com.tothon.layarperak.R;
 import com.tothon.layarperak.adapter.ViewPagerAdapter;
-import com.tothon.layarperak.data.MovieDataSource;
+import com.tothon.layarperak.data.FavoriteDataSource;
 import com.tothon.layarperak.data.PersonDataSource;
 import com.tothon.layarperak.fragment.FavoriteItemFragmentMovie;
 import com.tothon.layarperak.fragment.FavoriteItemFragmentPeople;
@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 public class FavoriteActivity extends AppCompatActivity {
 
     // region Model
-    private MovieDataSource dataSource;
+    private FavoriteDataSource dataSource;
     private PersonDataSource personDataSource;
     private ArrayList<Movie> movieArrayList = new ArrayList<>();
     private ArrayList<Television> televisionArrayList = new ArrayList<>();
@@ -59,7 +59,7 @@ public class FavoriteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_favorite);
         ButterKnife.bind(this);
 
-        dataSource = new MovieDataSource();
+        dataSource = new FavoriteDataSource();
         dataSource.open();
 
         personDataSource = new PersonDataSource(this);

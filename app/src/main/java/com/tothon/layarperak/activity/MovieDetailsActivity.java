@@ -35,7 +35,7 @@ import com.tothon.layarperak.adapter.ReviewRecyclerViewAdapter;
 import com.tothon.layarperak.adapter.TrailerRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.config.Utils;
-import com.tothon.layarperak.data.MovieDataSource;
+import com.tothon.layarperak.data.FavoriteDataSource;
 import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.Trailer;
@@ -84,7 +84,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ArrayList<Movie> similarMovieList = new ArrayList<>();
 
     private Person director = null;
-    private MovieDataSource dataSource;
+    private FavoriteDataSource dataSource;
     // endregion
 
     // region Views
@@ -155,7 +155,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
 
         movie = getIntent().getParcelableExtra(KEY);
-        dataSource = new MovieDataSource();
+        dataSource = new FavoriteDataSource();
         dataSource.open();
 
         favButtonInit(movie.getId());

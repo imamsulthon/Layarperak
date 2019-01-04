@@ -32,7 +32,7 @@ import com.tothon.layarperak.adapter.TelevisionAdapter;
 import com.tothon.layarperak.adapter.TrailerRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.config.Utils;
-import com.tothon.layarperak.data.MovieDataSource;
+import com.tothon.layarperak.data.FavoriteDataSource;
 import com.tothon.layarperak.fragment.support.PosterDialogFragment;
 import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.model.Cast;
@@ -81,7 +81,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
     private ArrayList<Television> similarTelevisionList = new ArrayList<>();
 
     private Person director = null;
-    private MovieDataSource dataSource;
+    private FavoriteDataSource dataSource;
     // endregion
 
     // region Views
@@ -145,7 +145,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
 
         television = getIntent().getParcelableExtra(KEY);
 
-        dataSource = new MovieDataSource();
+        dataSource = new FavoriteDataSource();
         dataSource.open();
 
         favButtonInit(television.getId());

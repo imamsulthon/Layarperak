@@ -18,7 +18,7 @@ import com.tothon.layarperak.activity.AboutActivity;
 import com.tothon.layarperak.activity.FavoriteActivity;
 import com.tothon.layarperak.activity.SettingsActivity;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
-import com.tothon.layarperak.data.MovieDataSource;
+import com.tothon.layarperak.data.FavoriteDataSource;
 import com.tothon.layarperak.model.Movie;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     // region Model
-    private MovieDataSource dataSource;
+    private FavoriteDataSource dataSource;
     private ArrayList<Movie> movieArrayList = new ArrayList<>();
     // endregion
 
@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataSource = new MovieDataSource();
+        dataSource = new FavoriteDataSource();
         dataSource.open();
     }
 
