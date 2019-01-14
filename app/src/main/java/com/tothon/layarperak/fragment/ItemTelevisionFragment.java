@@ -61,7 +61,7 @@ public class ItemTelevisionFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorite_tv, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_tv, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

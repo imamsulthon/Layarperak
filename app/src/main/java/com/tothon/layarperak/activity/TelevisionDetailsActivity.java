@@ -336,7 +336,7 @@ public class TelevisionDetailsActivity extends AppCompatActivity {
         } else {
             fabWatchlist.setImageResource(R.drawable.ic_bookmark2_fill);
         }
-        fabFavorite.setOnClickListener(view -> {
+        fabWatchlist.setOnClickListener(view -> {
             Television transactedTV2 = watchlistDataSource.findWatchlistTelevisionWithId(id);
             if (transactedTV2 == null) {
                 tempTelevision2 = television;
