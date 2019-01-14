@@ -17,6 +17,7 @@ import com.tothon.layarperak.R;
 import com.tothon.layarperak.activity.AboutActivity;
 import com.tothon.layarperak.activity.FavoriteActivity;
 import com.tothon.layarperak.activity.SettingsActivity;
+import com.tothon.layarperak.activity.WatchlistActivity;
 import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
 import com.tothon.layarperak.data.FavoriteDataSource;
 import com.tothon.layarperak.model.Movie;
@@ -117,7 +118,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                 startActivity(intentTofavorite);
                 break;
             case R.id.layout_watchlist:
-                Toast.makeText(getActivity(), "This feature under developing", Toast.LENGTH_SHORT).show();
+                Intent intentToWatchlist = new Intent(getActivity(), WatchlistActivity.class);
+                startActivity(intentToWatchlist);
                 break;
             case R.id.layout_settings:
                 Intent intentSettings = new Intent(getActivity(), SettingsActivity.class);

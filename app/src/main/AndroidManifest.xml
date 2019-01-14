@@ -50,7 +50,8 @@
         <activity android:name=".activity.MovieGridActivity" />
         <activity android:name=".activity.FavoriteActivity" />
         <activity android:name=".activity.AboutActivity" />
-        <activity android:name=".activity.SettingsActivity"></activity>
+        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.WatchlistActivity"></activity>
     </application>
 
 </manifest>

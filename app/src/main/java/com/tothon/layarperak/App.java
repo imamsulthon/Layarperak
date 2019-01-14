@@ -7,14 +7,19 @@ import io.realm.RealmConfiguration;
 
 public class App extends Application {
 
+    RealmConfiguration realmConfigurationFav, realmConfigurationWatchlist;
+
     @Override
     public void onCreate() {
         super.onCreate();
         Realm.init(this);
-        RealmConfiguration realmConfiguration = new RealmConfiguration.Builder()
-                .name("layarperak.realm")
+        realmConfigurationFav = new RealmConfiguration.Builder()
+                .name("lpFavorite.realm")
                 .deleteRealmIfMigrationNeeded()
                 .build();
-        Realm.setDefaultConfiguration(realmConfiguration);
+        realmConfigurationWatchlist = new RealmConfiguration.Builder()
+                .name("lpWatchlist.realm")
+                .deleteRealmIfMigrationNeeded()
+                .build();
     }
 }

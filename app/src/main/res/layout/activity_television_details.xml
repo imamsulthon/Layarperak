@@ -748,15 +748,92 @@
 
     </ScrollView>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fav_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_xlarge"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_favorite_border"
-        app:fabSize="mini"
-        app:rippleColor="@color/white"/>
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fav_button"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/margin_xlarge"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:src="@drawable/ic_favorite_border"-->
+        <!--app:fabSize="mini"-->
+        <!--app:rippleColor="@color/white"/>-->
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/translucentView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#85000000"
+            android:clickable="false"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_fab_watchlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="120dp"
+            android:layout_marginRight="75dp"
+            android:elevation="@dimen/margin_small"
+            android:text="Watchlist"
+            android:textSize="@dimen/text_size_medium"
+            android:background="@drawable/text_view_fab"
+            android:textColor="@android:color/white"
+            android:visibility="invisible" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fav_watchlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/ic_bookmark2_white"
+            android:visibility="invisible"
+            app:fabSize="mini"
+            app:rippleColor="@color/white"/>
+
+        <TextView
+            android:id="@+id/tv_fab_fav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="70dp"
+            android:layout_marginRight="75dp"
+            android:textColor="@android:color/white"
+            android:background="@drawable/text_view_fab"
+            android:elevation="@dimen/margin_small"
+            android:textSize="@dimen/text_size_medium"
+            android:text="Favorite"
+            android:visibility="invisible" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fav_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="70dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_favorite_border"
+            android:visibility="invisible"
+            app:fabSize="mini"
+            app:rippleColor="@color/white"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fav_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="bottom|end"
+            android:src="@drawable/ic_add_white"
+            app:fabSize="mini"
+            app:rippleColor="@color/white"/>
+
+    </FrameLayout>
 
 </RelativeLayout>

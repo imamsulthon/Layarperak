@@ -18,6 +18,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -36,6 +38,7 @@ import com.tothon.layarperak.adapter.TrailerRecyclerViewAdapter;
 import com.tothon.layarperak.config.Constants;
 import com.tothon.layarperak.config.Utils;
 import com.tothon.layarperak.data.FavoriteDataSource;
+import com.tothon.layarperak.data.WatchlistDataSource;
 import com.tothon.layarperak.model.Image;
 import com.tothon.layarperak.model.Person;
 import com.tothon.layarperak.model.Trailer;
@@ -73,7 +76,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private static final String TMDB_API_KEY = Constants.TMDB_API_KEY;
 
     // region Models
-    Movie movie, tempMovie;
+    Movie movie, tempMovie, tempMovie2;
     private ArrayList<Genre> genreArrayList = new ArrayList<>();
     private ArrayList<Cast> castArrayList = new ArrayList<>();
     private ArrayList<Crew> crewArrayList = new ArrayList<>();
@@ -84,7 +87,8 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private ArrayList<Movie> similarMovieList = new ArrayList<>();
 
     private Person director = null;
-    private FavoriteDataSource dataSource;
+    private FavoriteDataSource favoriteDataSource;
+    private WatchlistDataSource watchlistDataSource;
     // endregion
 
     // region Views
@@ -121,11 +125,20 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @BindView(R.id.see_all_crew) TextView seeAllCrew;
     @BindView(R.id.see_all_reviews) TextView seeAllReviews;
     @BindView(R.id.see_all_images) TextView seeAllImages;
-    @BindView(R.id.fav_button) FloatingActionButton fabFavorite;
     @BindView(R.id.iv_imdb) ImageView icImdb;
     @BindView(R.id.iv_google) ImageView icGoogle;
     @BindView(R.id.iv_homepage) ImageView icHomepage;
-    //endregion
+
+    // region floating action button
+    @BindView(R.id.translucentView) View translucentView;
+    @BindView(R.id.fav_add) FloatingActionButton fabAdd;
+    @BindView(R.id.fav_button) FloatingActionButton fabFavorite;
+    @BindView(R.id.fav_watchlist) FloatingActionButton fabWatchlist;
+    @BindView(R.id.tv_fab_fav) TextView tvFabMovie;
+    @BindView(R.id.tv_fab_watchlist) TextView tvFabWatchlist;
+    // endregion
+
+    // endregion
 
     // region Presenter
     private GenreRecyclerViewAdapter genreRecyclerViewAdapter;
@@ -135,6 +148,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TrailerRecyclerViewAdapter trailerRecyclerViewAdapter;
     private ImageRecyclerViewAdapter imageRecyclerViewAdapter;
     private ReviewRecyclerViewAdapter reviewRecyclerViewAdapter;
+
+    boolean isOpen = false;
+    Animation fabOpen, fabClose;
     // endregion
 
     Handler handler;
@@ -155,10 +171,16 @@ public class MovieDetailsActivity extends AppCompatActivity {
         }
 
         movie = getIntent().getParcelableExtra(KEY);
-        dataSource = new FavoriteDataSource();
-        dataSource.open();
+        favoriteDataSource = new FavoriteDataSource();
+        favoriteDataSource.open();
+        watchlistDataSource = new WatchlistDataSource();
+        watchlistDataSource.open();
 
-        favButtonInit(movie.getId());
+        fabOpen = AnimationUtils.loadAnimation(this, R.anim.fab_open);
+        fabClose = AnimationUtils.loadAnimation(this, R.anim.fab_close);
+
+        fabFavoriteInit(movie.getId());
+        fabWatchlistInit(movie.getId());
 
         recyclerViewGenre.setLayoutManager(new LinearLayoutManager(getApplicationContext(),
                 LinearLayoutManager.HORIZONTAL, false));
@@ -266,20 +288,48 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 Toast.makeText(MovieDetailsActivity.this, "Director not found", Toast.LENGTH_SHORT).show();
             }
         });
+
+        fabAdd.setOnClickListener(item -> {
+            if (isOpen) {
+                translucentView.setVisibility(View.GONE);
+                fabAdd.setImageResource(R.drawable.ic_add_white);
+                fabFavorite.setAnimation(fabClose);
+                fabWatchlist.setAnimation(fabClose);
+                tvFabMovie.setVisibility(View.INVISIBLE);
+                tvFabWatchlist.setVisibility(View.INVISIBLE);
+                tvFabMovie.setAnimation(fabClose);
+                tvFabWatchlist.setAnimation(fabClose);
+                fabFavorite.setClickable(false);
+                fabWatchlist.setClickable(false);
+                isOpen = false;
+            } else {
+                translucentView.setVisibility(View.VISIBLE);
+                fabAdd.setImageResource(R.drawable.ic_add_white);
+                fabFavorite.setAnimation(fabOpen);
+                fabWatchlist.setAnimation(fabOpen);
+                tvFabMovie.setVisibility(View.VISIBLE);
+                tvFabWatchlist.setVisibility(View.VISIBLE);
+                tvFabMovie.setAnimation(fabOpen);
+                tvFabWatchlist.setAnimation(fabOpen);
+                fabFavorite.setClickable(true);
+                fabWatchlist.setClickable(true);
+                isOpen = true;
+            }
+        });
     }
 
-    private void favButtonInit(int id) {
-        Movie checkedMovie = dataSource.findMovieWithId(id);
+    private void fabFavoriteInit(int id) {
+        Movie checkedMovie = favoriteDataSource.findMovieWithId(id);
         if (checkedMovie == null) {
             fabFavorite.setImageResource(R.drawable.ic_favorite_border);
         } else {
             fabFavorite.setImageResource(R.drawable.ic_favorite);
         }
         fabFavorite.setOnClickListener(view -> {
-            Movie transactedMovie = dataSource.findMovieWithId(id);
+            Movie transactedMovie = favoriteDataSource.findMovieWithId(id);
             if (transactedMovie == null) {
                 tempMovie = movie;
-                dataSource.addMovieToFavorite(tempMovie);
+                favoriteDataSource.addMovieToFavorite(tempMovie);
                 fabFavorite.setImageResource(R.drawable.ic_favorite);
                 CookieBar.build(MovieDetailsActivity.this)
                         .setBackgroundColor(R.color.colorAccentGreen)
@@ -287,12 +337,42 @@ public class MovieDetailsActivity extends AppCompatActivity {
                         .setMessage("This movie has been add to your favorite")
                         .show();
             } else {
-                dataSource.deleteMovieFromFavorite(transactedMovie);
+                favoriteDataSource.deleteMovieFromFavorite(transactedMovie);
                 fabFavorite.setImageResource(R.drawable.ic_favorite_border);
                 CookieBar.build(MovieDetailsActivity.this)
                         .setBackgroundColor(android.R.color.holo_red_dark)
                         .setTitle(movie.getTitle())
                         .setMessage("This movie has been removed from your favorites")
+                        .show();
+            }
+        });
+    }
+
+    private void fabWatchlistInit(int id) {
+        Movie checkedMovie2 = watchlistDataSource.findWatchlistMovieWithId(id);
+        if (checkedMovie2 == null) {
+            fabWatchlist.setImageResource(R.drawable.ic_bookmark2_white);
+        } else {
+            fabWatchlist.setImageResource(R.drawable.ic_bookmark2_fill);
+        }
+        fabWatchlist.setOnClickListener(view -> {
+            Movie transactedMovie2 = watchlistDataSource.findWatchlistMovieWithId(id);
+            if (transactedMovie2 == null) {
+                tempMovie2 = movie;
+                watchlistDataSource.addMovieToWatchlist(tempMovie2);
+                fabWatchlist.setImageResource(R.drawable.ic_bookmark2_fill);
+                CookieBar.build(MovieDetailsActivity.this)
+                        .setBackgroundColor(R.color.colorAccentGreen)
+                        .setTitle(movie.getTitle())
+                        .setMessage("This movie has been add to your watchlist")
+                        .show();
+            } else {
+                watchlistDataSource.deleteMovieFromWatchlist(transactedMovie2);
+                fabWatchlist.setImageResource(R.drawable.ic_bookmark2_white);
+                CookieBar.build(MovieDetailsActivity.this)
+                        .setBackgroundColor(android.R.color.holo_red_dark)
+                        .setTitle(movie.getTitle())
+                        .setMessage("This movie has been removed from your watchlist")
                         .show();
             }
         });
@@ -612,6 +692,7 @@ public class MovieDetailsActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        dataSource.close();
+        favoriteDataSource.close();
+        watchlistDataSource.close();
     }
 }

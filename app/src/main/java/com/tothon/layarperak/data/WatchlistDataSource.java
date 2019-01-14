@@ -1,11 +1,13 @@
 package com.tothon.layarperak.data;
 
+import com.tothon.layarperak.App;
 import com.tothon.layarperak.model.Movie;
 import com.tothon.layarperak.model.Television;
 
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class WatchlistDataSource {
@@ -16,7 +18,8 @@ public class WatchlistDataSource {
     }
 
     public void open() {
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration configuration = new RealmConfiguration.Builder().name("lpWatchlist.realm").build();
+        realm = Realm.getInstance(configuration);
     }
 
     public void close() {

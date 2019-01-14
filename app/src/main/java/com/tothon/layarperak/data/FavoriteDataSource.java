@@ -6,6 +6,7 @@ import com.tothon.layarperak.model.Television;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
 
 public class FavoriteDataSource {
@@ -16,7 +17,8 @@ public class FavoriteDataSource {
     }
 
     public void open() {
-        realm = Realm.getDefaultInstance();
+        RealmConfiguration configuration = new RealmConfiguration.Builder().name("lpFavorite.realm").build();
+        realm = Realm.getInstance(configuration);
     }
 
     public void close() {

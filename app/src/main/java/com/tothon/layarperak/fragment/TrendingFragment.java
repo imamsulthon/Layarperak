@@ -44,12 +44,9 @@ public class TrendingFragment extends Fragment {
     private TelevisionAdapter televisionAdapter;
     private PersonAdapter celebrityAdapter;
 
-    @BindView(R.id.rv_trending_movies)
-    RecyclerView recyclerViewPopular;
-    @BindView(R.id.rv_trending_television)
-    RecyclerView recyclerViewTopRated;
-    @BindView(R.id.rv_trending_celebrity)
-    RecyclerView recyclerViewCelebrity;
+    @BindView(R.id.rv_trending_movies) RecyclerView recyclerViewPopular;
+    @BindView(R.id.rv_trending_television) RecyclerView recyclerViewTopRated;
+    @BindView(R.id.rv_trending_celebrity) RecyclerView recyclerViewCelebrity;
 
 
     @Override

@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
-public class FavoriteItemFragmentPeople extends Fragment {
+public class ItemPeopleFragment extends Fragment {
 
     private static final String TAG = "tag";
 
@@ -43,8 +43,8 @@ public class FavoriteItemFragmentPeople extends Fragment {
     PersonAdapter adapter;
     // endregion
 
-    public FavoriteItemFragmentPeople newInstance(ArrayList<Person> personArrayList) {
-        FavoriteItemFragmentPeople fragment = new FavoriteItemFragmentPeople();
+    public ItemPeopleFragment newInstance(ArrayList<Person> personArrayList) {
+        ItemPeopleFragment fragment = new ItemPeopleFragment();
         Bundle args = new Bundle();
         args.putParcelableArrayList(TAG, personArrayList);
         fragment.setArguments(args);
@@ -61,7 +61,7 @@ public class FavoriteItemFragmentPeople extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_as_cast, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_movie, container, false);
         ButterKnife.bind(this, view);
         return view;
     }

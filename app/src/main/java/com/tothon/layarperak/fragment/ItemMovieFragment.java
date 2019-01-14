@@ -13,8 +13,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.tothon.layarperak.R;
-import com.tothon.layarperak.adapter.TelevisionAdapter;
-import com.tothon.layarperak.model.Television;
+import com.tothon.layarperak.adapter.MovieRecyclerViewAdapter;
+import com.tothon.layarperak.model.Movie;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter;
 
-public class FavoriteItemFragmentTv extends Fragment {
+public class ItemMovieFragment extends Fragment {
 
     private static final String TAG = "tag";
 
     // region Model
-    ArrayList<Television> favTelevision = new ArrayList<>();
+    ArrayList<Movie> allMovies = new ArrayList<>();
     // endregion
 
     // region View
@@ -40,28 +40,28 @@ public class FavoriteItemFragmentTv extends Fragment {
     // endregion
 
     // region Presenter
-    TelevisionAdapter adapter;
+    MovieRecyclerViewAdapter adapter;
     // endregion
 
-    public FavoriteItemFragmentTv newInstance(ArrayList<Television> televisions) {
-        FavoriteItemFragmentTv fragment = new FavoriteItemFragmentTv();
+    public ItemMovieFragment newInstance(ArrayList<Movie> movieArrayList) {
+        ItemMovieFragment fragment = new ItemMovieFragment();
         Bundle args = new Bundle();
-        args.putParcelableArrayList(TAG, televisions);
+        args.putParcelableArrayList(TAG, movieArrayList);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            favTelevision = getArguments().getParcelableArrayList(TAG);
+            allMovies = getArguments().getParcelableArrayList(TAG);
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_favorite_tv, container, false);
+        View view = inflater.inflate(R.layout.fragment_item_movie, container, false);
         ButterKnife.bind(this, view);
         return view;
     }
@@ -69,11 +69,11 @@ public class FavoriteItemFragmentTv extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (favTelevision.size() != 0) {
+        if (allMovies.size() != 0) {
             layoutEmpty.setVisibility(View.GONE);
             layoutContent.setVisibility(View.VISIBLE);
             recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
-            adapter = new TelevisionAdapter(getActivity(), favTelevision);
+            adapter = new MovieRecyclerViewAdapter(getActivity(), allMovies);
             recyclerView.setAdapter(new ScaleInAnimationAdapter(adapter));
         }
     }

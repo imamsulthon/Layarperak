@@ -148,7 +148,7 @@
                         android:layout_height="30dp"
                         android:padding="@dimen/margin_small"
                         android:layout_margin="@dimen/margin_small"
-                        android:src="@drawable/ic_bookmark_white" />
+                        android:src="@drawable/ic_bookmark2_white" />
 
                     <TextView
                         android:layout_width="match_parent"
